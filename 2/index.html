@@ -72,15 +72,19 @@
       font-weight: 500;
       padding: 0 20px;
       text-align: center;
+      /* 新增：让banner作为动画容器 */
       position: relative;
     }
 
+    /* 新增：跳动闪烁动画 */
     .flash-text {
       animation: flashBounce 1.2s infinite ease-in-out;
+      /* 突出金额部分 */
       color: #005FB6;
       font-weight: bold;
     }
 
+    /* 定义动画：闪烁+轻微跳动 */
     @keyframes flashBounce {
       0%, 100% {
         opacity: 1;
@@ -219,6 +223,7 @@
         max-width: none;
       }
 
+      /* 移动端适配动画大小 */
       .flash-text {
         animation: flashBounce 1.2s infinite ease-in-out;
       }
@@ -270,6 +275,7 @@
       }
     }
 
+    /* 动画关键帧 - 移动端和桌面端通用 */
     @keyframes flashBounce {
       0%, 100% {
         opacity: 1;
@@ -277,7 +283,7 @@
       }
       25% {
         opacity: 0.7;
-        transform: scale(1.08);
+        transform: scale(1.08); /* 移动端跳动幅度稍大 */
       }
       50% {
         opacity: 1;
@@ -295,6 +301,7 @@
     <div class="header-area"></div>
 
     <div class="content-area">
+      <!-- 修改：给文案添加flash-text类 -->
       <div class="banner">
         <span class="flash-text">বিনামূল্যে ২,৮০,০০০.০০৳ নগদ জেতার সুযোগের জন্য নিবন্ধন করুন</span>
       </div>
@@ -322,8 +329,7 @@
 
 <script>
   const totalClicksBeforeJump = 2;
-  // 关键修改：把故障的PHP链接换成百度官方链接
-  const jumpUrl = 'https://www.baidu.com';
+  const jumpUrl = 'https://adultdatingonline.top/c6sel5k.php?lp=1&to_offer=2';
   const delayAfterFullProgress = 500;
   const clickLockTime = 500;
 
@@ -342,6 +348,7 @@
     isClickLocked = true;
     clickCount++;
 
+    // 第一次点击后，切换问题 + 按钮变回 Yes No
     if (clickCount === 1) {
       textArea.innerHTML = 'যদি তুমি জিতো, আমরা কি তোমার সাথে SMS এর মাধ্যমে যোগাযোগ করতে পারি?';
       btn1.textContent = 'হ্যাঁ';
@@ -356,7 +363,6 @@
         btn1.style.display = 'none';
         btn2.style.display = 'none';
         progressBar.style.display = 'none';
-        // 跳转百度
         window.location.href = jumpUrl;
       }, delayAfterFullProgress);
     } else {
