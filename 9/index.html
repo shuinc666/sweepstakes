@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, viewport-fit=cover">
+  <title>Herzlichen Glückwunsch!</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Microsoft Yahei", sans-serif;
+    }
+
+    html, body {
+      background-color: #9A89C0;
+      min-height: 100vh;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .main-container {
+      background-color: #fdfcfd;
+      width: 100%;
+      max-width: 1200px;
+      min-height: 90vh;
+      border-radius: 8px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .header-area {
+      height: 50px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+      background: url(2.jpg) no-repeat center center;
+      background-size: contain;
+    }
+
+    .content-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 10px;
+    }
+
+    .banner {
+      width: 90%;
+      max-width: 800px;
+      height: 60px;
+      background-color: #f0f7ff;
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #1f2937;
+      font-size: 18px;
+      font-weight: 500;
+      padding: 0 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .flash-text {
+      animation: flashBounce 1.2s infinite ease-in-out;
+      color: #9A89C0;
+      font-weight: bold;
+    }
+
+    @keyframes flashBounce {
+      0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      25% {
+        opacity: 0.7;
+        transform: scale(1.05);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(0.98);
+      }
+      75% {
+        opacity: 0.7;
+        transform: scale(1.05);
+      }
+    }
+
+    .content-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .image-area {
+      flex: 1;
+      min-width: 280px;
+      height: 520px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      background-color: #f5f5f5;
+      border-radius: 6px;
+    }
+
+    .image-area img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      border-radius: 6px;
+    }
+
+    @media (max-width: 768px) {
+      .image-area {
+        width: 100%;
+        flex: 0.8;
+        height: auto;
+        min-height: 240px;
+        padding: 6px;
+      }
+      .image-area img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    .control-area {
+      flex: 1;
+      min-width: 280px;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 20px;
+      background-color: #fafafa;
+      border-radius: 8px;
+    }
+
+    .text-area {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #9A89C0;
+      transition: opacity 0.3s ease;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background-color: #e0e0e0;
+      border-radius: 4px;
+      overflow: hidden;
+      transition: opacity 0.3s ease;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background-color: #9A89C0;
+      border-radius: 4px;
+      transition: width 0.25s ease;
+    }
+
+    .btn-area {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn {
+      height: 45px;
+      background-color:#9A89C0;
+      color: white;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      user-select: none;
+    }
+
+    .btn:hover {
+      background-color:#8a7bb3;
+    }
+
+    .btn:active {
+      background-color:#7a69a3;
+    }
+
+    /* 统一弹窗样式 */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-overlay.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal-box {
+      background: #fff;
+      width: 90%;
+      max-width: 380px;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .modal-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #9A89C0;
+      margin-bottom: 14px;
+    }
+    .modal-desc {
+      font-size: 15px;
+      color: #333;
+      margin-bottom: 24px;
+    }
+    .modal-btn {
+      width: 100%;
+      height: 46px;
+      background: #9A89C0;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      html, body {
+        height: 100%;
+        overflow: hidden;
+      }
+      body {
+        padding: 6px;
+        align-items: stretch;
+      }
+      .main-container {
+        padding: 12px;
+        min-height: 100%;
+        max-width: 100%;
+        border-radius: 8px;
+      }
+      .header-area {
+        height: 50px !important;
+        margin-bottom: 8px !important;
+        background: url(2.jpg) no-repeat center center !important;
+        background-size: contain !important;
+      }
+      .content-area {
+        gap: 12px;
+        padding-top: 0;
+        justify-content: center;
+        flex: 1;
+      }
+      .banner {
+        height: 44px;
+        font-size: 15px;
+        width: 100%;
+        max-width: none;
+      }
+      .flash-text {
+        animation: flashBounce 1.2s infinite ease-in-out;
+      }
+      .content-wrap {
+        flex-direction: column;
+        gap: 12px;
+        flex: 1;
+        justify-content: center;
+      }
+      .image-area {
+        width: 100%;
+        flex: 0.8;
+        height: auto;
+        min-height: 120px;
+      }
+      .control-area {
+        width: 100%;
+        flex: 1;
+        max-width: none;
+        padding: 12px;
+        gap: 12px;
+      }
+      .text-area {
+        font-size: 14px;
+        line-height: 1.5;
+        min-height: 40px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .progress-bar {
+        height: 6px;
+      }
+      .btn-area {
+        gap: 8px;
+      }
+      .btn {
+        height: 42px;
+        font-size: 16px;
+        border-radius: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="main-container">
+    <div class="header-area"></div>
+    <div class="content-area">
+      <div class="banner">
+        <span class="flash-text">Glückwunsch! Sie haben die Chance, ein Milka-Geschenkpaket im Wert von 200 € zu gewinnen</span>
+      </div>
+      <div class="content-wrap">
+        <div class="image-area">
+          <img src="1.jpg" alt="Bild">
+        </div>
+        <div class="control-area">
+          <div class="text-area" id="text-area">Was ist Ihr Geschlecht?</div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+          <div class="btn-area" id="btn-area">
+            <button class="btn">Männlich</button>
+            <button class="btn">Weiblich</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 欢迎弹窗 + 图片 -->
+  <div class="modal-overlay" id="welcomeModal">
+    <div class="modal-box">
+      <img src="milka.png" style="width:120px; margin-bottom:16px; object-fit:contain;">
+      <div class="modal-title">Willkommen zur Teilnahme</div>
+      <div class="modal-desc">Füllen Sie den kurzen Fragebogen aus, um ein Milka-Geschenkpaket zu erhalten</div>
+      <button class="modal-btn" id="startBtn">Starten</button>
+    </div>
+  </div>
+
+  <!-- 完成后的弹窗 -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-box">
+      <div class="modal-title">Herzlichen Glückwunsch!</div>
+      <div class="modal-desc">Sie haben Milchschokolade im Wert von 200 € gewonnen. Nächste Schritte：<br>1. Sie werden zur Partnerseite weitergeleitet.<br>2. Geben Sie Ihre Versanddaten ein.<br>3. Erhalten Sie Ihre Milchschokolade!</div>
+      <button class="modal-btn" id="confirmBtn">Bestätigen</button>
+    </div>
+  </div>
+
+<script>
+  const jumpUrl = 'https://www.baidu.com';
+  const clickLockTime = 500;
+
+  const questions = [
+    { text: "Was ist Ihr Geschlecht?", options: ["Männlich", "Weiblich"] },
+    { text: "Welche Schokolade bevorzugen Sie?", options: ["Vollmilch", "Zartbitterschokolade", "Weiße Schokolade", "Ich mag überhaupt keine Schokolade"] },
+    { text: "Wie oft kaufen Sie Milka-Produkte?", options: ["Täglich", "Einmal pro Woche", "Weniger als einmal pro Woche"] }
+  ];
+
+  const textArea = document.getElementById('text-area');
+  const btnArea = document.getElementById('btn-area');
+  const progressFill = document.getElementById('progress-fill');
+  
+  const welcomeModal = document.getElementById('welcomeModal');
+  const successModal = document.getElementById('successModal');
+  const startBtn = document.getElementById('startBtn');
+  const confirmBtn = document.getElementById('confirmBtn');
+
+  let currentIndex = 0;
+  let isLocked = false;
+
+  function render() {
+    const q = questions[currentIndex];
+    textArea.innerHTML = q.text;
+    btnArea.innerHTML = '';
+    q.options.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = 'btn';
+      btn.innerText = opt;
+      btn.onclick = next;
+      btnArea.appendChild(btn);
+    });
+    progressFill.style.width = (currentIndex / questions.length) * 100 + '%';
+  }
+
+  function next() {
+    if (isLocked) return;
+    isLocked = true;
+    currentIndex++;
+
+    if (currentIndex >= questions.length) {
+      progressFill.style.width = '100%';
+      setTimeout(() => {
+        successModal.classList.add('show');
+      }, 300);
+      return;
+    }
+
+    render();
+    setTimeout(() => isLocked = false, clickLockTime);
+  }
+
+  // 关闭欢迎弹窗（统一入口）
+  function closeWelcome() {
+    welcomeModal.classList.remove('show');
+  }
+
+  // 1. 点开始按钮关闭
+  startBtn.addEventListener('click', closeWelcome);
+
+  // 2. 关键：欢迎弹窗打开时，点击页面任意位置都关闭
+  document.addEventListener('click', (e) => {
+    // 只要欢迎弹窗是显示状态，任何点击都关
+    if (welcomeModal.classList.contains('show')) {
+      closeWelcome();
+      // 阻止冒泡，避免重复触发
+      e.stopPropagation();
+    }
+  });
+
+  confirmBtn.addEventListener('click', () => {
+    window.location.href = jumpUrl;
+  });
+
+  window.onload = () => {
+    welcomeModal.classList.add('show');
+    render();
+  };
+</script>
+</body>
+</html>
