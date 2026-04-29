@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Win a $500 Shopping Spree</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        /* 顶部导航条 - 深灰蓝 */
+        .navbar {
+            background-color: #1E293B;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .menu-icon {
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border-radius: 4px;
+            overflow: hidden;
+            width: 280px;
+        }
+        
+        .search-bar input {
+            border: none;
+            padding: 8px 12px;
+            width: 100%;
+            outline: none;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .search-btn {
+            background-color: #F5A623;
+            border: none;
+            padding: 8px 14px;
+            cursor: pointer;
+            color: #1E293B;
+            font-size: 16px;
+        }
+        
+        /* 主内容区 */
+        .main-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        /* ====== Amazon 风格快递箱 ====== */
+        .package-box {
+            width: 120px;
+            height: 100px;
+            margin: 0 auto 25px;
+            position: relative;
+            animation: boxBounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes boxBounce {
+            0%, 100% { 
+                transform: translateY(0) scale(1); 
+            }
+            40% { 
+                transform: translateY(-15px) scale(1.02); 
+            }
+            50% { 
+                transform: translateY(-15px) scale(1.02); 
+            }
+            60% { 
+                transform: translateY(0) scale(0.98); 
+            }
+            70% { 
+                transform: translateY(-5px) scale(1.01); 
+            }
+        }
+        
+        /* 纸箱主体 */
+        .box-body {
+            width: 100%;
+            height: 85px;
+            background-color: #C4A77D;
+            border-radius: 4px;
+            position: relative;
+            box-shadow: 
+                0 4px 8px rgba(0,0,0,0.15),
+                inset 0 -3px 0 rgba(0,0,0,0.1);
+        }
+        
+        /* 纸箱顶部翻盖 */
+        .box-flap {
+            width: 100%;
+            height: 20px;
+            background-color: #B89A6A;
+            border-radius: 4px 4px 0 0;
+            position: absolute;
+            top: -10px;
+            left: 0;
+            transform: perspective(100px) rotateX(-20deg);
+            transform-origin: bottom;
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+        }
+        
+        /* 黄色胶带 - 横向 */
+        .tape-horizontal {
+            width: 100%;
+            height: 14px;
+            background-color: #F5D547;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        /* 黄色胶带 - 纵向 */
+        .tape-vertical {
+            width: 14px;
+            height: 100%;
+            background-color: #F5D547;
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+            box-shadow: 1px 0 2px rgba(0,0,0,0.1);
+        }
+        
+        /* 胶带交叉处高光 */
+        .tape-cross {
+            width: 14px;
+            height: 14px;
+            background-color: #FFE066;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 2px;
+        }
+        
+        /* 微笑曲线（暗示 Amazon，非商标） */
+        .smile-curve {
+            width: 60px;
+            height: 20px;
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .smile-curve::before {
+            content: '';
+            width: 100%;
+            height: 100%;
+            border-bottom: 3px solid #8B7355;
+            border-radius: 0 0 60px 60px;
+            position: absolute;
+            top: -10px;
+            left: 0;
+        }
+        
+        /* 箱子底部阴影 */
+        .box-shadow {
+            width: 100px;
+            height: 8px;
+            background-color: rgba(0,0,0,0.1);
+            border-radius: 50%;
+            margin: 5px auto 0;
+            animation: shadowScale 2s ease-in-out infinite;
+        }
+        
+        @keyframes shadowScale {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            40%, 50% { transform: scale(0.8); opacity: 0.15; }
+            60% { transform: scale(1.1); opacity: 0.35; }
+        }
+        
+        /* 闪光效果 */
+        .sparkle {
+            position: absolute;
+            color: #F5D547;
+            font-size: 20px;
+            animation: sparkleAnim 2s ease-in-out infinite;
+        }
+        
+        .sparkle-1 { top: -10px; left: -15px; animation-delay: 0s; }
+        .sparkle-2 { top: -5px; right: -10px; animation-delay: 0.5s; }
+        .sparkle-3 { bottom: 10px; left: -10px; animation-delay: 1s; }
+        
+        @keyframes sparkleAnim {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        /* 主标题 */
+        .main-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1E293B;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+        
+        .sub-title {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 25px;
+        }
+        
+        /* 进度条 */
+        .progress-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .progress-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .progress-bar-bg {
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            height: 24px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .progress-bar-fill {
+            background-color: #F5A623;
+            height: 100%;
+            width: 84.7%;
+            border-radius: 10px;
+            transition: width 1s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .progress-text {
+            font-size: 16px;
+            color: #1E293B;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        /* 社会认同 */
+        .social-proof {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 25px;
+            font-size: 15px;
+            color: #555;
+        }
+        
+        .stars {
+            color: #F5A623;
+            font-size: 18px;
+        }
+        
+        /* CTA 按钮 */
+        .cta-button {
+            background-color: #F5A623;
+            color: #1E293B;
+            border: none;
+            padding: 18px 50px;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(245, 166, 35, 0.4);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .cta-button:hover {
+            background-color: #e09400;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(245, 166, 35, 0.5);
+        }
+        
+        /* 倒计时 */
+        .countdown {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #c0392b;
+            font-weight: 600;
+        }
+        
+        .countdown-timer {
+            font-size: 24px;
+            font-weight: bold;
+            color: #c0392b;
+            margin-top: 5px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        /* 商品卡片网格 */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.2s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-4px);
+        }
+        
+        .product-icon {
+            font-size: 40px;
+            margin-bottom: 8px;
+        }
+        
+        .product-name {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+        
+        .product-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1E293B;
+        }
+        
+        /* 底部信任元素 */
+        .trust-badges {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            font-size: 13px;
+            color: #777;
+        }
+        
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 480px) {
+            .search-bar {
+                width: 180px;
+            }
+            
+            .main-title {
+                font-size: 26px;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+            
+            .product-card {
+                padding: 10px;
+            }
+            
+            .cta-button {
+                padding: 16px 35px;
+                font-size: 18px;
+            }
+            
+            .package-box {
+                width: 100px;
+                height: 85px;
+            }
+            
+            .box-body {
+                height: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航条 -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <span class="menu-icon">☰</span>
+            <span class="logo">GiftRewards</span>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search..." readonly>
+            <button class="search-btn">🔍</button>
+        </div>
+    </nav>
+    
+    <!-- 主内容 -->
+    <div class="main-container">
+        <!-- Amazon 风格快递箱 -->
+        <div class="package-box">
+            <div class="sparkle sparkle-1">✨</div>
+            <div class="sparkle sparkle-2">✨</div>
+            <div class="sparkle sparkle-3">✨</div>
+            <div class="box-flap"></div>
+            <div class="box-body">
+                <div class="tape-horizontal"></div>
+                <div class="tape-vertical"></div>
+                <div class="tape-cross"></div>
+                <div class="smile-curve"></div>
+            </div>
+            <div class="box-shadow"></div>
+        </div>
+        
+        <!-- 标题 -->
+        <h1 class="main-title">Win a $500 Online<br>Shopping Spree</h1>
+        <p class="sub-title">The biggest online retailer is giving back to loyal shoppers</p>
+        
+        <!-- 进度条 -->
+        <div class="progress-container">
+            <div class="progress-label">Limited spots available — Claim yours now!</div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill">84.7%</div>
+            </div>
+            <div class="progress-text">847 / 1,000 claimed today</div>
+        </div>
+        
+        <!-- 社会认同 -->
+        <div class="social-proof">
+            <span class="stars">⭐⭐⭐⭐⭐</span>
+            <span>2,847 people claimed today</span>
+        </div>
+        
+        <!-- CTA 按钮 -->
+        <button class="cta-button" onclick="handleClaim()">
+            🛒 Claim My $500 Now
+        </button>
+        
+        <!-- 倒计时 -->
+        <div class="countdown">
+            ⏰ Offer ends in:
+            <div class="countdown-timer" id="timer">04 : 32 : 18</div>
+        </div>
+        
+        <!-- 商品卡片 -->
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-icon">📱</div>
+                <div class="product-name">Electronics</div>
+                <div class="product-price">$199</div>
+            </div>
+            <div class="product-card">
+                <div class="product-icon">🏠</div>
+                <div class="product-name">Home</div>
+                <div class="product-price">$89</div>
+            </div>
+            <div class="product-card">
+                <div class="product-icon">📚</div>
+                <div class="product-name">Books</div>
+                <div class="product-price">$45</div>
+            </div>
+        </div>
+        
+        <!-- 信任徽章 -->
+        <div class="trust-badges">
+            <div class="trust-item">🔒 100% Secure</div>
+            <div class="trust-item">✓ No Purchase Required</div>
+            <div class="trust-item">⚡ Instant Delivery</div>
+        </div>
+    </div>
+    
+    <script>
+        // 倒计时功能
+        function updateTimer() {
+            const timer = document.getElementById('timer');
+            let time = timer.textContent.split(' : ');
+            let hours = parseInt(time[0]);
+            let minutes = parseInt(time[1]);
+            let seconds = parseInt(time[2]);
+            
+            seconds--;
+            if (seconds < 0) {
+                seconds = 59;
+                minutes--;
+                if (minutes < 0) {
+                    minutes = 59;
+                    hours--;
+                    if (hours < 0) {
+                        hours = 4;
+                        minutes = 32;
+                        seconds = 18;
+                    }
+                }
+            }
+            
+            timer.textContent = 
+                String(hours).padStart(2, '0') + ' : ' +
+                String(minutes).padStart(2, '0') + ' : ' +
+                String(seconds).padStart(2, '0');
+        }
+        
+        setInterval(updateTimer, 1000);
+        
+        // CTA 点击处理
+        function handleClaim() {
+            // 这里替换为你的 offer 链接或追踪链接
+            // window.location.href = 'YOUR_OFFER_URL_HERE';
+            alert('Redirecting to offer... Replace this with your actual offer URL');
+        }
+    </script>
+</body>
+</html>
+
