@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PrimeDeals - $1000 Gift Card</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f3f3f3;
+            color: #0f1111;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* ====== Amazon 风格导航条 - 搜索框靠右 + 手机完美适配 ====== */
+        .navbar {
+            background-color: #131921;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* 核心：两端对齐 */
+            gap: 8px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            width: 100%;
+        }
+        
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        
+        .menu-icon {
+            color: white;
+            font-size: 18px;
+            padding: 4px;
+            flex-shrink: 0;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: baseline;
+            gap: 2px;
+            flex-shrink: 0;
+        }
+        
+        .logo-prime {
+            color: #00a8e1;
+            font-size: 20px;
+        }
+        
+        .logo-deals {
+            color: #febd69;
+            font-size: 20px;
+        }
+        
+        /* 搜索框 - 靠最右侧 + 手机自适应 */
+        .search-bar {
+            display: flex;
+            background-color: white;
+            border-radius: 4px;
+            overflow: hidden;
+            height: 30px;
+            max-width: 140px;
+            width: 100%;
+            flex-shrink: 1;
+            min-width: 100px;
+            margin-left: auto; /* 强制靠右 */
+        }
+        
+        .search-bar input {
+            border: none;
+            padding: 5px 8px;
+            width: 100%;
+            font-size: 12px;
+            outline: none;
+            min-width: 0;
+        }
+        
+        .search-btn {
+            background-color: #febd69;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        /* ====== 主内容 ====== */
+        .main-container {
+            width: 100%;
+            padding: 12px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        
+        /* ====== 跳动快递箱 ====== */
+        .package-box {
+            width: 100px;
+            height: 85px;
+            margin: 15px auto 20px;
+            position: relative;
+            animation: boxBounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes boxBounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            40% { transform: translateY(-12px) scale(1.02); }
+            50% { transform: translateY(-12px) scale(1.02); }
+            60% { transform: translateY(0) scale(0.98); }
+            70% { transform: translateY(-4px) scale(1.01); }
+        }
+        
+        .box-body {
+            width: 100%;
+            height: 72px;
+            background-color: #C4A77D;
+            border-radius: 4px;
+            position: relative;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15), inset 0 -2px 0 rgba(0,0,0,0.1);
+        }
+        
+        .box-flap {
+            width: 100%;
+            height: 16px;
+            background-color: #B89A6A;
+            border-radius: 4px 4px 0 0;
+            position: absolute;
+            top: -8px;
+            left: 0;
+            transform: perspective(80px) rotateX(-20deg);
+            transform-origin: bottom;
+        }
+        
+        .tape-horizontal {
+            width: 100%;
+            height: 12px;
+            background-color: #F5D547;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+        }
+        
+        .tape-vertical {
+            width: 12px;
+            height: 100%;
+            background-color: #F5D547;
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+        }
+        
+        .tape-cross {
+            width: 12px;
+            height: 12px;
+            background-color: #FFE066;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 2px;
+        }
+        
+        .smile-curve {
+            width: 50px;
+            height: 16px;
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .smile-curve::before {
+            content: '';
+            width: 100%;
+            height: 100%;
+            border-bottom: 2px solid #8B7355;
+            border-radius: 0 0 50px 50px;
+            position: absolute;
+            top: -8px;
+            left: 0;
+        }
+        
+        .box-shadow {
+            width: 80px;
+            height: 6px;
+            background-color: rgba(0,0,0,0.1);
+            border-radius: 50%;
+            margin: 4px auto 0;
+            animation: shadowScale 2s ease-in-out infinite;
+        }
+        
+        @keyframes shadowScale {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            40%, 50% { transform: scale(0.8); opacity: 0.15; }
+            60% { transform: scale(1.1); opacity: 0.35; }
+        }
+        
+        .sparkle {
+            position: absolute;
+            color: #F5D547;
+            font-size: 16px;
+            animation: sparkleAnim 2s ease-in-out infinite;
+        }
+        
+        .sparkle-1 { top: -8px; left: -12px; animation-delay: 0s; }
+        .sparkle-2 { top: -4px; right: -8px; animation-delay: 0.5s; }
+        .sparkle-3 { bottom: 8px; left: -8px; animation-delay: 1s; }
+        
+        @keyframes sparkleAnim {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        /* ====== 内容卡片 ====== */
+        .content-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px 16px;
+            margin: 12px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        
+        /* ====== badge 居中修复 ====== */
+        .badge {
+            display: inline-block;
+            background-color: #febd69;
+            color: #131921;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            letter-spacing: 0.3px;
+            text-align: center;
+        }
+        
+        .main-title {
+            font-size: 24px;
+            color: #0f1111;
+            margin-bottom: 8px;
+            line-height: 1.3;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            color: #565959;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+        
+        /* ====== 感谢文案 ====== */
+        .thank-you-box {
+            background-color: #f7f8fa;
+            border-left: 3px solid #febd69;
+            padding: 12px;
+            margin: 16px 0;
+            text-align: left;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .thank-you-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0f1111;
+            margin-bottom: 6px;
+        }
+        
+        .thank-you-text {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #444;
+        }
+        
+        .thank-you-text strong {
+            color: #0f1111;
+        }
+        
+        /* ====== 紧迫感 ====== */
+        .urgency-box {
+            background-color: #fff7e6;
+            border: 1px solid #febd69;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .urgency-text {
+            font-size: 12px;
+            color: #b45309;
+            margin-bottom: 6px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+        
+        .progress-bar {
+            background-color: #e0e0e0;
+            border-radius: 8px;
+            height: 16px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background-color: #f5a623;
+            height: 100%;
+            width: 87%;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 8px;
+            color: white;
+            font-weight: bold;
+            font-size: 10px;
+        }
+        
+        .progress-label {
+            margin-top: 6px;
+            font-size: 12px;
+            color: #565959;
+            font-weight: 500;
+        }
+        
+        /* ====== CTA 按钮 - Amazon 黄色 ====== */
+        .cta-button {
+            width: 100%;
+            background-color: #ffd814;
+            color: #0f1111;
+            border: none;
+            padding: 16px;
+            font-size: 17px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(255, 216, 20, 0.4);
+            margin: 12px 0;
+            -webkit-appearance: none;
+            transition: all 0.2s;
+        }
+        
+        .cta-button:active {
+            background-color: #f7ca00;
+            transform: scale(0.98);
+        }
+        
+        /* ====== 过渡说明 ====== */
+        .transition-box {
+            background-color: #f7f8fa;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 12px;
+            text-align: left;
+        }
+        
+        .transition-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #0f1111;
+            margin-bottom: 4px;
+        }
+        
+        .transition-text {
+            font-size: 12px;
+            color: #565959;
+            line-height: 1.5;
+        }
+        
+        .partner {
+            margin-top: 8px;
+            font-size: 11px;
+            color: #999;
+        }
+        
+        /* ====== 信任元素 ====== */
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 16px;
+            font-size: 12px;
+            color: #565959;
+        }
+        
+        /* ====== 评价 ====== */
+        .reviews {
+            margin-top: 16px;
+        }
+        
+        .review {
+            background-color: white;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+            display: flex;
+            gap: 10px;
+            text-align: left;
+        }
+        
+        .review-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        
+        .review-content {
+            flex: 1;
+        }
+        
+        .review-name {
+            font-weight: 600;
+            font-size: 12px;
+            color: #0f1111;
+        }
+        
+        .review-stars {
+            color: #febd69;
+            font-size: 11px;
+        }
+        
+        .review-text {
+            color: #565959;
+            font-size: 12px;
+            margin-top: 2px;
+            line-height: 1.4;
+        }
+        
+        /* ====== 商品卡片（Amazon 风格） ====== */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 16px;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 12px 8px;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        }
+        
+        .product-icon {
+            font-size: 32px;
+            margin-bottom: 6px;
+        }
+        
+        .product-name {
+            font-size: 11px;
+            color: #565959;
+            margin-bottom: 4px;
+        }
+        
+        .product-price {
+            font-size: 14px;
+            font-weight: bold;
+            color: #0f1111;
+        }
+        
+        /* 底部安全区域 */
+        .safe-area-bottom {
+            height: env(safe-area-inset-bottom);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <span class="menu-icon">☰</span>
+            <div class="logo">
+                <span class="logo-prime">Prime</span><span class="logo-deals">Deals</span>
+            </div>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search..." readonly>
+            <button class="search-btn">🔍</button>
+        </div>
+    </nav>
+    
+    <div class="main-container">
+        <div class="content-card">
+            <div class="badge">CUSTOMER APPRECIATION</div>
+            
+            <!-- 跳动快递箱 -->
+            <div class="package-box">
+                <div class="sparkle sparkle-1">✨</div>
+                <div class="sparkle sparkle-2">✨</div>
+                <div class="sparkle sparkle-3">✨</div>
+                <div class="box-flap"></div>
+                <div class="box-body">
+                    <div class="tape-horizontal"></div>
+                    <div class="tape-vertical"></div>
+                    <div class="tape-cross"></div>
+                    <div class="smile-curve"></div>
+                </div>
+                <div class="box-shadow"></div>
+            </div>
+            
+            <h1 class="main-title">Get a $1000 Gift Card</h1>
+            
+            <div class="thank-you-box">
+                <div class="thank-you-title">Thank you for being a loyal shopper!</div>
+                <div class="thank-you-text">
+                    We've selected <strong>10 people today</strong> 
+                    to receive a <strong>$1000 Shopping Gift Card</strong>. 
+                    Check if you're one of the selected members below.
+                </div>
+            </div>
+            
+            <div class="urgency-box">
+                <div class="urgency-text">⚡ Only 3 spots remaining!</div>
+                <div class="progress-bar">
+                    <div class="progress-fill">70%</div>
+                </div>
+                <div class="progress-label">7 / 10 claimed today</div>
+            </div>
+            
+            <button class="cta-button" onclick="goToOffer()">
+                🛒 Claim My $1000 Gift Card
+            </button>
+            
+            <div class="transition-box">
+                <div class="transition-title">Next Step</div>
+                <div class="transition-text">
+                    You'll be taken to our partner site to confirm your email and receive your gift card.
+                </div>
+                <div class="partner">Partner: RewardSpark</div>
+            </div>
+        </div>
+        
+        <!-- 商品卡片（Amazon 风格） -->
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-icon">📱</div>
+                <div class="product-name">Electronics</div>
+                <div class="product-price">$199</div>
+            </div>
+            <div class="product-card">
+                <div class="product-icon">🏠</div>
+                <div class="product-name">Home</div>
+                <div class="product-price">$89</div>
+            </div>
+            <div class="product-card">
+                <div class="product-icon">📚</div>
+                <div class="product-name">Books</div>
+                <div class="product-price">$45</div>
+            </div>
+        </div>
+        
+        <div class="trust-badges">
+            <div>🔒 Secure</div>
+            <div>✓ Free</div>
+            <div>⚡ Instant</div>
+        </div>
+        
+        <div class="reviews">
+            <div class="review">
+                <div class="review-avatar">👩</div>
+                <div class="review-content">
+                    <div class="review-name">Sarah M. <span class="review-stars">⭐⭐⭐⭐⭐</span></div>
+                    <div class="review-text">"Got my gift card in 5 minutes!"</div>
+                </div>
+            </div>
+            <div class="review">
+                <div class="review-avatar">👨</div>
+                <div class="review-content">
+                    <div class="review-name">Mike T. <span class="review-stars">⭐⭐⭐⭐⭐</span></div>
+                    <div class="review-text">"Worked perfectly, thanks!"</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="safe-area-bottom"></div>
+    
+    <script>
+        function goToOffer() {
+            window.location.href = 'YOUR_REWARDSPARK_TRACKING_LINK';
+        }
+        
+        // 防止双击缩放
+        document.addEventListener('touchstart', function(event) {
+            if (event.touches.length > 1) {
+                event.preventDefault();
+            }
+        }, { passive: false });
+        
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>
