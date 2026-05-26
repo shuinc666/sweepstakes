@@ -55,71 +55,23 @@ boss.src = "img/planeboss.png";
 var bossattacktime = 0;
 var bossattacknum = 1;
 
-// ========== 10秒弹窗（简化版，兼容模拟器）==========
+// ========== 10秒弹窗（使用原生confirm）==========
 var gameStartTime = null;
 var adShown = false;
 var isPaused = false;
 
-// 跳转百度（最简单的方式）
-function goToBaidu() {
-    window.location.href = "https://www.baidu.com";
-}
-
-// 创建弹窗
 function showAdModal() {
     if (adShown) return;
     adShown = true;
     isPaused = true;
     
-    // 创建遮罩
-    var overlay = document.createElement('div');
-    overlay.id = 'adOverlay';
-    overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:999999;display:flex;justify-content:center;align-items:center;';
+    var result = confirm("🎁 恭喜获得游戏大礼包！\n\n点击「确定」跳转百度领取福利");
     
-    // 弹窗
-    var modal = document.createElement('div');
-    modal.style.cssText = 'width:280px;background:linear-gradient(135deg,#ff8c00,#ff2d00);border-radius:24px;padding:30px 20px;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,0.5);';
-    
-    modal.innerHTML = `
-        <h3 style="color:#fff;font-size:24px;margin:0 0 15px 0;font-weight:bold;">🎁 恭喜获得礼包 🎁</h3>
-        <p style="color:#fff5e0;font-size:16px;margin:0 0 30px 0;line-height:1.6;">点击下方按钮<br>领取游戏大礼包！</p>
-        <div style="display:flex;gap:15px;justify-content:center;">
-            <button id="adConfirmBtn" style="background:#fff;color:#ff5500;border:none;padding:12px 28px;border-radius:50px;font-size:16px;font-weight:bold;cursor:pointer;">立即领取 →</button>
-            <button id="adCloseBtn" style="background:rgba(255,255,255,0.25);color:#fff;border:1px solid rgba(255,255,255,0.5);padding:12px 28px;border-radius:50px;font-size:16px;cursor:pointer;">暂不领取</button>
-        </div>
-    `;
-    
-    overlay.appendChild(modal);
-    document.body.appendChild(overlay);
-    
-    // 绑定按钮事件（用最原始的方式）
-    var confirmBtn = document.getElementById('adConfirmBtn');
-    var closeBtn = document.getElementById('adCloseBtn');
-    
-    if (confirmBtn) {
-        confirmBtn.onclick = function(e) {
-            e.stopPropagation();
-            window.location.href = "https://www.baidu.com";
-            return false;
-        };
+    if (result) {
+        window.location.href = "https://www.baidu.com";
+    } else {
+        isPaused = false;
     }
-    
-    if (closeBtn) {
-        closeBtn.onclick = function(e) {
-            e.stopPropagation();
-            document.body.removeChild(overlay);
-            isPaused = false;
-            return false;
-        };
-    }
-    
-    // 点击遮罩关闭
-    overlay.onclick = function(e) {
-        if (e.target === overlay) {
-            document.body.removeChild(overlay);
-            isPaused = false;
-        }
-    };
 }
 
 function checkAndShowAd() {
