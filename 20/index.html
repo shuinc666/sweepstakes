@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>ফ্রি স্পিন – বড় পুরস্কার জিতুন</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* 禁止页面滚动 */
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #000;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            padding: 12px;
+        }
+        .card {
+            max-width: 440px;
+            width: 100%;
+            max-height: 98vh;          /* 限制最大高度 */
+            background: white;
+            border-radius: 32px;
+            overflow-y: auto;           /* 如果内容过多，卡片内部滚动 */
+            overflow-x: hidden;
+            text-align: center;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.4);
+            -webkit-overflow-scrolling: touch;
+        }
+        /* 隐藏滚动条（可选，保持美观） */
+        .card::-webkit-scrollbar {
+            width: 4px;
+        }
+        .card::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .card::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 10px;
+        }
+        .header {
+            background: #3A7CAE;
+            padding: 20px 16px;
+            color: white;
+        }
+        .header h1 {
+            font-size: 1.6rem;
+            margin-bottom: 6px;
+        }
+        .subhead {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .prize-body {
+            padding: 20px 20px 25px;
+        }
+        .slot-machine {
+            background: #f1f5f9;
+            border-radius: 24px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        .rolling-numbers {
+            font-size: 2.8rem;
+            font-weight: 900;
+            font-family: monospace;
+            background: #fff;
+            padding: 16px;
+            border-radius: 20px;
+            border: 2px solid #e2e8f0;
+            margin-bottom: 12px;
+            color: #e67e22;
+        }
+        .cost-badge {
+            background: #fef3c7;
+            display: inline-block;
+            padding: 5px 14px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #b45309;
+            margin-bottom: 12px;
+        }
+        .btn-stop {
+            background: #408559;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 60px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: 0.1s ease;
+        }
+        .btn-stop:active {
+            transform: scale(0.97);
+        }
+        /* 首页说明区域紧凑 */
+        .offer-details {
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 12px 16px;
+            margin: 16px 0 0;
+            text-align: left;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            color: #1e293b;
+        }
+        .offer-details p {
+            margin: 5px 0;
+        }
+        .offer-details strong {
+            color: #b45309;
+        }
+        .footer {
+            font-size: 0.65rem;
+            color: #94a3b8;
+            margin-top: 14px;
+            text-align: center;
+        }
+        /* 弹窗样式不变 */
+        .custom-toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(10px);
+            color: #ffd966;
+            padding: 20px 24px;
+            border-radius: 48px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            z-index: 10000;
+            max-width: 85%;
+            width: auto;
+            white-space: normal;
+            word-break: break-word;
+            box-shadow: 0 0 25px rgba(0,0,0,0.6);
+            border: 1px solid #f59e0b;
+            line-height: 1.4;
+            font-family: 'Segoe UI', system-ui;
+            pointer-events: none;
+        }
+        .custom-toast span {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #ffaa66;
+        }
+        /* 针对非常小的高度调整 */
+        @media (max-height: 700px) {
+            .header { padding: 12px 16px; }
+            .prize-body { padding: 12px 16px 20px; }
+            .slot-machine { padding: 12px; margin: 10px 0; }
+            .rolling-numbers { font-size: 2.2rem; padding: 12px; }
+            .btn-stop { padding: 12px; font-size: 1.1rem; }
+            .offer-details { font-size: 0.75rem; padding: 8px 12px; }
+            .footer { margin-top: 10px; }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="header">
+        <h1>🎉 ফ্রি স্পিন 🎉</h1>
+        <div class="subhead">আজকের ভাগ্যবান নির্বাচিত!</div>
+    </div>
+    <div class="prize-body">
+        <div class="slot-machine">
+            <div class="rolling-numbers" id="rollingNumber">৳ ৫,০০০</div>
+            <div class="cost-badge">⭐ স্পিন করুন ⭐</div>
+            <button class="btn-stop" id="stopBtn">🛑 স্টপ করুন 🛑</button>
+        </div>
+
+        <div class="offer-details">
+            <p>📱 স্টপ করার পর আপনার পুরস্কার দেখাবে এবং স্বয়ংক্রিয়ভাবে এগিয়ে যাবে।</p>
+            <p>📌 <strong>Kid's Club</strong> সাবস্ক্রাইব করলেই পাবেন <strong>আনলিমিটেড গেম</strong> + আপনার পুরস্কার।</p>
+            <p>✅ প্রথম দিন <strong>ফ্রি</strong><br>
+               ✅ তারপর দৈনিক <strong>৬ টাকা</strong> (ভ্যাট সহ)<br>
+               ✅ যেকোনো সময় বাতিল করুন</p>
+        </div>
+        <div class="footer">
+            🏆 ১০০% প্রকৃত পুরস্কার | সীমিত সময়ের অফার | শুধু GP ব্যবহারকারীদের জন্য
+        </div>
+    </div>
+</div>
+
+<script>
+    const prizes = ["৳ ৫,০০০", "৳ ২,০০০", "৳ ১,০০০", "৳ ৫০০"];
+    let rollingInterval = null;
+    const rollingDiv = document.getElementById('rollingNumber');
+    const stopBtn = document.getElementById('stopBtn');
+
+    function startRolling() {
+        if (rollingInterval) clearInterval(rollingInterval);
+        rollingInterval = setInterval(() => {
+            const randomIndex = Math.floor(Math.random() * prizes.length);
+            rollingDiv.innerText = prizes[randomIndex];
+        }, 60);
+    }
+    startRolling();
+
+    function showToastMessage(message, duration = 2500) {
+        const toast = document.createElement('div');
+        toast.className = 'custom-toast';
+        toast.innerHTML = message;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), duration);
+    }
+
+    stopBtn.addEventListener('click', function() {
+        if (rollingInterval) {
+            clearInterval(rollingInterval);
+            rollingInterval = null;
+        }
+        const finalPrize = rollingDiv.innerText;
+        
+        // ✅ 修改后的弹窗文案（与第二个LP保持一致）
+        // 第一句：恭喜中奖！订阅即可领取奖励 (含奖金金额)
+        // 第二句：等待2秒
+        const toastMessage = `
+            🎉 অভিনন্দন! সাবস্ক্রাইব করলেই পুরস্কার পাবেন! (${finalPrize}) 🎉<br>
+            <span>⏳ ২ সেকেন্ড অপেক্ষা করুন...</span>
+        `;
+        showToastMessage(toastMessage, 2500);
+        
+        setTimeout(function() {
+            // 替换为真实的 Kids Club Offer URL
+            window.location.href = "https://gift-card.click/click";
+        }, 2600);
+    });
+</script>
+</body>
+</html>
