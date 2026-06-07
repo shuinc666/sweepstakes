@@ -178,36 +178,38 @@
     </div>
     <div class="prize-body">
         <div class="slot-machine">
-            <!-- 主标题：完整句子，包含滚动数字 -->
-            <div class="rolling-numbers">মাত্র এক কাপ চায়ের দামে জিতুন <span id="rollingNumber">৳ ৫,০০০</span> টাকা!</div>
-            <!-- 已删除 cost-badge 行，避免重复 -->
+            <!-- 修正1：去除৳符号，使用纯数字+টাকা；修正拼写চায়ের, জিতুন -->
+            <div class="rolling-numbers">মাত্র এক কাপ চায়ের দামে জিতুন <span id="rollingNumber">৫,০০০</span> টাকা!</div>
             <button class="btn-stop" id="stopBtn">🛑 স্টপ করুন 🛑</button>
         </div>
 
         <div class="offer-details">
-            <p>📱পুরস্কার পেতে সাবস্ক্রাইব করুন:</p> 
-               💡  সেরা উপায় :  সাবস্ক্রাইব → পুরস্কার নিন → সাথে সাথে বাতিল করুন → মাত্র <strong>এক কাপ চায়ের দামে</strong> পুরস্কার নিন！<br>
-               ⚠️ মনে রাখবেন: সাবস্ক্রাইব করার পর যেকোনো সময় বাতিল করতে পারবেন<br>                
-            </p>
+            <!-- 修正拼写：পুরস্কার, চায়ের, যেকোনো সময় -->
+            <p>📱 পুরস্কার পেতে সাবস্ক্রাইব করুন:</p>
+            <p>💡 সেরা উপায়: সাবস্ক্রাইব → পুরস্কার নিন → সাথে সাথে বাতিল করুন → মাত্র <strong>এক কাপ চায়ের দামে</strong> পুরস্কার নিন!</p>
+            <p>⚠️ মনে রাখবেন: সাবস্ক্রাইব করার পর যেকোনো সময় বাতিল করতে পারবেন</p>
         </div>
         <div class="footer">
+            <!-- 修正底部拼写 -->
             🏆 ১০০% প্রকৃত পুরস্কার | সীমিত সময়ের অফার
         </div>
     </div>
 </div>
 
 <script>
-    const prizes = ["৳ ৫,০০০", "৳ ২,০০০", "৳ ১,০০০", "৳ ৫০০"];
+    // 修正2：奖品数组中去掉৳符号，只留数字（孟加拉语）
+    const prizes = ["৫,০০০", "২,০০০", "১,০০০", "৫০০"];
     let rollingInterval = null;
     const rollingSpan = document.getElementById('rollingNumber');
     const stopBtn = document.getElementById('stopBtn');
 
     function startRolling() {
         if (rollingInterval) clearInterval(rollingInterval);
+        // 修正3：滚动间隔改为120ms（原60ms太快）
         rollingInterval = setInterval(() => {
             const randomIndex = Math.floor(Math.random() * prizes.length);
             rollingSpan.innerText = prizes[randomIndex];
-        }, 60);
+        }, 120);
     }
     startRolling();
 
@@ -248,13 +250,14 @@
             clearInterval(rollingInterval);
             rollingInterval = null;
         }
-        const finalPrizeText = rollingSpan.innerText;
+        const finalPrizeText = rollingSpan.innerText; // 例如 "৫,০০০"
         const prizeValue = extractNumber(finalPrizeText);
         const netProfit = prizeValue - 15;
         const bengaliNetProfit = toBengaliNumber(netProfit);
         
+        // 修正4：弹窗文案按照要求：去掉পান和সেটি，使用নেট লাভ，等待时间2秒
         const toastMessage = `
-            🎉 এক কাপ চায়ের দামে ${finalPrizeText} টাকা পান। → নেট লাভ ${bengaliNetProfit} টাকা 🎉<br>
+            🎉 এক কাপ চায়ের দামে ${finalPrizeText} টাকা → নেট লাভ ${bengaliNetProfit} টাকা 🎉<br>
             <span>⏳ ২ সেকেন্ড অপেক্ষা করুন...</span>
         `;
         showToastMessage(toastMessage, 2500);
