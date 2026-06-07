@@ -12,7 +12,6 @@
             user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
-        /* 禁止页面滚动 */
         html, body {
             width: 100%;
             height: 100%;
@@ -91,16 +90,6 @@
             color: #e67e22;
             display: inline-block;
             margin: 0 4px;
-        }
-        .cost-badge {
-            background: #fef3c7;
-            display: inline-block;
-            padding: 5px 14px;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            color: #b45309;
-            margin-bottom: 12px;
         }
         .btn-stop {
             background: #408559;
@@ -189,9 +178,9 @@
     </div>
     <div class="prize-body">
         <div class="slot-machine">
-            <!-- 修改处：将原来的单独数字改为完整句子，数字用 span 包裹并保留 id="rollingNumber" -->
+            <!-- 主标题：完整句子，包含滚动数字 -->
             <div class="rolling-numbers">মাত্র এক কাপ চায়ের দামে জিতুন <span id="rollingNumber">৳ ৫,০০০</span> টাকা!</div>
-            
+            <!-- 已删除 cost-badge 行，避免重复 -->
             <button class="btn-stop" id="stopBtn">🛑 স্টপ করুন 🛑</button>
         </div>
 
