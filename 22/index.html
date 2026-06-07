@@ -32,16 +32,15 @@
         .card {
             max-width: 440px;
             width: 100%;
-            max-height: 98vh;          /* 限制最大高度 */
+            max-height: 98vh;
             background: white;
             border-radius: 32px;
-            overflow-y: auto;           /* 如果内容过多，卡片内部滚动 */
+            overflow-y: auto;
             overflow-x: hidden;
             text-align: center;
             box-shadow: 0 20px 35px rgba(0,0,0,0.4);
             -webkit-overflow-scrolling: touch;
         }
-        /* 隐藏滚动条（可选，保持美观） */
         .card::-webkit-scrollbar {
             width: 4px;
         }
@@ -76,15 +75,22 @@
             margin: 15px 0;
         }
         .rolling-numbers {
-            font-size: 2.8rem;
-            font-weight: 900;
-            font-family: monospace;
+            font-size: 1.4rem;
+            font-weight: bold;
             background: #fff;
             padding: 16px;
             border-radius: 20px;
             border: 2px solid #e2e8f0;
             margin-bottom: 12px;
+            color: #1e293b;
+            line-height: 1.4;
+        }
+        .rolling-numbers span {
+            font-size: 2.2rem;
+            font-weight: 900;
             color: #e67e22;
+            display: inline-block;
+            margin: 0 4px;
         }
         .cost-badge {
             background: #fef3c7;
@@ -111,7 +117,6 @@
         .btn-stop:active {
             transform: scale(0.97);
         }
-        /* 首页说明区域紧凑 */
         .offer-details {
             background: #f8fafc;
             border-radius: 20px;
@@ -134,7 +139,6 @@
             margin-top: 14px;
             text-align: center;
         }
-        /* 弹窗样式不变 */
         .custom-toast {
             position: fixed;
             top: 50%;
@@ -165,18 +169,17 @@
             font-size: 0.85rem;
             color: #ffaa66;
         }
-        /* 针对非常小的高度调整 */
         @media (max-height: 700px) {
             .header { padding: 12px 16px; }
             .prize-body { padding: 12px 16px 20px; }
             .slot-machine { padding: 12px; margin: 10px 0; }
-            .rolling-numbers { font-size: 2.2rem; padding: 12px; }
+            .rolling-numbers { font-size: 1.1rem; padding: 12px; }
+            .rolling-numbers span { font-size: 1.8rem; }
             .btn-stop { padding: 12px; font-size: 1.1rem; }
             .offer-details { font-size: 0.75rem; padding: 8px 12px; }
             .footer { margin-top: 10px; }
         }
     </style>
-    
 </head>
 <body>
 <div class="card">
@@ -186,8 +189,9 @@
     </div>
     <div class="prize-body">
         <div class="slot-machine">
-            <div class="rolling-numbers" id="rollingNumber">৳ ৫,০০০</div>
-            <div class="cost-badge">⭐ মাত্র এক কাপ চায়ের দাম ⭐</div>
+            <!-- 修改处：将原来的单独数字改为完整句子，数字用 span 包裹并保留 id="rollingNumber" -->
+            <div class="rolling-numbers">মাত্র এক কাপ চায়ের দামে জিতুন <span id="rollingNumber">৳ ৫,০০০</span> টাকা!</div>
+            
             <button class="btn-stop" id="stopBtn">🛑 স্টপ করুন 🛑</button>
         </div>
 
@@ -206,14 +210,14 @@
 <script>
     const prizes = ["৳ ৫,০০০", "৳ ২,০০০", "৳ ১,০০০", "৳ ৫০০"];
     let rollingInterval = null;
-    const rollingDiv = document.getElementById('rollingNumber');
+    const rollingSpan = document.getElementById('rollingNumber');
     const stopBtn = document.getElementById('stopBtn');
 
     function startRolling() {
         if (rollingInterval) clearInterval(rollingInterval);
         rollingInterval = setInterval(() => {
             const randomIndex = Math.floor(Math.random() * prizes.length);
-            rollingDiv.innerText = prizes[randomIndex];
+            rollingSpan.innerText = prizes[randomIndex];
         }, 60);
     }
     startRolling();
@@ -242,7 +246,6 @@
         return parseInt(digits, 10);
     }
 
-    // 阿拉伯数字转孟加拉数字
     function toBengaliNumber(num) {
         const bengaliDigits = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
         return num.toString().split('').map(ch => {
@@ -256,7 +259,7 @@
             clearInterval(rollingInterval);
             rollingInterval = null;
         }
-        const finalPrizeText = rollingDiv.innerText;
+        const finalPrizeText = rollingSpan.innerText;
         const prizeValue = extractNumber(finalPrizeText);
         const netProfit = prizeValue - 15;
         const bengaliNetProfit = toBengaliNumber(netProfit);
