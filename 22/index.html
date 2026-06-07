@@ -113,37 +113,32 @@
             margin: 16px 0 0;
             text-align: left;
             font-size: 0.8rem;
-            line-height: 1.4;
+            line-height: 1.5;
             color: #1e293b;
         }
         .offer-details p {
-            margin: 5px 0;
+            margin: 6px 0;
         }
         .offer-details strong {
             color: #b45309;
         }
-        .trust-badge {
-            background: #e6f7e6;
-            border-radius: 20px;
-            padding: 10px 16px;
-            margin-top: 12px;
+        .trust-line {
+            font-size: 0.7rem;
             text-align: center;
-            font-size: 0.75rem;
+            margin-top: 10px;
             color: #2c6e2c;
+            background: #e6f7e6;
+            padding: 6px 12px;
+            border-radius: 30px;
             display: flex;
             justify-content: center;
-            gap: 16px;
+            gap: 12px;
             flex-wrap: wrap;
         }
-        .trust-badge span {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
         .footer {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             color: #94a3b8;
-            margin-top: 14px;
+            margin-top: 12px;
             text-align: center;
         }
         .custom-toast {
@@ -167,7 +162,6 @@
             box-shadow: 0 0 25px rgba(0,0,0,0.6);
             border: 1px solid #f59e0b;
             line-height: 1.4;
-            font-family: 'Segoe UI', system-ui;
             pointer-events: none;
         }
         .custom-toast span {
@@ -180,12 +174,12 @@
             .header { padding: 12px 16px; }
             .prize-body { padding: 12px 16px 20px; }
             .slot-machine { padding: 12px; margin: 10px 0; }
-            .rolling-numbers { font-size: 1.1rem; padding: 12px; }
-            .rolling-numbers span { font-size: 1.8rem; }
-            .btn-stop { padding: 12px; font-size: 1.1rem; }
-            .offer-details { font-size: 0.75rem; padding: 8px 12px; }
-            .trust-badge { font-size: 0.7rem; padding: 6px 12px; gap: 12px; }
-            .footer { margin-top: 10px; }
+            .rolling-numbers { font-size: 1rem; padding: 12px; }
+            .rolling-numbers span { font-size: 1.6rem; }
+            .btn-stop { padding: 12px; font-size: 1rem; }
+            .offer-details { font-size: 0.7rem; padding: 8px 12px; }
+            .trust-line { font-size: 0.6rem; gap: 8px; }
+            .footer { margin-top: 8px; }
         }
     </style>
 </head>
@@ -197,30 +191,23 @@
     </div>
     <div class="prize-body">
         <div class="slot-machine">
-            <!-- 修改1：主标题消除歧义，明确为“成本一杯茶的价格，奖励X塔卡” -->
             <div class="rolling-numbers">খরচ মাত্র এক কাপ চায়ের দাম, পুরস্কার <span id="rollingNumber">৫,০০০</span> টাকা!</div>
             <button class="btn-stop" id="stopBtn">🛑 স্টপ করুন 🛑</button>
         </div>
 
         <div class="offer-details">
-            <p>📱 পুরস্কার পেতে সাবস্ক্রাইব করুন:</p>
-            <p>💡 সেরা উপায়: সাবস্ক্রাইব → পুরস্কার নিন → সাথে সাথে বাতিল করুন → মাত্র <strong>এক কাপ চায়ের দামে</strong> পুরস্কার নিন!</p>
-            <p>⚠️ মনে রাখবেন: সাবস্ক্রাইব করার পর যেকোনো সময় বাতিল করতে পারবেন</p>
-            <p>🎁 <strong>আপনার পুরস্কার কিভাবে পাবেন?</strong><br>
-               সাবস্ক্রাইব সম্পন্ন করার ২ মিনিটের মধ্যে আপনার পুরস্কার <strong>মোবাইল রিচার্জ</strong> হিসেবে দিয়ে দেওয়া হবে।<br>
-               (অর্থাৎ, আপনার মোবাইল ব্যালেন্সে টাকা চলে যাবে – কোনো অতিরিক্ত ধাপ লাগবে না।)</p>
-            <p>💡 আপনি চাইলে এই রিচার্জ থেকে পরবর্তী সাবস্ক্রিপশনের টাকা কাটিয়ে নিতে পারবেন।</p>
+            <p>✅ সাবস্ক্রাইব → পুরস্কার নিন → সাথে সাথে বাতিল করুন</p>
+            <p>🎁 ২ মিনিটে পুরস্কার <strong>মোবাইল রিচার্জ</strong> হিসেবে পাবেন</p>
+            <!-- 修改取消方式：去掉具体号码，改为“随时可以取消” -->
+            <p>⚠️ <strong>যেকোনো সময় বাতিল করতে পারবেন</strong> (সহজ ও দ্রুত)</p>
         </div>
 
-        <!-- 修改2：增加信任徽章 -->
-        <div class="trust-badge">
-            <span>🔒 নিরাপদ লেনদেন</span>
-            <span>✅ ১০০% বিশ্বস্ত</span>
-            <span>🏆 প্রকৃত পুরস্কার</span>
+        <div class="trust-line">
+            🔒 নিরাপদ লেনদেন | ✅ ১০০% বিশ্বস্ত | 🏆 প্রকৃত পুরস্কার
         </div>
 
         <div class="footer">
-            🏆 ১০০% প্রকৃত পুরস্কার | সীমিত সময়ের অফার
+            সীমিত সময়ের অফার | শুধু গ্রাহকদের জন্য
         </div>
     </div>
 </div>
@@ -256,9 +243,7 @@
         if (/[০-৯]/.test(digits)) {
             const bengaliToArab = { '০':'0','১':'1','২':'2','৩':'3','৪':'4','৫':'5','৬':'6','৭':'7','৮':'8','৯':'9' };
             let arabicStr = '';
-            for (let ch of digits) {
-                arabicStr += bengaliToArab[ch] || ch;
-            }
+            for (let ch of digits) arabicStr += bengaliToArab[ch] || ch;
             return parseInt(arabicStr, 10);
         }
         return parseInt(digits, 10);
