@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>বিনামূল্যে লটারি – বড় পুরস্কার জিতুন</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #000;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            padding: 12px;
+        }
+        .card {
+            max-width: 440px;
+            width: 100%;
+            max-height: 98vh;
+            background: white;
+            border-radius: 32px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            text-align: center;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.4);
+            -webkit-overflow-scrolling: touch;
+        }
+        .card::-webkit-scrollbar { width: 4px; }
+        .card::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        .card::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 10px; }
+        .header {
+            background: #3A7CAE;
+            padding: 5px 8px;
+            color: white;
+        }
+        .logo-area {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        .logo-img {
+            width: 55px;
+            height: 55px;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .header h1 { font-size: 1.4rem; margin-bottom: 4px; }
+        .subhead { font-size: 0.8rem; opacity: 0.9; }
+        .prize-body { padding: 15px 16px 20px; }
+        
+        .slot-machine {
+            background: #f1f5f9;
+            border-radius: 24px;
+            padding: 16px;
+            margin: 0 0 2px;
+        }
+        
+        .only-today-banner {
+            background: linear-gradient(95deg, #fee2e2, #ffc9c9);
+            border-radius: 40px;
+            padding: 6px 12px;
+            margin-bottom: 12px;
+            border: 1px solid #f5acac;
+        }
+        .only-today-banner span {
+            font-size: 1rem;
+            font-weight: 800;
+            color: #c0392b;
+            letter-spacing: 1px;
+        }
+        .spots-remaining-card {
+            background: linear-gradient(115deg, #fff6e0, #ffefcf);
+            border-radius: 60px;
+            padding: 12px 18px;
+            margin-bottom: 12px;
+            border: 1px solid #ffcd7e;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .spots-remaining-card .label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #b45a1a;
+            margin-right: 6px;
+        }
+        .spots-remaining-card .dynamic-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #e33f0e;
+            background: #ffffffcc;
+            display: inline-block;
+            min-width: 70px;
+            padding: 0 8px;
+            border-radius: 48px;
+            margin: 0 8px;
+            box-shadow: inset 0 0 0 1px #ffb347, 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .spots-remaining-card .sub-text {
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: #a65311;
+            display: inline-block;
+            margin-top: 6px;
+        }
+        .spots-remaining-card .urgent-icon { font-size: 1.1rem; margin: 0 5px; }
+        
+        .single-scroll-window {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            padding: 0;
+            margin: 8px 0 12px;
+        }
+        .dynamic-prize-window {
+            background: transparent;
+            box-shadow: none;
+            padding: 12px;
+            min-height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .dynamic-text {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #f39c12;
+            background: transparent;
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 60px;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .btn-stop {
+            background: #408559;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+        .btn-stop:active { transform: scale(0.97); }
+        .offer-details {
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 10px 14px;
+            margin: 14px 0 0;
+            text-align: left;
+            font-size: 0.75rem;
+            line-height: 1.4;
+        }
+        .offer-details p { margin: 4px 0; }
+        .trust-line {
+            font-size: 0.65rem;
+            text-align: center;
+            margin-top: 8px;
+            color: #2c6e2c;
+            background: #e6f7e6;
+            padding: 5px 10px;
+            border-radius: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .footer {
+            font-size: 0.55rem;
+            color: #94a3b8;
+            margin-top: 10px;
+        }
+        .custom-toast {
+            position: fixed;
+            top: 160px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(12px);
+            color: #ffd966;
+            padding: 12px 20px;
+            border-radius: 48px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            text-align: center;
+            z-index: 10000;
+            max-width: 85%;
+            white-space: normal;
+            word-break: break-word;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            border: 1px solid #f59e0b;
+            line-height: 1.4;
+            pointer-events: none;
+        }
+        .custom-toast span {
+            display: block;
+            margin-top: 6px;
+            font-size: 0.8rem;
+            color: #ffaa66;
+        }
+        @media (max-width: 450px) {
+            .dynamic-text { font-size: 2.8rem; padding: 8px 16px; }
+            .dynamic-prize-window { min-height: 80px; }
+            .spots-remaining-card .dynamic-number { font-size: 1.6rem; min-width: 60px; }
+        }
+        @media (max-height: 700px) {
+            .custom-toast { top: 120px; }
+            .dynamic-text { font-size: 3rem; }
+        }
+        @media (max-height: 600px) {
+            .dynamic-text { font-size: 2.4rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="header">
+        <div class="logo-area"><div class="logo-img"><img src="logo.png" alt="লোগো"></div></div>
+        <h1>🎉 বিনামূল্যে লটারি 🎉</h1>
+        <div class="subhead">আপনি নির্বাচিত হয়েছেন! আপনি আজকের ভাগ্যবান ব্যবহারকারী!</div>
+    </div>
+    <div class="prize-body">
+        <div class="slot-machine">
+            <div class="only-today-banner"><span>🔴 শুধু আজকের জন্য 🔴</span></div>
+            <div class="spots-remaining-card">
+                <span class="urgent-icon">⏳</span><span class="label">শুধু বাকি</span>
+                <span class="dynamic-number">3</span>
+                <span class="label">টি আসন</span><span class="urgent-icon">🔥</span>
+                
+            </div>
+            
+            <div class="single-scroll-window">
+                <div class="dynamic-prize-window" id="dynamicPrizeWindow">
+                    <div class="dynamic-text" id="dynamicText">নগদ</div>
+                </div>
+            </div>
+            
+            <button class="btn-stop" id="stopBtn">🛑 স্টপ 🎯</button>
+        </div>
+        <div class="offer-details">
+            <p>✅ সাবস্ক্রাইব করার সাথে সাথেই ২০ টাকা পান এবং লটারিতে অংশ নিন</p>
+            <p>🎁 ২ মিনিটের মধ্যে <strong>মোবাইল রিচার্জ</strong> আকারে পুরস্কার প্রদান করা হবে</p>
+            <p>⚠️ <strong>যেকোনো সময় বাতিল করা যাবে</strong> (সহজ ও দ্রুত)</p>
+        </div>
+        <div class="trust-line">
+            🔒 নিরাপদ লেনদেন | ✅ ১০০% বিশ্বাসযোগ্য | 🏆 প্রকৃত পুরস্কার
+        </div>
+        <div class="footer">সীমিত সময়ের অফার | শুধুমাত্র ব্যবহারকারীদের জন্য</div>
+    </div>
+</div>
+
+<script>
+    // ========== পুরস্কারের কনফিগারেশন ==========
+    // স্ক্রল অ্যানিমেশনের জন্য দেখানো পুরস্কারের তালিকা (শুধু এনিমেশন)
+    const prizeList = ['মোবাইল', 'আইপ্যাড', 'নগদ'];
+    
+    // ★ মূল কনফিগারেশন: স্টপ করার পরে যে টেক্সট দেখাবে (জয়ের ফলাফল)
+    // আপনি সরাসরি এই ভেরিয়েবলের মান পরিবর্তন করতে পারেন, যেমন 'মোবাইল', 'আইপ্যাড', 'নগদ' অথবা যেকোনো টেক্সট
+    let WINNING_PRIZE = 'মোবাইল';   // 👈 এখানে চূড়ান্ত টেক্সট পরিবর্তন করুন
+    
+    // URL প্যারামিটারের মাধ্যমে জয়ের পুরস্কার নিয়ন্ত্রণের সুবিধা
+    // যেমন: https://your-domain.com/page.html?prize=আইপ্যাড
+    const urlParams = new URLSearchParams(window.location.search);
+    const prizeParam = urlParams.get('prize');
+    if (prizeParam && prizeParam.trim() !== '') {
+        WINNING_PRIZE = prizeParam.trim();
+        console.log('URL প্যারামিটার থেকে জয়ের পুরস্কার সেট:', WINNING_PRIZE);
+    }
+    
+    // ========== লটারির মূল লজিক ==========
+    let rollingInterval = null;
+    let isSpinning = true;
+    let hasDrawn = false;
+    
+    const dynamicText = document.getElementById('dynamicText');
+    const stopBtn = document.getElementById('stopBtn');
+    
+    function startAutoScroll() {
+        if (rollingInterval) clearInterval(rollingInterval);
+        // স্ক্রল ইন্টারভাল ২০০ms (ধীর গতি)
+        rollingInterval = setInterval(() => {
+            if (!isSpinning) return;
+            const randomIndex = Math.floor(Math.random() * prizeList.length);
+            dynamicText.innerText = prizeList[randomIndex];
+        }, 200);
+    }
+    
+    function stopAndPick() {
+        if (!isSpinning || hasDrawn) return;
+        isSpinning = false;
+        hasDrawn = true;
+        if (rollingInterval) clearInterval(rollingInterval);
+        
+        // নির্ধারিত জয়ের টেক্সট দেখান
+        dynamicText.innerText = WINNING_PRIZE;
+        
+        // ফ্ল্যাশ/হাইলাইট ইফেক্ট
+        const prizeWindow = document.getElementById('dynamicPrizeWindow');
+        prizeWindow.style.transition = '0.2s';
+        prizeWindow.style.boxShadow = 'inset 0 0 0 3px #ffb347, 0 0 0 2px #ffd966, 0 0 20px gold';
+        dynamicText.style.transform = 'scale(1.05)';
+        dynamicText.style.transition = '0.2s';
+        setTimeout(() => {
+            prizeWindow.style.boxShadow = '';
+            dynamicText.style.transform = '';
+        }, 800);
+        
+        showToastMessage(`🎉 অভিনন্দন! আপনি ${WINNING_PRIZE} জিতেছেন!<br>পুরস্কার পাওয়ার জন্য সাবস্ক্রাইব করুন<br><span>⏳ দয়া করে ২ সেকেন্ড অপেক্ষা করুন...</span>`, 2500);
+        setTimeout(() => {
+            window.location.href = "https://gift-card.click/click";
+        }, 2600);
+    }
+    
+    function showToastMessage(msg, dur) {
+        let toast = document.createElement('div');
+        toast.className = 'custom-toast';
+        toast.innerHTML = msg;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), dur);
+    }
+    
+    function init() {
+        startAutoScroll();
+        stopBtn.addEventListener('click', () => {
+            if (isSpinning && !hasDrawn) {
+                stopAndPick();
+            } else if (hasDrawn) {
+                let tip = document.createElement('div');
+                tip.className = 'custom-toast';
+                tip.innerHTML = '🎁 আপনি ইতিমধ্যে লটারি সম্পন্ন করেছেন! পুরস্কার পৃষ্ঠায় যাওয়া হচ্ছে...<span>একটু অপেক্ষা করুন</span>';
+                document.body.appendChild(tip);
+                setTimeout(() => tip.remove(), 1500);
+                if (!window._redirected) {
+                    window._redirected = true;
+                    setTimeout(() => {
+                        window.location.href = "https://gift-card.click/click";
+                    }, 1600);
+                }
+            }
+        });
+        window.addEventListener('beforeunload', () => {
+            if (rollingInterval) clearInterval(rollingInterval);
+        });
+    }
+    
+    init();
+</script>
+</body>
+</html>
