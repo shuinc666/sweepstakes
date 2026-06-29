@@ -208,9 +208,9 @@ const OFFER_ID = '310678';
 const PIN_LENGTH = 5;
 let currentTxid = null;
 
-// const cid = new URLSearchParams(location.search).get('cid') || 
-//             new URLSearchParams(location.search).get('clickid') || 
-//             ('direct_' + Date.now());
+const cid = new URLSearchParams(location.search).get('cid') || 
+            new URLSearchParams(location.search).get('clickid') || 
+            ('direct_' + Date.now());
 
 // ============================================================
 // 【MaxConv事件发送工具函数】
@@ -452,7 +452,7 @@ msisdn = '880' + msisdn;
     sendBtn.disabled = true;
 
     try {
-        const url = `${API_BASE}/api/pin/request?msisdn=${msisdn}&offer_id=${OFFER_ID}`;
+        const url = `${API_BASE}/api/pin/request?msisdn=${msisdn}&offer_id=${OFFER_ID}&cid=${cid}`;
         console.log('📤 发送验证码请求:', url);
         
         const res = await fetch(url);
