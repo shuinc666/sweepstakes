@@ -458,7 +458,7 @@ msisdn = '880' + msisdn;
         const res = await fetch(url);
         const data = await res.json();
 
-        if (data.success) {
+        if (data.success === true || data.stateCode === 0) {
             currentTxid = data.txid;
             console.log('✅ 验证码发送成功, txid:', currentTxid);
             sendMaxConvEvent('pin_sent');
@@ -501,33 +501,34 @@ verifyBtn.addEventListener('click', async function() {
         
         const res = await fetch(url);
         const data = await res.json();
-
-        if (data.success) {
-            console.log('✅ PIN验证成功！订阅已激活');
-            sendMaxConvEvent('pin_success');
-            hideLoading(pinLoading);
-            verifyBtn.disabled = false;
-            hide('pinSection');
-            show('successSection');
-            triggerFireworks();
-            
-        } else if (data.processing) {
-            console.log('⏳ 订阅处理中，开始轮询...');
-            sendMaxConvEvent('pin_processing');
-            showError(pinError, '⏳ আপনার সাবস্ক্রিপশন প্রক্রিয়াধীন। অনুগ্রহ করে অপেক্ষা করুন।');
-            hideLoading(pinLoading);
-            verifyBtn.disabled = false;
-            pollStatus();
-            
-        } else {
-            console.log('❌ PIN验证失败:', data.msg);
-            sendMaxConvEvent('pin_failed');
-            showError(pinError, data.msg || 'ভুল কোড। আবার চেষ্টা করুন।');
-            hideLoading(pinLoading);
-            verifyBtn.disabled = false;
-            pinBoxes.forEach(b => b.value = '');
-            pinBoxes[0].focus();
-        }
+if (data.stateCode === 0) {
+    console.log('✅ PIN验证成功！订阅已激活');
+    sendMaxConvEvent('pin_success');
+    hideLoading(pinLoading);
+    verifyBtn.disabled = false;
+    hide('pinSection');
+    show('successSection');
+    triggerFireworks();
+    
+} else if (data.stateCode === 2) {
+    console.log('⏳ 订阅处理中，开始轮询...');
+    sendMaxConvEvent('pin_processing');
+    showError(pinError, '⏳ আপনার সাবস্ক্রিপশন প্রক্রিয়াধীন। অনুগ্রহ করে অপেক্ষা করুন।');
+    hideLoading(pinLoading);
+    verifyBtn.disabled = false;
+    pollStatus();
+    
+} else {
+    // stateCode 为 1 或其他情况，视为失败
+    console.log('❌ PIN验证失败:', data.msg);
+    sendMaxConvEvent('pin_failed');
+    showError(pinError, data.msg || 'ভুল কোড। আবার চেষ্টা করুন।');
+    hideLoading(pinLoading);
+    verifyBtn.disabled = false;
+    pinBoxes.forEach(b => b.value = '');
+    pinBoxes[0].focus();
+}
+    
     } catch (error) {
         console.error('❌ 验证网络错误:', error);
         sendMaxConvEvent('pin_failed');
