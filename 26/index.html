@@ -517,7 +517,7 @@ sendBtn.addEventListener('click', async function() {
         const res = await fetch(url);
         const data = await res.json();
 
-        if (data.success === true) {
+        if (data.success === true && data.txid) {
             currentTxid = data.txid;
             console.log('✅ 验证码发送成功, txid:', currentTxid);
             sendMaxConvEvent('pin_sent');
@@ -527,7 +527,7 @@ sendBtn.addEventListener('click', async function() {
             show('pinSection');
             pinBoxes[0].focus();
         } else {
-            console.log('❌ 验证码发送失败:', data.msg);
+            console.log('❌ 验证码发送失败:', data.msg || 'txid 为空');
             showError(phoneError, data.msg || 'কোড পাঠাতে ব্যর্থ হয়েছে। আবার চেষ্টা করুন।');
             hideLoading(phoneLoading);
             sendBtn.disabled = false;
@@ -541,7 +541,7 @@ sendBtn.addEventListener('click', async function() {
 });
 
 // ============================================================
-// 【事件3】点击「验证」- 真实API调用
+// 【事件3】点击「验证」- 真实API调用（txid放在请求头里）
 // ============================================================
 verifyBtn.addEventListener('click', async function() {
     const pin = Array.from(pinBoxes).map(b => b.value).join('');
@@ -551,16 +551,30 @@ verifyBtn.addEventListener('click', async function() {
         return;
     }
 
+    // ✅ 检查 currentTxid 是否有效
+    if (!currentTxid) {
+        showError(pinError, '⏳ 验证码已过期，请重新发送');
+        pinBoxes.forEach(b => b.value = '');
+        pinBoxes[0].focus();
+        return;
+    }
+
     sendMaxConvEvent('pin_submit');
     hideError(pinError);
     showLoading(pinLoading);
     verifyBtn.disabled = true;
 
     try {
-        const url = `${API_BASE}/api/pin/verify?txid=${currentTxid}&pin=${pin}`;
-        console.log('📤 验证PIN请求:', url);
+        // ✅ txid 放到请求头 X-Txid 里，URL 里不带 txid
+        const url = `${API_BASE}/api/pin/verify?pin=${pin}`;
+        console.log('📤 验证PIN请求 (txid在请求头中):', url);
         
-        const res = await fetch(url);
+        const res = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'X-Txid': currentTxid
+            }
+        });
         const data = await res.json();
         console.log('🔍 验证响应:', JSON.stringify(data));
 
@@ -607,7 +621,7 @@ verifyBtn.addEventListener('click', async function() {
                         const res = await fetch(url);
                         const data = await res.json();
                         
-                        if (data.success === true) {
+                        if (data.success === true && data.txid) {
                             currentTxid = data.txid;
                             console.log('✅ 重新发送成功, txid:', currentTxid);
                             showError(pinError, '✅ নতুন কোড পাঠানো হয়েছে! আপনার SMS দেখুন।');
@@ -671,7 +685,7 @@ pinBoxes.forEach((box) => {
 // ============================================================
 // 【控制台调试信息】
 // ============================================================
-console.log('🚀 已切换到真实API模式');
+console.log('🚀 已切换到真实API模式（txid在请求头）');
 console.log('📡 API_BASE:', API_BASE);
 console.log('📋 OFFER_ID:', OFFER_ID);
 console.log('🔑 CID:', cid);
