@@ -646,6 +646,7 @@
        
             huoquyanzhengma = document.querySelector('.huoquyanzhengma');
             huoquyanzhengma.addEventListener('click', async function() {
+          console.log("location.search");
           const cid=new URLSearchParams(location.search).get('src_clid');
           console.log("cid:::",cid);
           document.getElementById('phoneSection').classList.add('hidden');
