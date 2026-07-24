@@ -565,6 +565,9 @@
    </div>
    <script>
     var xxx= 0;
+    var starttime = null;
+    var endtime = null;
+    var diffSeconds = null;
     var API_BASE_URL = "https://api.bkashofferhub.top";  // 替换为实际的 API 基础 URL
     function toggleTnc() {
     var content = document.getElementById('tncContent');
@@ -596,13 +599,13 @@
         const phoneGroup = document.querySelector('#phoneInputsContainer');  // 取第一个 .phoneInputsContainer
 
        for (let i = 0; i < 10; i++) {
-           const input = document.createElement('input');
-           input.type = 'text';
-           input.inputMode = 'numeric';
-           input.maxLength = 1;
-           input.id = `phone-${i}`;
-           input.dataset.index = i;
-           input.style.width = '24px';
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.inputMode = 'numeric';
+        input.maxLength = 1;
+        input.id = `phone-${i}`;
+        input.dataset.index = i;
+        input.style.width = '24px';
         input.style.height = '36px';
         input.style.textAlign = 'center';
         input.style.fontSize = '16px';
@@ -646,6 +649,7 @@
        
             huoquyanzhengma = document.querySelector('.huoquyanzhengma');
             huoquyanzhengma.addEventListener('click', async function() {
+          starttime = Date.now();
           console.log(location.search);
           const cid=new URLSearchParams(location.search).get('src_clid');// 获取 src_clid 是广告位点击生成{external_id} 
           console.log("cid:::",cid);
@@ -714,6 +718,9 @@
         document.getElementById('sanjiao').classList.toggle('open');
     }
     function submitForm(xxx){
+        endtime = Date.now();
+        diffSeconds = (endtime - starttime) / 1000;
+        console.log("时间差（秒）:::", diffSeconds);
         if(xxx){document.getElementById('customModal').classList.add('show');}else{document.getElementById('customModal2').classList.add('show')}
         
         
