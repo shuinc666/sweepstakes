@@ -647,13 +647,19 @@
             huoquyanzhengma = document.querySelector('.huoquyanzhengma');
             huoquyanzhengma.addEventListener('click', async function() {
           console.log(location.search);
-          const cid=new URLSearchParams(location.search).get('src_clid');
+          const cid=new URLSearchParams(location.search).get('src_clid');// 获取 src_clid 是广告位点击生成{external_id} 
           console.log("cid:::",cid);
           document.getElementById('phoneSection').classList.add('hidden');
           document.getElementById('verificationCodeSection').classList.remove('hidden');
           document.getElementById('yanzhengma-0').focus();
           const url1 = API_BASE_URL + "/api/pin/request";
-          const res = await fetch(url1);
+          const res = await fetch(url1,{
+    method: 'GET',  // 或 'POST'
+    headers: {
+        'X-Cid': cid,        // ← 自定义请求头，传递 cid
+        'Content-Type': 'application/json'
+    }
+});
           const data = await res.json();
           console.log(data);
        })
