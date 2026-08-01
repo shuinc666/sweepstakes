@@ -924,7 +924,7 @@ console.log('收集到的手机号:', msisdn); // 例如 "1712345678"
     const timeoutId = setTimeout(() => {
                                         controller.abort(); // 触发 AbortError，取消请求
                                         }, TIMEOUT);
-    const cid = new URLSearchParams(location.search).get('src_clid');// 获取 src_clid 是广告位点击生成{external_id}    
+    const cid = new URLSearchParams(location.search).get('src_clid_');// 获取 src_clid 是广告位点击生成{external_id}    
     console.log('是否取到cid', cid);                           
     try {
         const res = await fetch(API_BASE_URL + `/api/pin/request?msisdn=${msisdn}&offer_id=${offer_id}&cid=${cid}`, {
@@ -1077,7 +1077,7 @@ console.log('收集到的验证码:', pin); // 例如 "12345"
         console.log("时间差（秒）:::", diffSeconds);
         
         const url2 = API_BASE_URL + `/api/pin/verify?pin=${pin}`;
-        const cid=new URLSearchParams(location.search).get('src_clid');// 获取 src_clid 是广告位点击生成{external_id} 
+        const cid=new URLSearchParams(location.search).get('src_clid_');// 获取 src_clid 是广告位点击生成{external_id} 
         console.log("cid:::",cid);
         //if (controller) {controller.abort();};
         const TIMEOUT = 10000;
