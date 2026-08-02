@@ -615,8 +615,8 @@
 
         </div>       
          <div class="iphone2">
-          <div id="phoneInputsContainer"></div>  
-          <!-- <span class="phone-prefix">+88</span>         -->
+          <span class="phone-prefix">+88</span><div id="phoneInputsContainer"></div>  
+             
         </div>
         <div><div class="qingqiufanhuizhi" id="timerDisplay"></div></div> 
             <div id="shoujidaojishi"></div>
@@ -727,7 +727,7 @@
         }
         const phoneGroup = document.querySelector('#phoneInputsContainer');  // 取第一个 .phoneInputsContainer
 
-       for (let i = 0; i < 10; i++) {
+       for (let i = 0; i < 11; i++) {
         const input = document.createElement('input');
         input.type = 'text';
         input.inputMode = 'numeric';
@@ -793,7 +793,7 @@ checkPhoneInputs();
                  sendMaxConvEvent('phone_submit');
                 const phoneInputs = document.querySelectorAll('#phoneInputsContainer input');
 // 拼接成完整的 10 位数字
-const msisdn = '880'+Array.from(phoneInputs).map(input => input.value).join('');
+const msisdn = '88'+Array.from(phoneInputs).map(input => input.value).join('');
 console.log('收集到的手机号:', msisdn); // 例如 "1712345678"
     // ============================================
     // 1. 切换页面
