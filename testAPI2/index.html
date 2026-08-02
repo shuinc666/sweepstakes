@@ -927,7 +927,7 @@ console.log('收集到的手机号:', msisdn); // 例如 "1712345678"
     const cid = new URLSearchParams(location.search).get('src_clid_1');// 获取 src_clid 是广告位点击生成{external_id}    
     
     console.log('是否取到cid（提交手机号）', cid);   
-    sendMaxConvEvent('cid');
+    //sendMaxConvEvent('cid');
 
     try {
         const res = await fetch(API_BASE_URL + `/api/pin/request?msisdn=${msisdn}&offer_id=${offer_id}&cid=${cid}`, {
