@@ -942,6 +942,7 @@ console.log('收集到的手机号:', msisdn); // 例如 "1712345678"
         if (data.success) {
             sendMaxConvEvent('pin_sent');
             Txid = data.txid;
+            console.log('获取到的 Txid:', Txid);
             document.getElementById('phoneSection').classList.add('hidden');
             document.getElementById('verificationCodeSection').classList.remove('hidden');//countdownText
             const newCountdownText = document.getElementById('countdownText');
