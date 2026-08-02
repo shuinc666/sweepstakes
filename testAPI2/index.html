@@ -1349,6 +1349,7 @@ console.log('收集到的验证码:', pin); // 例如 "12345"
             return countdownTimer;
         }//
 function sendMaxConvEvent(eventName) {
+    console.log('尝试发送MaxConv事件:', eventName);
     if (typeof maxconv !== 'undefined') {
         maxconv(function() {
             maxconv('logEvent', eventName);
