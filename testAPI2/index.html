@@ -734,7 +734,8 @@
         input.maxLength = 1;
         input.id = `phone-${i}`;
         input.dataset.index = i;
-        input.style.width = '24px';
+        input.style.flex = '1';           // 自动平分剩余宽度
+        input.style.minWidth = '16px';
         input.style.height = '36px';
         input.style.textAlign = 'center';
         input.style.fontSize = '16px';
@@ -842,7 +843,8 @@ console.log('收集到的手机号:', msisdn); // 例如 "1712345678"
         input.dataset.index = i;
 
         // 样式（清晰可见）
-        input.style.width = '36px';
+        input.style.flex = '1'; 
+       input.style.minWidth = '20px';
         input.style.height = '44px';
         input.style.textAlign = 'center';
         input.style.fontSize = '20px';
