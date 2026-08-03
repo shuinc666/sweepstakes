@@ -1051,7 +1051,7 @@ container.style.gap = '8px';
    async function pollStatus(attempt = 0, currentTxid, cid) {
     console.log('轮询开始');
     console.log('轮询cid:', cid);
-    if (attempt >= 20) {
+    if (attempt >= 10) {
         console.log('轮询结束');
         document.getElementById('customModal4').classList.add('show');
         return 0;
