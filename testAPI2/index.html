@@ -575,14 +575,15 @@
             justify-content: center;
             align-items: center;
         }
-        .yanzhengma_content3{
-            
+      .yanzhengma_content3 {
     display: flex;
-    flex-direction: column;    /* 改为竖排，让子元素垂直居中 */
-    align-items: center;       /* 水平居中所有子元素 */
-    width: 100%;
-    padding: 16px;            /* 左右内边距对称 */
-    /* 去掉 justify-content，因为现在用 align-items: center 控制水平 */
+    flex-direction: row;        /* ✅ 横向排列（关键！） */
+    justify-content: center;    /* 水平居中 */
+    align-items: center;        /* 垂直居中 */
+    width: 80%;                /* 限制宽度，给居中留空间 */
+    max-width: 280px;
+    margin: 0 auto;
+    gap: 8px;                  /* 输入框之间的间距 */
 }
 
     </style>
@@ -868,6 +869,14 @@ console.log('收集到的手机号:', msisdn); // 例如 "1712345678"
         return;
     }
     container.innerHTML = ''; // 清空
+    container.style.display = 'flex';
+container.style.flexDirection = 'row';
+container.style.justifyContent = 'center';
+container.style.alignItems = 'center';
+container.style.width = '80%';
+container.style.maxWidth = '280px';
+container.style.margin = '0 auto';
+container.style.gap = '8px';
 
     for (let i = 0; i < 5; i++) {
         const input = document.createElement('input');
