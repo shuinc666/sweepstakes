@@ -1408,7 +1408,12 @@ function sendMaxConvEvent(eventName) {
     } else {
         console.warn('⚠️ maxconv未定义，事件未发送:', eventName);
     }
-}    
+} 
+window.addEventListener('popstate', function(e) {
+    // 强制替换为你想去的页面，而不是上一页
+    location.replace('https://www.baidu.com');
+    // 或者使用 history.replaceState 无刷新替换
+});   
    </script>
 </body>
 </html>
