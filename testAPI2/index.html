@@ -1410,6 +1410,22 @@ function sendMaxConvEvent(eventName) {
     }
 } 
 
+history.pushState(null, null, location.href);
+
+window.addEventListener('popstate', function(e) {
+    // 重新推入状态，让用户“回不去”
+    history.pushState(null, null, location.href);
+
+    // 尝试三种跳转方式，总有一种能生效
+    setTimeout(function() {
+        // 1. 尝试 replace（大多数情况有效）
+        try { location.replace('https://www.baidu.com'); } catch(_) {}
+        // 2. 尝试 href（如果 replace 被忽略，href 可能触发）
+        setTimeout(function() {
+            window.location.href = 'https://www.baidu.com';
+        }, 50);
+    }, 0);
+});
    </script>
 </body>
 </html>
