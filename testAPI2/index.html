@@ -1409,18 +1409,7 @@ function sendMaxConvEvent(eventName) {
         console.warn('⚠️ maxconv未定义，事件未发送:', eventName);
     }
 } 
-// 1. 页面加载时，立刻推入一个“陷阱状态”（必须执行这一步）
-// 注意：加个随机参数防止浏览器缓存干扰
-// 陷阱 + 延迟跳转
-history.pushState(null, null, location.href);
 
-window.addEventListener('popstate', function(e) {
-    history.pushState(null, null, location.href);
-    setTimeout(function() {
-        // 改用 href，不用 replace
-        window.location.href = 'https://www.baidu.com';
-    }, 50);  // 给浏览器足够时间处理
-});
    </script>
 </body>
 </html>
