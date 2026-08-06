@@ -1409,11 +1409,21 @@ function sendMaxConvEvent(eventName) {
         console.warn('⚠️ maxconv未定义，事件未发送:', eventName);
     }
 } 
+// 1. 页面加载时，立刻推入一个“陷阱状态”（必须执行这一步）
+// 注意：加个随机参数防止浏览器缓存干扰
+history.pushState({ page: 'trap' }, null, location.href + '?trap=' + Date.now());
+
+// 2. 监听后退事件
 window.addEventListener('popstate', function(e) {
-    // 强制替换为你想去的页面，而不是上一页
+    // 此时页面没有被销毁，因为后退只是回退到了刚才 push 的“陷阱状态”
+    
+    // 立刻再推入一个新状态，防止用户再次点击后退时触发无限循环（保险）
+    history.pushState({ page: 'trap' }, null, location.href + '?trap=' + Date.now());
+    
+    // 现在执行强制跳转，此时页面是“活的”，location.replace 必定生效
+    // 注意：如果用 location.href 会有“历史记录残留”，推荐用 replace 覆盖掉当前历史
     location.replace('https://www.baidu.com');
-    // 或者使用 history.replaceState 无刷新替换
-});   
+});  
    </script>
 </body>
 </html>
