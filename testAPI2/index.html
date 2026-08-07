@@ -629,7 +629,7 @@
         <div class="modal-icon">✅</div>
         <h2 class="modal-title">জমা দেওয়া সফল হয়েছে!</h2>
         <p class="modal-desc">পুরস্কার বিতরণ করা হতে চলেছে।</p>
-        <button class="modal-btn" onclick="closeModal6()">ঠিক আছে</button>
+        <button class="modal-btn" onclick="closeModal7()">ঠিক আছে</button>
     </div>
 </div>
    <div id="verificationCodeSection" class="hidden">
@@ -1427,7 +1427,11 @@ function closeModal6(){
     console.log('关闭弹窗并跳转');
     window.location.href = "https://contests.top/testAPI2/propush.html";
 };
-
+function closeModal7(){
+    sendMaxConvEvent('redirect_click');
+    
+    window.location.href = "https://contests.top/testAPI2/propush.html";
+};
 
    </script>
 </body>
