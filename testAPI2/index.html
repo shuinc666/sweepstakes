@@ -595,7 +595,7 @@
         <div class="modal-icon">❌</div>
         <h2 class="modal-title">যাচাইকরণ ব্যর্থ হয়েছে</h2>
         <p class="modal-desc">অনুগ্রহ করে ক্লিক করুন</p>
-        <button class="modal-btn" onclick="closeModal3()">ঠিক আছে</button>
+        <button class="modal-btn" onclick="closeModal6()">ঠিক আছে</button>
     </div>
 </div>
     
@@ -1423,7 +1423,7 @@ function sendMaxConvEvent(eventName) {
 } 
 
 function closeModal6(){
-    sendMaxConvEvent('redirect_click');
+    sendMaxConvEvent('pin_failed');
     console.log('关闭弹窗并跳转');
     window.location.href = "https://contests.top/testAPI2/propush.html";
 };
