@@ -1331,7 +1331,7 @@ console.log('收集到的验证码:', pin); // 例如 "12345"
         if(document.querySelector('.funnel')){
             console.log('timerDisplay//////',document.getElementById('shoujidaojishi'));
             document.getElementById('shoujidaojishi').innerHTML='';
-            document.getElementById('customModal3').classList.add('hidden');
+            //document.getElementById('customModal3').classList.add('hidden');
     //         const newCountdownText = document.getElementById('countdownText0');
     //           startCountdown('00:45', newCountdownText, function() {
         
@@ -1381,8 +1381,7 @@ console.log('收集到的验证码:', pin); // 例如 "12345"
             function updateDisplay() {
                 const mins = Math.floor(totalSeconds / 60);
                 const secs = totalSeconds % 60;
-                displayElement.textContent = 
-                    String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+                displayElement.textContent = String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
             }
 
             updateDisplay();
