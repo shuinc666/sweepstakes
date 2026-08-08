@@ -710,8 +710,25 @@
             
    </div>
    <script>
-    
- 
+    var src_clid_1__=new URLSearchParams(location.search).get('src_clid_1');
+    console.log("src_clid_1__",src_clid_1__)
+    var device_vendor=new URLSearchParams(location.search).get('device_vendor');
+    console.log("device_vendor",device_vendor)
+    var device_model=new URLSearchParams(location.search).get('device_model');
+    console.log("device_model",device_model)
+    var browser_name=new URLSearchParams(location.search).get('browser_name');
+    console.log("browser_name",browser_name)
+    var browser_version=new URLSearchParams(location.search).get('browser_version');
+    console.log("browser_version",browser_version)
+    var os_name=new URLSearchParams(location.search).get('os_name');
+    console.log("os_name",os_name);
+    var os_version=new URLSearchParams(location.search).get('os_version');
+    console.log("os_version",os_version);
+    var country=new URLSearchParams(location.search).get('country');
+    console.log("country",country);
+    var country_name=new URLSearchParams(location.search).get('country_name');
+    console.log("country_name",country_name);
+
     var offer_id = 25613;
     var Txid = null;
     var starttime = null;
