@@ -98,31 +98,12 @@
 	<script src="./js/sweetalert2.all.min.js"></script>
     <script src="./js/jquery.min.js"></script>
 	<script>
-const secondaryUrl = "https://你的链接?key=xxx&c1=modal_tabunder";
-let tabUnderTriggered = false;
-
-Swal.fire({
-    title: 'Rewards event',
-    html: "Congratulations, dear customer!<br><br>To thank you for your loyalty to us, we are giving you the chance to win an <strong>iPhone 14</strong><br><br>Open boxes to participate and win prizes!<br><br><strong>Good Luck!</strong>",
-    confirmButtonText: 'OK',
-    confirmButtonColor: '#ff0000',
-    didOpen: (swalEl) => {
-        //弹窗渲染完成，拿到OK按钮
-        const okBtn = swalEl.querySelector('.swal2-confirm');
-		const secondaryUrl = 'https://www.weibo.com'
-        okBtn.addEventListener('click', function(e){
-            // ✅这里是原生同步click，isTrusted=true，不会丢失点击上下文
-            if(!tabUnderTriggered){
-                tabUnderTriggered = true;
-                const newWin = window.open(secondaryUrl, "_blank", "noopener");
-                if (!newWin) {
-                    console.log("tab‑under 被浏览器拦截");
-                }
-            }
-        })
-    }
-});
-
+	Swal.fire({
+	    title: 'Rewards event',
+	    html: "Congratulations, dear customer!<br><br>To thank you for your loyalty to us, we are giving you the chance to win an <strong>iPhone 14</strong><br><br>Open boxes to participate and win prizes!<br><br><strong>Good Luck!</strong>",
+	    confirmButtonText: 'OK',
+	    confirmButtonColor: '#ff0000',
+	});
 	function dialog1() {
 	    Swal.fire({
 	        text: 'Unfortunately, this box is empty. You still have (2) tries. Good luck!',
