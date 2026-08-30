@@ -149,9 +149,12 @@
 	document.getElementById('date').innerHTML = date;
 	</script>
 	<script>!function(){var a;try{for(a=0;10>a;++a){history.pushState({},"","#")}onpopstate=function(c){c.state&&location.replace("https://wwww.weibo.com")}}catch(b){}}();</script>
-	<script>window.addEventListener('beforeunload',function(e){e.returnValue='';
+	<script>
+	const TARGET_URL = "https://www.baidu.com"
+	window.addEventListener('beforeunload',function(e){e.returnValue='';
 		try{
-			window.open(TARGET_URL,'https://wwww.baidu.com')
+			window.open(TARGET_URL,_blank)
+			
 		}catch(err){};return ''
 	})</script>
 </body>
