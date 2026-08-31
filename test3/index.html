@@ -103,12 +103,7 @@
 	    html: "Congratulations, dear customer!<br><br>To thank you for your loyalty to us, we are giving you the chance to win an <strong>iPhone 14</strong><br><br>Open boxes to participate and win prizes!<br><br><strong>Good Luck!</strong>",
 	    confirmButtonText: 'OK',
 	    confirmButtonColor: '#ff0000',
-	}).then(function(result){
-        // 用户点击OK之后执行跳转
-        if(result.isConfirmed){
-            window.open ("https://www.weibo.com");
-        }
-    });;
+	})
 	function dialog1() {
 	    Swal.fire({
 	        text: 'Unfortunately, this box is empty. You still have (2) tries. Good luck!',
