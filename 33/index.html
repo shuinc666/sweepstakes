@@ -13,39 +13,67 @@
 
     <title>Roue de la fortune</title>
     <style>
-        * {
-            box-sizing: border-box;
-        }
         html, body {
             height: 100%;
             margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        }
+        /* ======= 转盘部分：完全保持原样 ======= */
+        .zhuanpan {
+            position: relative;
             background-color: white;
-            overflow-x: hidden;
-            padding-bottom: 20px;
+            height: 50vh;
         }
-
-        /* 顶部新年份图片 */
-        #quanwei {
-            width: 130px; 
-            height: auto; 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
+        .zhuanpan img {
+            position: absolute;
+            width: 100%;
+            min-height: 100vh;
+            object-fit: contain;
+            display: block;
+            top: -15%;
+            transition: transform 3s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+        }
+        .wheel-pointer-btn {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            position: absolute;
+            top: 85%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ff0000;
             z-index: 2;
+            cursor: pointer;
+        }
+        .wheel-pointer-btn::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 20px solid #3d3534;
+        }
+        .btn {
+            position: absolute;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            opacity: 0;
+            pointer-events: none;
         }
 
-        /* ======= 弹窗部分 ======= */
+        /* ======= 弹窗部分：修复撑爆问题 ======= */
         .diyiye, .zhongjiang, .no_zhongjiang {
-            position: fixed; /* 改为固定定位，确保在屏幕正中间 */
+            position: fixed; /* 采用固定定位，强制居中，防止乱跑 */
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 85%;
             max-width: 320px;
-            height: auto; /* 取消死板高度，随内容自动撑开 */
+            height: auto; /* 取消原版的固定高度，自动撑开 */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -54,18 +82,18 @@
             border: 1px solid #070707;
             border-radius: 20px;
             padding: 25px 15px;
-            z-index: 100;
+            z-index: 99; /* 保证在最上层 */
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
         
-        /* 限制弹窗里的图片大小，防止华为手机撑爆 */
+        /* 限制弹窗内部图片的最大尺寸，防止华为手机大图撑爆 */
         .diyiye img, .zhongjiang img, .no_zhongjiang img {
             max-width: 140px;
             height: auto;
             margin-bottom: 10px;
         }
 
-        /* 关闭按钮 */
+        /* 关闭按钮修复 */
         #guanbianniu {
             position: absolute;
             top: 10px;
@@ -78,17 +106,17 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            z-index: 110;
+            z-index: 100;
         }
-        #close_background { display: none; } /* 隐藏掉不用的背景 */
+        #close_background { display: none; } /* 隐藏无用的背景 */
 
-        /* 文字排版 */
+        /* 弹窗内文字与按钮排版 */
         .event-info {
             display: flex;
             flex-direction: column;
             align-items: center;
             width: 100%;
-            margin: 10px 0 5px 0;
+            margin: 10px 0;
             gap: 5px;
         }
         .event-free {
@@ -103,12 +131,10 @@
             font-weight: bold;
             text-align: center;
         }
-
-        /* 进度条 */
         .jindutiao {
             display: flex;
             width: 100%;
-            margin: 15px 0 10px 0;
+            margin: 10px 0;
             background: #eee;
             border-radius: 13px;
             overflow: hidden;
@@ -126,12 +152,10 @@
             margin-bottom: 15px;
         }
 
-        /* 按钮 */
         .diyianniu-box, .zuihoudianji {
             display: flex;
             flex-direction: row;
             justify-content: center;
-            align-items: center;
             gap: 15px;
             width: 100%;
         }
@@ -147,78 +171,51 @@
             border: none;
             padding: 0 15px;
         }
-        .try_again {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #fa0101;
-            margin-bottom: 15px;
-        }
-        #gongxizhongjiang {
+        .try_again, #gongxizhongjiang {
             font-size: 1.3em;
             font-weight: bold;
             color: #fa0101;
             margin-bottom: 15px;
         }
 
-        /* ======= 主页面转盘部分 ======= */
-        .zhuanpan {
-            position: relative;
-            width: 100vw;
-            height: 60vh; /* 改成 60vh 更合理 */
-            margin-top: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .zhuanpan img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            transition: transform 3s cubic-bezier(0.17, 0.67, 0.12, 0.99);
-        }
-        .wheel-pointer-btn {
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #ff0000;
-            z-index: 2;
-            cursor: pointer;
-        }
-
-        /* ======= 评论区 ======= */
+        /* ======= 底部评论 ======= */
         .pinglun {
-            position: relative;
-            width: 90%;
-            height: 80px;
+            position: absolute;
+            width: 100%;
+            height: 70px;
+            top: 65%;
+            left: 10%;
             overflow: hidden;
-            margin-top: 10px;
-            z-index: 0;
+            z-index: 1;
         }
         .pinglun1 {
             display: flex;
             flex-direction: column;
+            width: 80%;
             animation: scrollUp 25s linear infinite;
-            gap: 15px;
+            gap: 10px;
         }
         .comment {
             display: flex;
             flex-direction: row;
+            justify-content: center;
             gap: 10px;
-            align-items: center;
         }
         .comment_img img {
             width: 48px;
             height: 48px;
             border-radius: 50px;
         }
-        .name_text { display: flex; flex-direction: column; font-size: 13px; }
+        .name_text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            font-size: 13px;
+        } 
         .comment_name { color: #0847f5; font-weight: bold; }
         .comment_info { color: #0847f5; }
-        
+
         .hidden { display: none !important; }
         .show { display: flex !important; }
 
@@ -246,9 +243,8 @@
 </head>
 <body>
 
-    <img src="./xiugainianfen.png" alt="" id="quanwei">
+<img src="./xiugainianfen.png" alt="" style="width:130px; height:auto; position:absolute;  z-index:2;">
 
-    <!-- 首页弹窗 -->
     <div class="diyiye">
         <div id="guanbianniu">
            <span id="close">&#10006;</span>
@@ -273,7 +269,6 @@
         </div>
     </div>
 
-    <!-- 中奖弹窗 -->
     <div class="zhongjiang hidden" >
         <img src="./shouyehanbao.png" alt="">
         <span id="gongxizhongjiang">Félicitations !</span>
@@ -283,7 +278,6 @@
         </div>
     </div>
 
-    <!-- 未中奖弹窗 -->
     <div class="no_zhongjiang hidden" >
         <img src="./shouyehanbao.png" alt="">
         <span class="try_again">Réessayer</span>
@@ -293,14 +287,12 @@
         </div>
     </div>
 
-    <!-- 转盘区域 -->
     <div class="zhuanpan">
         <img src="./hanbaozhuanpan.png" alt="Roue" class="zhuanpan-img" id="wheelImg">
         <button class="wheel-pointer-btn" id="spinBtn"></button>
         <button class="btn" id="btn" >1111111111111111</button>
     </div>
 
-    <!-- 评论区 -->
     <div class="pinglun">
         <div class="pinglun1">
              <div class="comment">
