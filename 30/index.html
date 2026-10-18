@@ -10,7 +10,7 @@
     <script>!function(w,d,o,n,c){w[o]=w[o]||function(){(w[o].q=w[o].q||[]).push(arguments)};var s=d.createElement(n),t=d.getElementsByTagName(n)[0];s.async=!0;s.defer=!0;s.src="https://gift-card.click/t/t.js";t.parentNode.insertBefore(s,t);}(window,document,"maxconv","script");</script>
     <noscript><link rel="stylesheet" href="https://gift-card.click/t/t.css?mc_ns=1" /></noscript>
     <!-- End MaxConv Tracking Script Base Code-->
-    
+
     <title>Gagnez 500€ chez McDonald's</title>
     <style>
         * {
@@ -30,7 +30,6 @@
             padding-bottom: 20px;
         }
 
-        /* 顶部图片限制 */
         #quanwei {
             width: 120px; 
             position: absolute; 
@@ -47,7 +46,6 @@
             animation: heartbeat 1.0s infinite;
         }
 
-        /* 文字排版改为自然上下流 */
         .text-container {
             display: flex;
             flex-direction: column;
@@ -69,7 +67,6 @@
             padding: 0 10px;
         }
 
-        /* 进度条 */
         .jindutiao {
             display: flex;
             width: 80%;
@@ -92,7 +89,7 @@
             margin-bottom: 20px;
         }
 
-        /* 老虎机区域 */
+        /* ======= 老虎机区域 精准修复 ======= */
         .container_gundong {
             display: flex;
             flex-direction: row;
@@ -100,7 +97,7 @@
             justify-content: center;
             width: 90%;
             max-width: 400px;
-            height: 100px;
+            height: 90px; /* 容器总高 90px */
             background-color: #fc0000;
             gap: 2px;
             padding: 5px;
@@ -109,24 +106,25 @@
         }
         .content {
             width: 33.33%;
-            height: 100%;
+            height: 80px; /* 恢复写死的 80px，保证JS滚动距离精准对齐 */
             background-color: #faf9f9;
             overflow: hidden;
+            position: relative;
         }
         .content_inner {
             display: flex;
             flex-direction: column;
             align-items: center;
-            height: 100%;
             transition: transform 3s cubic-bezier(0.1, 0.8, 0.2, 1);
         }
         .content_inner img {
+            width: 100%;
+            height: 80px; /* 强制每张图正好 80px 高，确保不出现半截 */
             object-fit: contain;
-            max-width: 100%;
-            max-height: 100%;
+            display: block;
         }
+        /* =================================== */
 
-        /* 按钮组 */
         #shouyeanniu {
             display: flex;
             flex-direction: row;
@@ -153,15 +151,15 @@
             background: #d81d1d;
         }
 
-        /* ======= 修复弹窗布局 (核心) ======= */
+        /* 弹窗部分 */
         .chuangkou {
-            position: fixed; /* 使用 fixed 固定在屏幕中央 */
+            position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 85%;
             max-width: 350px;
-            height: auto; /* 取消固定高度，让内容撑开 */
+            height: auto;
             background-color: rgb(251, 251, 252);
             border-radius: 20px;
             border: 2px solid #fd6005;
@@ -191,12 +189,10 @@
             width: 100%;
         }
 
-        /* 隐藏 */
         .hidden {
             display: none !important;
         }
 
-        /* 评论区 */
         .comments {
             width: 90%;
             max-width: 400px;
@@ -237,7 +233,6 @@
             margin-top: 3px;
         }
 
-        /* 关闭按钮 */
         #guanbianniu {
             position: fixed;
             top: 20px;
@@ -275,23 +270,18 @@
 </head>
 
 <body>
-    <!-- 右上角关闭按钮 -->
     <div id="guanbianniu">
         <span id="close">&#10006;</span>
     </div>
 
     <img src="./xiugainianfen.png" alt="" id="quanwei">
-    
-    <!-- 顶部汉堡图 -->
     <img src="./shouyehanbao.png" alt="" class="top-burger">
     
-    <!-- 文字区域 -->
     <div class="text-container">
         <span class="event-free">Gratuit</span> 
         <span class="event-name">Carte cadeau McDonald's de 500€</span>
     </div>
     
-    <!-- 进度条 -->
     <div class="jindutiao">
         <div class="jindutiao-fill"></div>
     </div>
@@ -299,7 +289,6 @@
         <span>Places restantes : 9/20</span>
     </div>
     
-    <!-- 老虎机 -->
     <div class="container_gundong">
         <div class="content" id="content1">
             <div class="content_inner" id="content1_inner">
@@ -318,7 +307,6 @@
         </div>
     </div> 
 
-    <!-- 弹窗 -->
     <div class="chuangkou hidden" id="diyige">
         <img src="./hanbao.png" alt="">
         <span class="try_again">Réessayer</span>
@@ -336,13 +324,11 @@
         </div>
     </div>
 
-    <!-- 底部按钮 -->
     <div id="shouyeanniu">
         <button class="button1" id="cancel_func2">Annuler</button>
         <button id="spinBtn">Commencer</button>
     </div>
 
-    <!-- 评论区 -->
     <div class="comments">
         <div class="comment_gundong">	
             <div class="comment">
@@ -367,14 +353,6 @@
                     <div class="comment_name">Amahle</div>
                     <div class="comment_text">C'est la première fois que je participe à un tel événement, je n'arrive pas à croire que j'ai gagné ! Merci beaucoup !</div>
                     <div class="comment_info"><span>J'aime</span> · <span>Répondre</span> · <span>37 minutes</span></div>
-                </div>
-            </div>
-            <div class="comment">
-                <div class="comment_img"><img src="ava/008.jpg"></div>
-                <div class="name_text">
-                    <div class="comment_name">Lethabo</div>
-                    <div class="comment_text">Merci beaucoup ! J'ai gagné une carte cadeau McDonald's !! C'est réel !</div>
-                    <div class="comment_info"><span>J'aime</span> · <span>Répondre</span> · <span>54 minutes</span></div>
                 </div>
             </div>
         </div>		
@@ -432,6 +410,7 @@
             const step = baseStep + extraCycles * 3;
 
             contents.style.transition = 'transform 3s cubic-bezier(0.1, 0.8, 0.2, 1)';
+            // 这里的 80 必须严格等于 .content_inner img 的高度
             contents.style.transform = `translateY(-${step * 80}px)`;
 
             contents.addEventListener('transitionend', onTransitionEnd);
