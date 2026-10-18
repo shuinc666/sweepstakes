@@ -2,253 +2,296 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!--Optional, send client hints to get accurate device data-->
-<meta http-equiv="delegate-ch" content="sec-ch-ua https://gift-card.click; sec-ch-ua-mobile https://gift-card.click; sec-ch-ua-arch https://gift-card.click; sec-ch-ua-model https://gift-card.click; sec-ch-ua-platform https://gift-card.click; sec-ch-ua-platform-version https://gift-card.click; sec-ch-ua-bitness https://gift-card.click; sec-ch-ua-full-version-list https://gift-card.click; sec-ch-ua-full-version https://gift-card.click" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!--Optional, send client hints to get accurate device data-->
+    <meta http-equiv="delegate-ch" content="sec-ch-ua https://gift-card.click; sec-ch-ua-mobile https://gift-card.click; sec-ch-ua-arch https://gift-card.click; sec-ch-ua-model https://gift-card.click; sec-ch-ua-platform https://gift-card.click; sec-ch-ua-platform-version https://gift-card.click; sec-ch-ua-bitness https://gift-card.click; sec-ch-ua-full-version-list https://gift-card.click; sec-ch-ua-full-version https://gift-card.click" />
 
-<!-- MaxConv Tracking Script Base Code-->
-<script>!function(w,d,o,n,c){w[o]=w[o]||function(){(w[o].q=w[o].q||[]).push(arguments)};var s=d.createElement(n),t=d.getElementsByTagName(n)[0];s.async=!0;s.defer=!0;s.src="https://gift-card.click/t/t.js";t.parentNode.insertBefore(s,t);}(window,document,"maxconv","script");</script>
-<noscript><link rel="stylesheet" href="https://gift-card.click/t/t.css?mc_ns=1" /></noscript>
-<!-- End MaxConv Tracking Script Base Code-->
+    <!-- MaxConv Tracking Script Base Code-->
+    <script>!function(w,d,o,n,c){w[o]=w[o]||function(){(w[o].q=w[o].q||[]).push(arguments)};var s=d.createElement(n),t=d.getElementsByTagName(n)[0];s.async=!0;s.defer=!0;s.src="https://gift-card.click/t/t.js";t.parentNode.insertBefore(s,t);}(window,document,"maxconv","script");</script>
+    <noscript><link rel="stylesheet" href="https://gift-card.click/t/t.css?mc_ns=1" /></noscript>
+    <!-- End MaxConv Tracking Script Base Code-->
+    
     <title>Gagnez 500€ chez McDonald's</title>
     <style>
-    html body {
-       display: flex;
-       flex-direction: column;
-       align-items: center;
-       justify-content: center;
-       min-height: 100vh;
-       margin: 0;
-    }
-    .container_gundong {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        width: 80%;
-        height: 90px;
-        background-color: #fc0000;
-        overflow: hidden;
-        gap: 2px;
-        padding: 5px;
+        * {
+            box-sizing: border-box;
+        }
+        html, body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        /* 顶部图片限制 */
+        #quanwei {
+            width: 120px; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            z-index: 0;
+        }
         
-        position: absolute;
-        top: 48%; /* 原 46%，微调下移 */
-    }
-    .content{
-        width: 50%;
-        height: 80px;
-        background-color: rgb(250, 249, 249);
-        overflow: hidden;
-    }
-    #content1_inner, #content2_inner, #content3_inner {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        /* justify-content: center; */
-        height: 100%;
-        transition: transform 3s cubic-bezier(0.1, 0.8, 0.2, 1);
-    }
-    #content1_inner img,
-    #content2_inner img,
-    #content3_inner img {
-        object-fit: contain;
-        max-width: 100%;
-        max-height: 100%;
-    }
-    .chuangkou{
-        width: 80%;
-        height: 220px;
-        background-color: rgb(251, 251, 252);
-        position: absolute;
-        top: 30%;
-        border-radius: 5%;
-        border: #fd6005 solid 1px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        z-index: 100;
-    }
-    .hidden{
-        display: none !important;
-    }
-    .anniu{
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        top: 30%;
-        gap: 20px;
-    }
-    @keyframes heartbeat {
-        0% { transform: scale(1); }
-        15% { transform: scale(1.2); }
-        30% { transform: scale(1); }
-        45% { transform: scale(1.2); }
-        60% { transform: scale(1); }
-        100% { transform: scale(1); }
-    }
-    .try_again{
-        position: relative;
-        font-size: 1.1em;
-        font-weight: bold;
-        top: 24%;
-    }                   
-    .button1{
-        min-width: 85px; /* 加宽适配法语 */
-        padding: 0 15px;
-        height: 32px;
-        border-radius: 10px;
-        background-color: #fd6005;
-        font-size: 1.0em;
-        transition: all 0.12s ease;
-        cursor: pointer;
-        color: #333;
-        font-weight: bold;
-    }   
-    .button1:active{
-        transform: scale(0.96);
-        background: #d81d1d;
-    } 
-    #spinBtn{
-        min-width: 85px;
-        padding: 0 15px;
-        height: 32px;
-        border-radius: 10px;
-        background-color: #fd6005;
-        font-size: 1.0em;
-        cursor: pointer;
-        color: #333;
-        font-weight: bold;
-    } 
-    #spinBtn:active{
-        transform: scale(0.96);
-        background: #d81d1d;
-    } 
-    #shouyeanniu{
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: 15px;
-        position: absolute;
-        top: 61%; /* 微调适配 */
-    }  
-    .jindutiao {
-        display: flex;
-        width: 80%;
-        margin: 10px 0 0 0;
-        background: #eee;
-        border-radius: 13px;
-        overflow: hidden;
-        border: #ffbc0d solid 2px;
-    }
-    .jindutiao-fill{
-        width: 48%;
-        height: 20px;
-        background: #ff0d19;
-        border-radius: 13px;
-    }    
-    .event-free{
-        position: absolute;
-        top: 28%;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        color: #f50202;
-        font-weight: bold;
-        font-size: larger;
-    }  
-    .event-name{
-        position: absolute;
-        top: 32%;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        font-weight: bold;
-        font-size: 16px;
-    }  
-    .jindutiao{
-        position: absolute;
-        top: 38%; /* 原 36%，微调下移 */
-    }
-    .shengyu{
-        position: absolute;
-        top: 42%; /* 原 41%，微调下移 */
-        font-size: 14px;
-    }
-    .comments{
-        width: 80%;
-        height: 70px;
-        position: absolute;
-        top: 68%; /* 微调下移 */
-        z-index: -1;
-        overflow: hidden;
-    }
-    .comment_gundong{
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        animation: scroll 25s linear infinite;
-    }
-    @keyframes scroll {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(-100%); }
-    }
-    .comment_img img{
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-    }
-    .comment{
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-    }
-    .comment_name{
-        color: #110ee0;
-        font-weight: bold;
-    }
-    .comment_info{
-        color: #110ee0;
-    }
-    .name_text{
-        font-size: 13px;
-    }
-    #guanbianniu{
-        position: absolute;
-        top: 1%;
-        left: 94%;
-        width: 100%;
-        height: 100%;
-        cursor: pointer;
-    }
-    #close_background{
-        position: absolute;
-        width: 50px;
-        height: 50px;
-        background: #ddd;
-        border-radius: 50% 100%;
-        top: -5px;
-        right: -12px;
-        cursor: pointer;
-    }
+        .top-burger {
+            max-width: 140px; 
+            height: auto;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            animation: heartbeat 1.0s infinite;
+        }
+
+        /* 文字排版改为自然上下流 */
+        .text-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        .event-free {
+            color: #f50202;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+        .event-name {
+            font-weight: bold;
+            font-size: 16px;
+            color: #333;
+            text-align: center;
+            padding: 0 10px;
+        }
+
+        /* 进度条 */
+        .jindutiao {
+            display: flex;
+            width: 80%;
+            max-width: 320px;
+            margin: 10px 0;
+            background: #eee;
+            border-radius: 13px;
+            overflow: hidden;
+            border: #ffbc0d solid 2px;
+        }
+        .jindutiao-fill {
+            width: 48%;
+            height: 20px;
+            background: #ff0d19;
+            border-radius: 13px;
+        }    
+        .shengyu {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* 老虎机区域 */
+        .container_gundong {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 400px;
+            height: 100px;
+            background-color: #fc0000;
+            gap: 2px;
+            padding: 5px;
+            margin-bottom: 25px;
+            border-radius: 5px;
+        }
+        .content {
+            width: 33.33%;
+            height: 100%;
+            background-color: #faf9f9;
+            overflow: hidden;
+        }
+        .content_inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            transition: transform 3s cubic-bezier(0.1, 0.8, 0.2, 1);
+        }
+        .content_inner img {
+            object-fit: contain;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        /* 按钮组 */
+        #shouyeanniu {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        .button1, #spinBtn {
+            min-width: 110px;
+            padding: 0 15px;
+            height: 40px;
+            border-radius: 10px;
+            background-color: #fd6005;
+            font-size: 1.0em;
+            cursor: pointer;
+            color: #333;
+            font-weight: bold;
+            border: none;
+            transition: all 0.12s ease;
+        }
+        .button1:active, #spinBtn:active {
+            transform: scale(0.96);
+            background: #d81d1d;
+        }
+
+        /* ======= 修复弹窗布局 (核心) ======= */
+        .chuangkou {
+            position: fixed; /* 使用 fixed 固定在屏幕中央 */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85%;
+            max-width: 350px;
+            height: auto; /* 取消固定高度，让内容撑开 */
+            background-color: rgb(251, 251, 252);
+            border-radius: 20px;
+            border: 2px solid #fd6005;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 25px 20px;
+            z-index: 1000;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .chuangkou img {
+            width: 100px;
+            height: auto;
+            margin-bottom: 15px;
+        }
+        .try_again {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .anniu {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            width: 100%;
+        }
+
+        /* 隐藏 */
+        .hidden {
+            display: none !important;
+        }
+
+        /* 评论区 */
+        .comments {
+            width: 90%;
+            max-width: 400px;
+            height: 80px;
+            overflow: hidden;
+            position: relative;
+            margin-top: 10px;
+        }
+        .comment_gundong {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            animation: scroll 25s linear infinite;
+        }
+        .comment {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+        .comment_img img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        .comment_name {
+            color: #110ee0;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        .comment_text {
+            font-size: 13px;
+            color: #333;
+            line-height: 1.3;
+        }
+        .comment_info {
+            color: #110ee0;
+            font-size: 12px;
+            margin-top: 3px;
+        }
+
+        /* 关闭按钮 */
+        #guanbianniu {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            background-color: #f1f1f1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        #guanbianniu span {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.1); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.1); }
+            60% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+        @keyframes scroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
+        }
     </style>
 </head>
 
 <body>
-    <span id="close_background"></span>
+    <!-- 右上角关闭按钮 -->
     <div id="guanbianniu">
         <span id="close">&#10006;</span>
     </div>
-    <img src="./xiugainianfen.png" alt="" id="quanwei" style="width:120px; height:auto; position:absolute; z-index:0; top:0%; left:0%">
-    <img src="./shouyehanbao.png" alt="" style=" position:absolute; top: 7%; animation: heartbeat 1.0s infinite;">
+
+    <img src="./xiugainianfen.png" alt="" id="quanwei">
     
-    <span class="event-free">Gratuit</span> 
-    <span class="event-name">Carte cadeau McDonald's de 500€</span>
+    <!-- 顶部汉堡图 -->
+    <img src="./shouyehanbao.png" alt="" class="top-burger">
     
+    <!-- 文字区域 -->
+    <div class="text-container">
+        <span class="event-free">Gratuit</span> 
+        <span class="event-name">Carte cadeau McDonald's de 500€</span>
+    </div>
+    
+    <!-- 进度条 -->
     <div class="jindutiao">
         <div class="jindutiao-fill"></div>
     </div>
@@ -256,154 +299,28 @@
         <span>Places restantes : 9/20</span>
     </div>
     
+    <!-- 老虎机 -->
     <div class="container_gundong">
         <div class="content" id="content1">
             <div class="content_inner" id="content1_inner">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
+                <img src="./1.png" alt=""><img src="./2.png" alt=""><img src="./3.png" alt=""><img src="./1.png" alt=""><img src="./2.png" alt=""><img src="./3.png" alt=""><img src="./1.png" alt=""><img src="./2.png" alt=""><img src="./3.png" alt=""><img src="./1.png" alt=""><img src="./2.png" alt=""><img src="./3.png" alt=""><img src="./1.png" alt=""><img src="./2.png" alt=""><img src="./3.png" alt=""><img src="./1.png" alt=""><img src="./2.png" alt=""><img src="./3.png" alt=""><img src="./1.png" alt=""><img src="./2.png" alt=""><img src="./3.png" alt=""><img src="./1.png" alt=""><img src="./2.png" alt=""><img src="./3.png" alt=""><img src="./1.png" alt=""><img src="./2.png" alt=""><img src="./3.png" alt=""><img src="./1.png" alt=""><img src="./2.png" alt=""><img src="./3.png" alt=""><img src="./1.png" alt=""><img src="./2.png" alt=""><img src="./3.png" alt=""><img src="./1.png" alt=""><img src="./2.png" alt=""><img src="./3.png" alt=""><img src="./1.png" alt=""><img src="./2.png" alt=""><img src="./3.png" alt=""><img src="./1.png" alt=""><img src="./2.png" alt=""><img src="./3.png" alt="">
             </div>
         </div>
         <div class="content" id="content2">
             <div class="content_inner" id="content2_inner">                
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./1.png" alt="">                              
+                <img src="./2.png" alt=""><img src="./3.png" alt=""><img src="./1.png" alt=""><img src="./2.png" alt=""><img src="./3.png" alt=""><img src="./1.png" alt=""><img src="./2.png" alt=""><img src="./3.png" alt=""><img src="./1.png" alt=""><img src="./2.png" alt=""><img src="./3.png" alt=""><img src="./1.png" alt=""><img src="./2.png" alt=""><img src="./3.png" alt=""><img src="./1.png" alt=""><img src="./2.png" alt=""><img src="./3.png" alt=""><img src="./1.png" alt=""><img src="./2.png" alt=""><img src="./3.png" alt=""><img src="./1.png" alt=""><img src="./2.png" alt=""><img src="./3.png" alt=""><img src="./1.png" alt=""><img src="./2.png" alt=""><img src="./3.png" alt=""><img src="./1.png" alt=""><img src="./2.png" alt=""><img src="./3.png" alt=""><img src="./1.png" alt=""><img src="./2.png" alt=""><img src="./3.png" alt=""><img src="./1.png" alt=""><img src="./2.png" alt=""><img src="./3.png" alt=""><img src="./1.png" alt=""><img src="./2.png" alt=""><img src="./3.png" alt=""><img src="./1.png" alt=""><img src="./2.png" alt=""><img src="./3.png" alt=""><img src="./1.png" alt="">                              
             </div>
         </div>
         <div class="content" id="content3">
             <div class="content_inner" id="content3_inner">                
-                <img src="./3.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./1.png" alt="">
-                <img src="./3.png" alt="">
-                <img src="./2.png" alt="">
-                <img src="./1.png" alt="">
+                <img src="./3.png" alt=""><img src="./2.png" alt=""><img src="./1.png" alt=""><img src="./3.png" alt=""><img src="./2.png" alt=""><img src="./1.png" alt=""><img src="./3.png" alt=""><img src="./2.png" alt=""><img src="./1.png" alt=""><img src="./3.png" alt=""><img src="./2.png" alt=""><img src="./1.png" alt=""><img src="./3.png" alt=""><img src="./2.png" alt=""><img src="./1.png" alt=""><img src="./3.png" alt=""><img src="./2.png" alt=""><img src="./1.png" alt=""><img src="./3.png" alt=""><img src="./2.png" alt=""><img src="./1.png" alt=""><img src="./3.png" alt=""><img src="./2.png" alt=""><img src="./1.png" alt=""><img src="./3.png" alt=""><img src="./2.png" alt=""><img src="./1.png" alt=""><img src="./3.png" alt=""><img src="./2.png" alt=""><img src="./1.png" alt=""><img src="./3.png" alt=""><img src="./2.png" alt=""><img src="./1.png" alt=""><img src="./3.png" alt=""><img src="./2.png" alt=""><img src="./1.png" alt=""><img src="./3.png" alt=""><img src="./2.png" alt=""><img src="./1.png" alt=""><img src="./3.png" alt=""><img src="./2.png" alt=""><img src="./1.png" alt="">
             </div>
         </div>
     </div> 
+
+    <!-- 弹窗 -->
     <div class="chuangkou hidden" id="diyige">
-        <img src="./hanbao.png" style="width:130px; height:auto;position:absolute;top:5%" alt="">
+        <img src="./hanbao.png" alt="">
         <span class="try_again">Réessayer</span>
         <div class="anniu">
             <button class="button1" id="cancel_func">Annuler</button>
@@ -411,18 +328,21 @@
         </div>
     </div>
     <div class="chuangkou hidden" id="dierge">
-        <img src="./hanbao.png" style="width:130px; height:auto;position:absolute;top:5%" alt="">
+        <img src="./hanbao.png" alt="">
         <span class="try_again">Félicitations !</span>
         <div class="anniu">
             <button class="button1" id="cancel_func3">Annuler</button> 
             <button class="button1" id="ok_2">Continuer</button>
         </div>
     </div>
+
+    <!-- 底部按钮 -->
     <div id="shouyeanniu">
         <button class="button1" id="cancel_func2">Annuler</button>
         <button id="spinBtn">Commencer</button>
     </div>
 
+    <!-- 评论区 -->
     <div class="comments">
         <div class="comment_gundong">	
             <div class="comment">
@@ -457,43 +377,10 @@
                     <div class="comment_info"><span>J'aime</span> · <span>Répondre</span> · <span>54 minutes</span></div>
                 </div>
             </div>
-            <div class="comment">
-                <div class="comment_img"><img src="ava/004.jpg"></div>
-                <div class="name_text">
-                    <div class="comment_name">Annika</div>
-                    <div class="comment_text">J'ai laissé mes coordonnées et j'ai reçu le code de ma carte cadeau peu après ! Je peux enfin profiter de repas gratuits chez McDonald's !</div>
-                    <div class="comment_info"><span>J'aime</span> · <span>Répondre</span> · <span>1 heure</span></div>
-                </div>
-            </div>
-            <div class="comment">
-                <div class="comment_img"><img src="ava/005.jpg"></div>
-                <div class="name_text">
-                    <div class="comment_name">Ella</div>
-                    <div class="comment_text">J'ai déjà réclamé ma carte cadeau McDonald's. J'espère pouvoir participer à nouveau pour une carte de plus grande valeur la prochaine fois !</div>
-                    <div class="comment_info"><span>J'aime</span> · <span>Répondre</span> · <span>2 heures</span></div>
-                </div>
-            </div>
-            <div class="comment">
-                <div class="comment_img"><img src="ava/006.jpg"></div>
-                <div class="name_text">
-                    <div class="comment_name">Kaya</div>
-                    <div class="comment_text">Super excitée par ma carte cadeau McDonald's gratuite ! J'espère que mes amis pourront aussi en gagner une !</div>
-                    <div class="comment_info"><span>J'aime</span> · <span>Répondre</span> · <span>2 heures</span></div>
-                </div>
-            </div>
-            <div class="comment">
-                <div class="comment_img"><img src="ava/007.jpg"></div>
-                <div class="name_text">
-                    <div class="comment_name">Thabisa</div>
-                    <div class="comment_text">Je prévoyais d'acheter à manger moi-même, maintenant j'ai une carte cadeau McDonald's gratuite ! C'est incroyable !</div>
-                    <div class="comment_info"><span>J'aime</span> · <span>Répondre</span> · <span>4 heures</span></div>
-                </div>
-            </div>
         </div>		
     </div>    
 
 <script>
-    // ========== JS 部分 ==========
     let clickon = 0;
     const spinBtn = document.getElementById('spinBtn');
     const contentss = document.querySelectorAll('.content_inner');
@@ -615,7 +502,7 @@
         }, 1000);
     });
     
-    document.getElementById('close_background').addEventListener('click', function() {
+    document.getElementById('guanbianniu').addEventListener('click', function() {
         sendMaxConvEvent('firstpage_close');
         window.open('propush.html?mc_source=mc-LW4ECC2Q&c1=closepop&c2=fr');
         setTimeout(function(){
