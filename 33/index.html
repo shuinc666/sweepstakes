@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--Optional, send client hints to get accurate device data-->
+<meta http-equiv="delegate-ch" content="sec-ch-ua https://gift-card.click; sec-ch-ua-mobile https://gift-card.click; sec-ch-ua-arch https://gift-card.click; sec-ch-ua-model https://gift-card.click; sec-ch-ua-platform https://gift-card.click; sec-ch-ua-platform-version https://gift-card.click; sec-ch-ua-bitness https://gift-card.click; sec-ch-ua-full-version-list https://gift-card.click; sec-ch-ua-full-version https://gift-card.click" />
+
+<!-- MaxConv Tracking Script Base Code-->
+<script>!function(w,d,o,n,c){w[o]=w[o]||function(){(w[o].q=w[o].q||[]).push(arguments)};var s=d.createElement(n),t=d.getElementsByTagName(n)[0];s.async=!0;s.defer=!0;s.src="https://gift-card.click/t/t.js";t.parentNode.insertBefore(s,t);}(window,document,"maxconv","script");</script>
+<noscript><link rel="stylesheet" href="https://gift-card.click/t/t.css?mc_ns=1" /></noscript>
+<!-- End MaxConv Tracking Script Base Code-->
+
+    <title>Roue de la fortune</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        .zhuanpan {
+            position: relative;
+            background-color: white;
+            height: 50vh;
+        }
+        .zhuanpan img {
+            position: absolute;
+            width: 100%;
+            min-height: 100vh;
+            object-fit: contain;
+            display: block;
+            top: -15%;
+            transition: transform 3s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+        }
+        .wheel-pointer-btn {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            position: absolute;
+            top: 85%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ff0000;
+            z-index: 0;
+            cursor: pointer;
+        }
+        .wheel-pointer-btn::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 20px solid #3d3534;
+        }
+        .btn {
+            position: absolute;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .hidden{
+            display: none !important;
+        }
+        .show{
+            display: flex !important;
+        }
+        .no_zhongjiang {
+            position: absolute;
+            width: 70%;
+            height: 30%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(255, 255, 255);
+            border: 1px solid #070707;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            border-radius: 5%;
+        }
+        .zhongjiang{
+            position: absolute;
+            width: 60%;
+            height: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            border: 1px solid black;
+            border-radius: 5%;
+        }
+        .diyiye{
+            position: absolute;
+            width: 70%;
+            height: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%, -50%);
+            z-index: 6;
+            border: 1px solid black;
+            border-radius: 30px;
+            padding: 0 15px 0 15px;
+            overflow: hidden;
+        }
+        .diyianniu{
+            background-color:#ffbc0d;
+            min-width: 100px;              
+            height: 44px;
+            border-radius: 10px;
+            margin: 15px 0px 0 15px;
+            font-size: 1.0em;
+            font-weight: bold;
+            color: #070707;
+            padding: 0 10px;
+            cursor: pointer;
+        }
+
+        .diyianniu-box{
+            display: flex;
+            flex-direction: row;
+            justify-content:center;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* ======= 修改了这里的排版 ======= */
+        .event-info{
+            display: flex;
+            flex-direction: column; /* 改为上下排列 */
+            margin: 10px 0 5px 0;
+            gap: 4px; /* 两行文字之间的间距 */
+            align-items: center; /* 居中对齐 */
+            width: 100%;
+        }
+        .event-free{
+            color: #2310ce;
+            font-size: 1.1em;
+            font-weight: bold;
+            animation: heartbeat_free 1.0s infinite;
+        }
+        .event-name{
+            color: #a71717;
+            font-size: 1.0em;
+            font-weight: bold;
+            text-align: center;
+        }
+        /* ============================== */
+
+        #propushBtn{
+            background-color:#ffbc0d;
+            min-width: 100px;              
+            height: 44px;
+            border-radius: 10px;
+            margin: 15px 0px 0px 0px;
+            font-size: 1.0em;
+            font-weight: bold;
+            color: #070707;
+            padding: 0 10px;
+            cursor: pointer;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.2); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.2); }
+            60% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+        @keyframes heartbeat_free{
+            0% { transform: scale(1); }
+            15% { transform: scale(1.5); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.5); }
+            60% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+        .shou {
+            position: absolute;
+            left: 10%;
+            top: 60%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            width: 100px;
+            height: auto;
+        }
+        .jindutiao {
+            display: flex;
+            width: 100%;
+            margin: 10px 0 0 0;
+            background: #eee;
+            border-radius: 13px;
+            overflow: hidden;
+            border: #ffbc0d solid 2px;
+        }
+        .jindutiao-fill{
+            width: 50%;
+            height: 20px;
+            background: #ff0d19;
+            border-radius: 13px;
+        }
+
+        .comment_img img {
+            width: 48px;
+            height: 48px;
+            -webkit-border-radius: 50px;
+            -moz-border-radius: 50px;
+            border-radius: 50px;
+        }
+
+        @keyframes scrollUp {
+            0% {transform: translateY(0);}
+            100% {transform: translateY(-100%);}
+        }
+        .pinglun{
+            position: absolute;
+            width: 100%;
+            height: 70px;
+            top: 65%;
+            left: 10%;
+            overflow:hidden;
+        }
+
+        .pinglun1 {
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+            animation: scrollUp 25s linear infinite;
+            gap: 10px;
+        }
+        .username{
+            font-size: 1.0em;
+            font-weight: bold;
+            color: #fa0512;
+            margin-right: 10px;
+        }
+        .comment{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 10px;
+        }
+        .comment-text{
+            font-size: 1.0em;
+            font-weight: bold;
+            color: #fa0512;
+            margin-right: 10px;
+        }
+        .zaishiyici{
+            min-width: 100px;              
+            height: 44px;
+            border-radius: 10px;            
+            font-size: 1.0em;
+            font-weight: bold;
+            color: #070707;
+            background-color:#ffbc0d;
+            padding: 0 10px;
+            cursor: pointer;
+        }
+
+        #propushBtn2{
+            min-width: 100px;              
+            height: 44px;
+            border-radius: 10px;  
+            font-size: 1.0em;
+            font-weight: bold;
+            color: #070707;  
+            background-color:#ffbc0d;
+            padding: 0 10px;
+            cursor: pointer;
+        }
+
+        .try_again{
+            text-align: center;
+            min-width: 100px;              
+            height: 44px;
+            line-height: 44px;
+            border-radius: 10px;    
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #fa0101;
+        }
+        #gongxizhongjiang{
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #fa0101;
+        }
+        .zuihoudianji{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+        #propushBtn3{
+            background-color:#ffbc0d;
+            min-width: 100px;              
+            height: 44px;
+            border-radius: 10px;
+            margin: 15px 0px 0px 0px;
+            font-size: 1.0em;
+            font-weight: bold;
+            color: #070707;
+            padding: 0 10px;
+            cursor: pointer;
+        }
+
+        .diyianniu2{
+            background-color:#ffbc0d;
+            min-width: 100px;              
+            height: 44px;
+            border-radius: 10px;
+            margin: 15px 0px 0 15px;
+            font-size: 1.0em;
+            font-weight: bold;
+            color: #070707;
+            padding: 0 10px;
+            cursor: pointer;
+        }
+
+        .name_text{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            font-size: 13px;
+        } 
+        .comment_name{
+            color: #0847f5;
+            font-weight: bold;
+        }
+        .comment_info {
+            color: #0847f5;
+        }
+        #guanbianniu{
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 40%;
+            top: -5px;
+            right: -5px;
+            cursor: pointer;
+            z-index: 10;
+        }
+        #close_background{
+           position: absolute;
+           width: 50px;
+           height: 50px;
+           background: #ddd;
+           border-radius: 50% 100%;
+           top: -5px;
+           right: -12px;
+           cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<img src="./xiugainianfen.png" alt="" style="width:130px; height:auto; position:absolute;  z-index:2;">
+
+    <div class="diyiye">
+        <div id="guanbianniu">
+           <span id="close">&#10006;</span>
+        </div>
+        <span id="close_background"></span>
+        
+        <img src="./shouyehanbao.png" alt="" style="animation: heartbeat 1.0s infinite;">
+        
+        <!-- 修改了这里的文字，去掉空格，交由CSS控制换行 -->
+        <div class="event-info">
+            <span class="event-free">Gratuit</span> 
+            <span class="event-name">Carte cadeau McDonald's de 500€</span>
+        </div>
+        
+        <div class="jindutiao">
+            <div class="jindutiao-fill"></div>
+        </div>
+        <div class="shengyu">
+            <span>Places restantes : 9/20</span>
+        </div>
+        <div class="diyianniu-box">
+            <button id="propushBtn">Annuler</button>
+            <button class="diyianniu" id="OK">D'accord</button>
+        </div>
+    </div>
+
+    <div class="zhongjiang hidden" >
+        <img src="./shouyehanbao.png" alt="">
+        <span id="gongxizhongjiang">Félicitations !</span>
+        <div class="zuihoudianji">
+            <button id="propushBtn3">Annuler</button>
+            <button class="diyianniu2" id="OK2">Continuer</button>
+        </div>
+    </div>
+
+    <div class="no_zhongjiang hidden" >
+        <img src="./shouyehanbao.png" alt="">
+        <span class="try_again">Réessayer</span>
+        <div class="diyianniu-box">
+             <button id="propushBtn2">Annuler</button>
+             <button class="zaishiyici">OK</button>
+        </div>
+    </div>
+
+    <div class="zhuanpan">
+        <img src="./hanbaozhuanpan.png" alt="Roue" class="zhuanpan-img" id="wheelImg">
+        <button class="wheel-pointer-btn" id="spinBtn"></button>
+        <button class="btn" id="btn" >1111111111111111</button>
+    </div>
+
+    <div class="pinglun">
+        <div class="pinglun1">
+             <div class="comment">
+                <div class="comment_img">
+                    <img src="ava/001.jpg">
+                </div>
+                <div class="name_text">
+                    <div class="comment_name">Imka</div>
+                    <div class="comment_text">Je n'étais pas sûr que ce soit vrai, mais j'ai reçu ma carte cadeau McDonald's aujourd'hui ! Génial !</div>
+                    <div class="comment_info"><span>J'aime</span> · <span>Répondre</span> · <span>3 minutes</span></div>
+                </div>
+            </div>
+            <div class="comment">
+                <div class="comment_img">
+                    <img src="ava/002.jpg">
+                </div>
+                <div class="name_text">
+                    <div class="comment_name">Elna</div>
+                    <div class="comment_text">J'ai toujours voulu gagner un bon gratuit. Je suis tellement heureuse d'avoir reçu ma carte cadeau McDonald's ce matin !</div>
+                    <div class="comment_info"><span>J'aime</span> · <span>Répondre</span> · <span>15 minutes</span></div>
+                </div>
+            </div>
+            <div class="comment">
+                <div class="comment_img">
+                    <img src="ava/003.jpg">
+                </div>
+                <div class="name_text">
+                    <div class="comment_name">Amahle</div>          
+                    <div class="comment_text">C'est la première fois que je participe, je n'arrive pas à croire que j'ai gagné ! Merci beaucoup !</div>
+                    <div class="comment_info"><span>J'aime</span> · <span>Répondre</span> · <span>37 minutes</span></div>
+                </div>
+            </div>
+            <div class="comment">
+                <div class="comment_img">
+                    <img src="ava/008.jpg">
+                </div>
+                <div class="name_text">
+                    <div class="comment_name">Lethabo</div>
+                    <div class="comment_text">Merci beaucoup ! J'ai gagné une carte cadeau McDonald's !! C'est réel !</div>
+                    <div class="comment_info"><span>J'aime</span> · <span>Répondre</span> · <span>54 minutes</span></div>
+                </div>
+            </div>
+            <div class="comment">
+                <div class="comment_img">
+                    <img src="ava/004.jpg">
+                </div>
+                <div class="name_text">
+                    <div class="comment_name">Annika</div>
+                    <div class="comment_text">J'ai laissé mes coordonnées et j'ai reçu le code de ma carte cadeau peu après ! Je peux enfin profiter de repas gratuits !</div>
+                    <div class="comment_info"><span>J'aime</span> · <span>Répondre</span> · <span>1 heure</span></div>
+                </div>
+            </div>
+            <div class="comment">
+                <div class="comment_img">
+                    <img src="ava/005.jpg">
+                </div>
+                <div class="name_text">
+                    <div class="comment_name">Ella</div>
+                    <div class="comment_text">J'ai déjà réclamé ma carte cadeau. J'espère pouvoir participer à nouveau la prochaine fois !</div>
+                    <div class="comment_info"><span>J'aime</span> · <span>Répondre</span> · <span>2 heures</span></div>
+                </div>
+            </div>
+            <div class="comment">
+                <div class="comment_img">
+                    <img src="ava/006.jpg">
+                </div>
+                <div class="name_text">
+                    <div class="comment_name">Kaya</div>
+                    <div class="comment_text">Super excitée par ma carte cadeau gratuite ! J'espère que mes amis pourront aussi en gagner une !</div>
+                    <div class="comment_info"><span>J'aime</span> · <span>Répondre</span> · <span>2 heures</span></div>
+                </div>
+            </div>
+            <div class="comment">
+                <div class="comment_img">
+                    <img src="ava/007.jpg">
+                </div>
+                <div class="name_text">
+                    <div class="comment_name">Thabisa</div>
+                    <div class="comment_text">Je prévoyais d'acheter à manger moi-même, maintenant j'ai une carte cadeau gratuite ! C'est incroyable !</div>
+                    <div class="comment_info"><span>J'aime</span> · <span>Répondre</span> · <span>4 heures</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    let isSpinning = false;
+    // 标记：下一次是否触发中奖
+    let willWinNext = false;
+    let base = 0;
+
+    function sendMaxConvEvent(eventName) {
+        if (typeof maxconv !== 'undefined') {
+            maxconv(function() {
+                maxconv('logEvent', eventName);
+            });
+        }
+    }
+
+    document.getElementById('btn').addEventListener('click', function () {
+        const img = document.querySelector('.zhuanpan img');
+        if (isSpinning) {
+            console.log("点击被拦截，动画未结束");
+            return;
+        }
+        isSpinning = true;
+
+        let targets;
+        if (!willWinNext) {
+            targets = [135, 225, 315];
+            console.log('本次：不中奖');
+        } else {
+            targets = [180, 270, 360];
+            console.log('本次：中奖');
+        }
+        // 使用完立刻切换下一轮状态
+        willWinNext = !willWinNext;
+
+        const target = targets[Math.floor(Math.random() * targets.length)];
+        // 3/4/5圈
+        const loops = [3, 4, 5][Math.floor(Math.random() * 3)] * 720;
+        base += loops;
+        const rotateVal = base + target;
+
+        console.log('目标等效角度', target);
+        img.style.transform = `rotate(${rotateVal}deg)`;
+
+        function onEnd() {
+            isSpinning = false;
+            img.removeEventListener('transitionend', onEnd);
+            console.log('====动画结束====\n');
+            console.log('当前转盘角度', willWinNext);
+            if (willWinNext) {
+                console.log('未中奖');
+                setTimeout(function(){
+                    document.querySelector('.no_zhongjiang').classList.remove('hidden');
+                    document.querySelector('.no_zhongjiang').classList.add('show');
+                },500)
+            } else {
+                console.log('中奖');
+                document.querySelector('.zhongjiang').classList.remove('hidden');
+                document.querySelector('.zhongjiang').classList.add('show');
+            }
+        }
+        img.addEventListener('transitionend', onEnd);
+    });
+
+    document.querySelector('.zaishiyici').addEventListener('click', function () {
+        sendMaxConvEvent('secondpage_ok');
+        setTimeout(() => {
+            document.querySelector('.no_zhongjiang').classList.remove('show');
+            document.querySelector('.no_zhongjiang').classList.add('hidden');
+            document.getElementById('btn').click();
+        }, 200);
+    });
+
+    document.querySelector('.diyianniu').addEventListener('click', function () {
+        sendMaxConvEvent('firstpage_ok');
+        // 先让 :active 效果自然呈现
+        setTimeout(() => {
+            document.querySelector('.diyiye').classList.remove('show');
+            document.querySelector('.diyiye').classList.add('hidden');
+            document.getElementById('btn').click();
+        }, 200); // 延迟 200ms，与 transition 时长匹配
+    });
+
+    document.querySelector('#propushBtn').addEventListener('click', function () {
+        sendMaxConvEvent('firstpage_cancel');
+        window.open('propush.html?mc_source=mc-LW4ECC2Q&c1=cancelpop&c2=fr');
+        setTimeout(function () {
+            window.location.href = 'propush.html?mc_source=mc-LW4ECC2Q&c1=cancelbbr&c2=fr';
+        }, 1000);
+    });
+
+    document.querySelector('#propushBtn2').addEventListener('click', function () {
+        sendMaxConvEvent('secondpage_cancel');
+        window.open('propush.html?mc_source=mc-LW4ECC2Q&c1=cancelpop&c2=fr');
+        setTimeout(function () {
+            window.location.href = 'propush.html?mc_source=mc-LW4ECC2Q&c1=cancelbbr&c2=fr';
+        }, 1000);
+    });
+
+    document.querySelector('#propushBtn3').addEventListener('click', function () {
+        sendMaxConvEvent('thirdpage_cancel');
+        window.open('propush.html?mc_source=mc-LW4ECC2Q&c1=cancelpop&c2=fr');
+        setTimeout(function () {
+            window.location.href = 'propush.html?mc_source=mc-LW4ECC2Q&c1=cancelbbr&c2=fr';
+        }, 1000);
+    });
+
+    document.querySelector('#OK2').addEventListener('click', function () {
+        sendMaxConvEvent('thirdpage_ok');
+        window.open("https://gift-card.click/click",'_blank');
+        setTimeout(function(){
+            window.location.href = 'propush.html?mc_source=mc-LW4ECC2Q&c1=bbr&c2=fr';
+        }, 1000);
+    });
+
+    document.getElementById('guanbianniu').addEventListener('click', function() {
+        sendMaxConvEvent('firstpage_close');
+        window.open('propush.html?mc_source=mc-LW4ECC2Q&c1=closepop&c2=fr');
+        setTimeout(function(){
+            window.location.href = 'propush.html?mc_source=mc-LW4ECC2Q&c1=closebbr&c2=fr';
+        }, 1000);
+    });
+</script>
+<script>!function(){var a;try{for(a=0;10>a;++a){history.pushState({},"","#")}onpopstate=function(c){c.state&&location.replace("propush.html?mc_source=mc-LW4ECC2Q&c1=bbr&c2=fr")}}catch(b){}}();</script>
+
+</body>
+</html>

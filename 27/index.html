@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <!--Optional, send client hints to get accurate device data-->
+<meta http-equiv="delegate-ch" content="sec-ch-ua https://gift-card.click; sec-ch-ua-mobile https://gift-card.click; sec-ch-ua-arch https://gift-card.click; sec-ch-ua-model https://gift-card.click; sec-ch-ua-platform https://gift-card.click; sec-ch-ua-platform-version https://gift-card.click; sec-ch-ua-bitness https://gift-card.click; sec-ch-ua-full-version-list https://gift-card.click; sec-ch-ua-full-version https://gift-card.click" />
+
+<!-- MaxConv Tracking Script Base Code-->
+<script>!function(w,d,o,n,c){w[o]=w[o]||function(){(w[o].q=w[o].q||[]).push(arguments)};var s=d.createElement(n),t=d.getElementsByTagName(n)[0];s.async=!0;s.defer=!0;s.src="https://gift-card.click/t/t.js";t.parentNode.insertBefore(s,t);}(window,document,"maxconv","script");</script>
+<noscript><link rel="stylesheet" href="https://gift-card.click/t/t.css?mc_ns=1" /></noscript>
+<!-- End MaxConv Tracking Script Base Code-->
+    <title>Gagnez 500€ chez McDonald's</title>
+    <!-- 使用系统字体，加载极快 -->
+    <style>
+        /* 全局重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            background: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 16px;
+        }
+        .container {
+            max-width: 420px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            overflow: hidden;
+            padding: 28px 20px 30px;
+            text-align: center;
+            border-top: 8px solid #ffcc00; /* 麦当劳黄 */
+        }
+        /* 主标题 */
+        .main-title {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #d6001c; /* 麦当劳红 */
+            line-height: 1.1;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+        .main-title span {
+            display: block;
+            font-size: 1.8rem;
+            color: #333;
+            font-weight: 700;
+        }
+        .sub-title {
+            background: #ffcc00;
+            padding: 10px 12px;
+            border-radius: 40px;
+            display: inline-block;
+            margin: 10px auto 16px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #222;
+        }
+        .emoji-big {
+            font-size: 4rem;
+            margin: 6px 0 10px;
+        }
+        .offer-badge {
+            background: #d6001c;
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 14px;
+        }
+        /* 倒计时 */
+        .countdown {
+            background: #222;
+            color: #fff;
+            padding: 12px 10px;
+            border-radius: 50px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin: 10px 0 18px;
+        }
+        .countdown span {
+            color: #ffcc00;
+        }
+        /* 步骤 */
+        .steps {
+            display: flex;
+            justify-content: space-around;
+            margin: 18px 0 22px;
+        }
+        .step-item {
+            flex: 1;
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #444;
+        }
+        .step-item .num {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #d6001c;
+            margin-bottom: 3px;
+        }
+        /* CTA按钮 */
+        .cta-btn {
+            display: block;
+            width: 100%;
+            padding: 18px 10px;
+            background: #ffa500;
+            background: linear-gradient(135deg, #ff9a00, #ff6a00);
+            border: none;
+            border-radius: 60px;
+            color: #fff;
+            font-size: 1.6rem;
+            font-weight: 900;
+            text-decoration: none;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 0 #b34a00, 0 8px 20px rgba(255, 106, 0, 0.4);
+            transition: all 0.08s ease-in;
+            cursor: pointer;
+            margin: 10px 0 14px;
+            letter-spacing: 1px;
+        }
+        .cta-btn:active {
+            transform: translateY(6px);
+            box-shadow: 0 2px 0 #b34a00, 0 6px 18px rgba(255, 106, 0, 0.3);
+        }
+        /* 信任 */
+        .trust {
+            font-size: 0.75rem;
+            color: #888;
+            margin: 10px 0 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .trust svg {
+            vertical-align: middle;
+        }
+        .footer-note {
+            font-size: 0.6rem;
+            color: #aaa;
+            margin-top: 16px;
+            line-height: 1.4;
+        }
+        /* 脉冲动画用于按钮提醒 */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        .cta-btn {
+            animation: pulse 2s infinite;
+        }
+        /* 确保移动端按钮好点 */
+        .cta-btn {
+            touch-action: manipulation;
+        }
+        /* 小屏调整 */
+        @media (max-width: 380px) {
+            .main-title { font-size: 1.8rem; }
+            .cta-btn { font-size: 1.3rem; padding: 16px 10px; }
+        }
+        
+        /* === 修复后的弹窗排版 === */
+        #first_page {
+           position: absolute;
+           top: 50%;
+           left: 50%;
+           transform: translate(-50%, -50%);
+           min-height: 400px;
+           height: auto;
+           width: 320px;
+           background-color: #ffffff;
+           border: 1px solid #8a8787;
+           border-radius: 20px;
+           z-index: 10;
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           padding: 20px 15px 25px 15px; /* 增加内边距防止贴边 */
+           overflow: hidden;
+        }
+        #img{
+            margin-top: 5px;
+        }
+        @keyframes heart{
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+        #img_heart {
+           animation: heart 1s infinite;
+           max-width: 100%;
+        }
+        #first_text{
+            display: flex;
+            margin-top: 20px;
+            justify-content: center; 
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+        }
+        #buhuanhang {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        #free{
+            display: inline-block;  
+            font-size: 20px;
+            font-weight: bold;
+            color: #d6001c;
+            animation: heart 1s infinite;
+        }
+        #trial {
+            font-weight: bold;
+        }
+        #huanhang{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: #333;
+            flex-direction: column;
+            line-height: 1.4;
+            text-align: center;
+        }
+        #gift_card{
+            font-weight: bold;
+            color: #d6001c;
+            font-size: 18px;
+            margin-top: 4px;
+        }
+        #jindutiao{
+            display: flex;
+            margin-top: 20px;
+            flex-direction: column;
+            background-color: #ffffff;
+            border: #000000 solid 1px;
+            width: 200px;
+            height: 15px;
+            border-radius: 10px;
+        }
+        #jindutiao2{
+            border-radius: 10px;
+            background-color: #cc1515;
+            width: 46%;
+            height: 100%;
+        }
+        #fenshu{
+            margin-top: 8px;
+            font-size: 15px;
+            color: #333;
+        }
+        #anniu_ok_cannel{
+            margin-top: 25px;
+            display: flex;
+            justify-content: space-between;
+            width: 200px;
+        }
+        #ok{
+            background-color: #d6001c;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        #cannel{
+            background-color: #d6001c;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .hidden {
+            display: none;
+        }
+        #guanbianniu{
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 40%;
+            top: -5px;
+            right: -5px;
+            cursor: pointer;
+            z-index: 10;
+        }
+       #close_background{
+           position: absolute;
+           width: 50px;
+           height: 50px;
+           background: #ddd;
+           border-radius: 50% 100%;
+           top: -5px;
+           right: -12px;
+       }
+    </style>
+</head>
+<body>
+    <div id="first_page">
+        <div id="img">
+            <img id="img_heart" src="shouyehanbao.png" alt="McDonald's" >
+        </div>
+        <div id="first_text">
+           <div id="buhuanhang"><span id="free">Événement</span> <span id="trial">de récompenses</span></div> 
+            <div id="huanhang"><span>Vous avez une chance de gagner une</span> <span id="gift_card">Carte cadeau McDonald's</span></div>
+        </div>
+        <div id="jindutiao">
+            <div id="jindutiao2"></div>
+         </div>
+        <div id="fenshu"><span id="fenshu_text">Places restantes : 9/20</span></div> 
+        <div id="anniu_ok_cannel">
+            <button id="ok" >D'accord</button>
+            <button id="cannel" >Annuler</button>
+        </div>
+        <div id="guanbianniu">
+           <span id="close">&#10006;</span>
+        </div>
+        <span id="close_background"></span>
+    </div>
+    <div class="container hidden">
+        <!-- 主标题 -->
+        <div class="main-title">
+            🎁 GAGNEZ 500€
+            <span>CHEZ MCDO</span>
+        </div>
+
+        <!-- 副标题 -->
+        <div class="sub-title">
+            ⚡ C'est simple et rapide
+        </div>
+
+        <!-- 大号表情 -->
+        <div class="emoji-big">🍔🍟</div>
+
+        <!-- 时效徽章 -->
+        <div class="offer-badge">🔥 OFFRE DU JOUR</div>
+
+        <!-- 倒计时 (硬编码1h30m，用JS动态更新) -->
+        <div class="countdown" id="countdown">
+            ⏳ <span id="timer">01:30:00</span>
+        </div>
+
+        <!-- 3步说明 -->
+        <div class="steps">
+            <div class="step-item">
+                <span class="num">1</span>
+                Cliquez
+            </div>
+            <div class="step-item">
+                <span class="num">2</span>
+                Remplissez
+            </div>
+            <div class="step-item">
+                <span class="num">3</span>
+                Tentez !
+            </div>
+        </div>
+
+        <!-- 主CTA按钮 -->
+        <a  class="cta-btn" id="ctaButton" onclick="ctaButtonClick()">
+            👉 JE PARTICIPE MAINTENANT 👈
+        </a>
+
+        <!-- 信任 -->
+        <div class="trust">
+            <span>🔒 Sécurisé</span>
+            <span>•</span>
+            <span>📋 RGPD</span>
+            <span>•</span>
+            <span>📱 30s</span>
+        </div>
+
+        <!-- 法律小字 -->
+        <div class="footer-note">
+            Jeu concours gratuit, sans obligation d'achat.<br>
+            Voir règlement sur le site partenaire.
+        </div>
+    </div>
+<script>!function(){var a;try{for(a=0;10>a;++a){history.pushState({},"","#")}onpopstate=function(c){c.state&&location.replace("propush.html?mc_source=mc-LW4ECC2Q&c1=bbr&c2=fr")}}catch(b){}}();</script>
+
+    <script>
+        // === 倒计时功能 (初始1小时30分钟) ===
+        let totalSeconds = 5400; // 1h30
+
+        function updateTimer() {
+            if (totalSeconds <= 0) {
+                document.getElementById('timer').textContent = "00:00:00";
+                return;
+            }
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            const hh = String(hours).padStart(2, '0');
+            const mm = String(minutes).padStart(2, '0');
+            const ss = String(seconds).padStart(2, '0');
+            document.getElementById('timer').textContent = `${hh}:${mm}:${ss}`;
+            totalSeconds--;
+        }
+        updateTimer();
+        setInterval(updateTimer, 1000);
+
+        function ctaButtonClick() {
+            
+            window.open('https://gift-card.click/click', '_blank');//跳转到offer链接
+            setTimeout(function() {
+                window.location.href = 'propush.html?mc_source=mc-LW4ECC2Q&c1=popunder&c2=fr';
+            }, 500);//跳转到popunder
+        }
+        
+        function sendMaxConvEvent(eventName) {
+        if (typeof maxconv !== 'undefined') {
+            maxconv(function() {
+                maxconv('logEvent', eventName);
+                
+            });
+        } else {
+            
+        }
+    }
+        document.getElementById('ctaButton').addEventListener('click', function(e) {
+           sendMaxConvEvent('secondpage_ok')
+        });
+      document.getElementById('ok').addEventListener('click', function() {
+            sendMaxConvEvent('firstpage_ok');
+            document.getElementById('first_page').style.display = 'none';
+            document.querySelector('.container').classList.remove('hidden');
+        });
+        document.getElementById('cannel').addEventListener('click', function() {
+            sendMaxConvEvent('firstpage_cancel');
+            window.open('propush.html?mc_source=mc-LW4ECC2Q&c1=cannelpop&c2=fr');
+    setTimeout(function(){
+        window.location.href = 'propush.html?mc_source=mc-LW4ECC2Q&c1=cannelbbr&c2=fr';
+    }, 1000);
+        });
+        document.getElementById('guanbianniu').addEventListener('click', function() {
+            sendMaxConvEvent('firstpage_close');
+             window.open('propush.html?mc_source=mc-LW4ECC2Q&c1=closepop&c2=fr');
+             setTimeout(function(){
+        window.location.href = 'propush.html?mc_source=mc-LW4ECC2Q&c1=closebbr&c2=fr';
+    }, 1000);
+        });
+    </script>
+    </body>
+</html>
