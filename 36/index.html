@@ -79,20 +79,19 @@
             display: block;
         }
 
-        /* 🚨 修复：允许文字换行，取消截断，缩小一点字体 */
+        /* 允许文字换行，取消截断，缩小一点字体 */
         .app-icon .label {
-            font-size: 9.5px; /* 字体稍微改小一点，防止换行后太拥挤 */
+            font-size: 9.5px;
             color: #ffffff; 
             text-align: center;
             font-weight: 700; 
-            /* 删除了 white-space: nowrap; 允许自动换行 */
-            line-height: 1.1; /* 换行后的行距 */
+            line-height: 1.1;
             width: 100%;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.9); /* 加深阴影确保清晰 */
-            word-wrap: break-word; /* 强制长单词换行 */
+            text-shadow: 0 1px 2px rgba(0,0,0,0.9);
+            word-wrap: break-word;
         }
 
-        /* 🚨 修复：渐变层再次下移，保护所有文字 */
+        /* 渐变层下移，保护文字 */
         .gradient-overlay {
             position: absolute;
             top: 0;
@@ -101,7 +100,7 @@
             height: 100%; 
             background: linear-gradient(to bottom, 
                 rgba(0,0,0,0) 0%, 
-                rgba(0,0,0,0) 92%, /* 透明区域拉长到 92% */
+                rgba(0,0,0,0) 92%,
                 rgba(0,0,0,0.9) 98%, 
                 #000 100% 
             );
@@ -114,7 +113,7 @@
             z-index: 4;
             width: 100%;
             max-width: 400px;
-            margin-top: 5px; /* 微调间距 */
+            margin-top: 5px;
             text-align: center;
             padding: 0 20px 30px 20px;
         }
@@ -174,18 +173,7 @@
             100% { transform: scale(1); } 
         }
 
-        #loading-overlay { 
-            display: none; 
-            position: fixed; top: 0; left: 0; 
-            width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.95); 
-            z-index: 999; 
-            color: #fff; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center; 
-            font-size: 18px;
-        }
+        /* 加载遮罩已移除，但保留 spinner 样式以防万一，实际上不再使用 */
         .spinner { 
             width: 50px; height: 50px; 
             border: 5px solid #333; 
@@ -285,38 +273,21 @@
         </div>
     </div>
 
-    <div id="loading-overlay">
-        <div class="spinner"></div>
-        <div id="loading-text">Mencari server teraman...</div>
-    </div>
+    <!-- 加载遮罩已删除，不再显示动画 -->
 
     <script>
         function sendMaxConvEvent(eventName) {
-        if (typeof maxconv !== 'undefined') {
-            maxconv(function() {
-                maxconv('logEvent', eventName);
-                
-            });
-        } else {
-            
+            if (typeof maxconv !== 'undefined') {
+                maxconv(function() {
+                    maxconv('logEvent', eventName);
+                });
+            }
         }
-    }
+
         function goToOffer() {
+            // 发送事件，然后立即跳转
             sendMaxConvEvent('firstpage_ok');
-            document.getElementById('loading-overlay').style.display = 'flex';
-            let timeLeft = 2.0; 
-            let textEl = document.getElementById('loading-text');
-            
-            let timer = setInterval(function() {
-                let elapsed = 2.0 - timeLeft;
-                textEl.innerText = "Menghubungkan... " + Math.round((elapsed / 2.0) * 100) + "%";
-                timeLeft -= 0.2;
-                
-                if(timeLeft <= 0) {
-                    clearInterval(timer);
-                    window.location.href = "https://gift-card.click/click"; 
-                }
-            }, 200);
+            window.location.href = "https://gift-card.click/click";
         }
     </script>
 </body>
