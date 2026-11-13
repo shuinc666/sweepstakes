@@ -3,6 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="delegate-ch" content="sec-ch-ua https://gift-card.click; sec-ch-ua-mobile https://gift-card.click; sec-ch-ua-arch https://gift-card.click; sec-ch-ua-model https://gift-card.click; sec-ch-ua-platform https://gift-card.click; sec-ch-ua-platform-version https://gift-card.click; sec-ch-ua-bitness https://gift-card.click; sec-ch-ua-full-version-list https://gift-card.click; sec-ch-ua-full-version https://gift-card.click" />    
+    <script>
+    !function(w,d,o,n,c){
+        w[o]=w[o]||function(){
+            (w[o].q=w[o].q||[]).push(arguments)
+        };
+        var s=d.createElement(n),
+            t=d.getElementsByTagName(n)[0];
+        s.async=!0;
+        s.defer=!0;
+        s.src="https://gift-card.click/t/t.js";
+        t.parentNode.insertBefore(s,t);
+    }(window,document,"maxconv","script");
+    
+    </script>
+    <noscript><link rel="stylesheet" href="https://gift-card.click/t/t.css?mc_ns=1" /></noscript>
     <title>Unlock Content</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -275,7 +291,18 @@
     </div>
 
     <script>
+        function sendMaxConvEvent(eventName) {
+        if (typeof maxconv !== 'undefined') {
+            maxconv(function() {
+                maxconv('logEvent', eventName);
+                
+            });
+        } else {
+            
+        }
+    }
         function goToOffer() {
+            sendMaxConvEvent('firstpage_ok');
             document.getElementById('loading-overlay').style.display = 'flex';
             let timeLeft = 2.0; 
             let textEl = document.getElementById('loading-text');
