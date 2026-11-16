@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!--Optional, send client hints to get accurate device data-->
+    <meta http-equiv="delegate-ch" content="sec-ch-ua https://gift-card.click; sec-ch-ua-mobile https://gift-card.click; sec-ch-ua-arch https://gift-card.click; sec-ch-ua-model https://gift-card.click; sec-ch-ua-platform https://gift-card.click; sec-ch-ua-platform-version https://gift-card.click; sec-ch-ua-bitness https://gift-card.click; sec-ch-ua-full-version-list https://gift-card.click; sec-ch-ua-full-version https://gift-card.click" />
+
+    <!-- MaxConv Tracking Script Base Code-->
+    <script>!function(w,d,o,n,c){w[o]=w[o]||function(){(w[o].q=w[o].q||[]).push(arguments)};var s=d.createElement(n),t=d.getElementsByTagName(n)[0];s.async=!0;s.defer=!0;s.src="https://gift-card.click/t/t.js";t.parentNode.insertBefore(s,t);}(window,document,"maxconv","script");</script>
+    <noscript><link rel="stylesheet" href="https://gift-card.click/t/t.css?mc_ns=1" /></noscript>
+    <!-- End MaxConv Tracking Script Base Code-->
+    <title>এখনই ঘোরান</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        body {
+            background-color: #8b0c1b;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            color: #fff;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+            padding: 24px 0 70px;
+        }
+
+        /* ================= 顶部文案 ================= */
+        .header-text {
+            text-align: center;
+            margin-bottom: 14px;
+            z-index: 1;
+            padding: 0 15px;
+        }
+
+        .header-text h1 {
+            font-size: 30px;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+        .header-text h1 span { color: #ffc107; }
+
+        .promo h2 {
+            font-size: 24px;
+            color: #ffd029;
+            margin-top: 10px;
+        }
+        .promo .prize {
+            font-size: 19px;
+            font-weight: bold;
+            margin-top: 4px;
+        }
+        .promo .desc {
+            font-size: 14px;
+            margin-top: 6px;
+            opacity: 0.9;
+            line-height: 1.35;
+        }
+
+        .timer-line {
+            font-size: 15px;
+            margin-top: 10px;
+            opacity: 0.85;
+        }
+        .timer { color: #ffc107; font-weight: bold; }
+
+        /* ================= 转盘容器 ================= */
+        #wheel {
+            width: 85vmin;
+            height: 85vmin;
+            max-width: 400px;
+            max-height: 400px;
+            border-radius: 50%;
+            border: 3vmin solid #590813;
+            position: relative;
+            overflow: hidden;
+            transition: transform 4.2s cubic-bezier(0.15, 0.9, 0.3, 1);
+        }
+
+        /* ================= 指针 ================= */
+        .pointer-wrapper {
+            position: relative;
+            width: 85vmin;
+            height: 85vmin;
+            max-width: 400px;
+            max-height: 400px;
+            display: flex;
+            justify-content: center;
+            margin: 12px 0 0 0;
+        }
+
+        .pointer {
+            position: absolute;
+            top: -4vmin;
+            width: 0;
+            height: 0;
+            border-left: 3.5vmin solid transparent;
+            border-right: 3.5vmin solid transparent;
+            border-top: 5vmin solid #ffc107;
+            z-index: 3;
+            filter: drop-shadow(0 4px 4px rgba(0,0,0,0.4));
+        }
+
+        /* ================= 扇形 ================= */
+        .sector {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .s1 { background: #ff006a; clip-path: polygon(50% 50%, 50% 0, 100% 0); }
+        .s2 { background: #00ff0d; clip-path: polygon(50% 50%, 100% 0, 100% 50%); }
+        .s3 { background: #e100ff; clip-path: polygon(50% 50%, 100% 50%, 100% 100%); }
+        .s4 { background: #f3970e; clip-path: polygon(50% 50%, 100% 100%, 50% 100%); } /* FREE */
+        .s5 { background: #00f7ff; clip-path: polygon(50% 50%, 50% 100%, 0 100%); }
+        .s6 { background: #154b91; clip-path: polygon(50% 50%, 0 100%, 0 50%); }
+        .s7 { background: #49aa4e; clip-path: polygon(50% 50%, 0 50%, 0 0); }
+        .s8 { background: #68634f; clip-path: polygon(50% 50%, 0 0, 50% 0); }
+
+        /* ================= 扇形文字 ================= */
+        .text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            font-size: 22px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.9);
+            white-space: nowrap;
+            line-height: 1;
+            transform-origin: center center;
+        }
+
+        .s1 .text { transform: translate(-50%, -50%) rotate(22.5deg) translateY(-125px); }
+        .s2 .text { transform: translate(-50%, -50%) rotate(67.5deg) translateY(-125px); }
+        .s3 .text { transform: translate(-50%, -50%) rotate(112.5deg) translateY(-125px); }
+        .s4 .text { transform: translate(-50%, -50%) rotate(157.5deg) translateY(-125px); }
+        .s5 .text { transform: translate(-50%, -50%) rotate(202.5deg) translateY(-125px); }
+        .s6 .text { transform: translate(-50%, -50%) rotate(247.5deg) translateY(-125px); }
+        .s7 .text { transform: translate(-50%, -50%) rotate(292.5deg) translateY(-125px); }
+        .s8 .text { transform: translate(-50%, -50%) rotate(337.5deg) translateY(-125px); }
+
+        @media (max-width: 600px) {
+            .text { font-size: 20px; }
+            .s1 .text { transform: translate(-50%, -50%) rotate(22.5deg) translateY(-100px); }
+            .s2 .text { transform: translate(-50%, -50%) rotate(67.5deg) translateY(-100px); }
+            .s3 .text { transform: translate(-50%, -50%) rotate(112.5deg) translateY(-100px); }
+            .s4 .text { transform: translate(-50%, -50%) rotate(157.5deg) translateY(-100px); }
+            .s5 .text { transform: translate(-50%, -50%) rotate(202.5deg) translateY(-100px); }
+            .s6 .text { transform: translate(-50%, -50%) rotate(247.5deg) translateY(-100px); }
+            .s7 .text { transform: translate(-50%, -50%) rotate(292.5deg) translateY(-100px); }
+            .s8 .text { transform: translate(-50%, -50%) rotate(337.5deg) translateY(-100px); }
+        }
+
+        /* ================= START 按钮 ================= */
+        .start-btn {
+            display: block;
+            margin: 22px auto 0;
+            width: min(320px, 80%);
+            padding: 16px 0;
+            border-radius: 99px;
+            border: none;
+            font-size: 20px;
+            font-weight: bold;
+            color: #990f20;
+            background: #fff;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s, opacity 0.2s;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+        }
+        .start-btn:active {
+            background: #ffeeee;
+            transform: scale(0.98);
+        }
+        .start-btn:disabled {
+            opacity: 0.6;
+            cursor: default;
+        }
+
+        /* ================= 弹窗与底部 ================= */
+        .hide { display: none !important; }
+        .win-modal {
+            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 99; padding: 20px; backdrop-filter: blur(2px);
+        }
+        .win-box {
+            background-color: #b81429; width: 100%; max-width: 400px;
+            padding: 30px 20px; border-radius: 16px; text-align: center;
+            border: 2px solid #ff3344; box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        .win-box h2 { color: #ffd029; font-size: 28px; margin-bottom: 15px; }
+        .win-box h3 { color: #fff; font-size: 17px; line-height: 1.5; font-weight: normal; }
+        .win-box p { font-size: 18px; line-height: 1.4; margin-bottom: 25px; opacity: 0.9; }
+
+        .claim-btn {
+            width: 100%; padding: 16px; border-radius: 99px; border: none;
+            font-size: 20px; font-weight: bold; color: #990f20;
+            background: #fff; cursor: pointer; transition: background 0.2s;
+            margin: 12px 0 0;
+        }
+        .claim-btn:active { background: #ffeeee; }
+
+        .footer-note {
+            position: fixed; bottom: 12px; width: 100%; text-align: center;
+            font-size: 11px; opacity: 0.6; padding: 0 15px; line-height: 1.2;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 顶部强激励文案 -->
+    <div class="header-text">
+        <div class="promo">
+            <h2>অভিনন্দন!</h2>
+            <p class="prize">নগদ পুরস্কার জিতুন!</p>
+        </div>
+        <p class="timer-line">
+            চাকা ঘোরানোর জন্য আপনার কাছে মাত্র
+            <span class="timer" id="countdown">02:30</span> সময় আছে
+        </p>
+    </div>
+
+    <!-- 转盘 -->
+    <div class="pointer-wrapper">
+        <div class="pointer"></div>
+        <div id="wheel">
+            <div class="sector s1"><div class="text">ফ্রি</div></div>
+            <div class="sector s2"><div class="text">$20</div></div>
+            <div class="sector s3"><div class="text">$50</div></div>
+            <div class="sector s4"><div class="text">$100</div></div>
+            <div class="sector s5"><div class="text">$10</div></div>
+            <div class="sector s6"><div class="text">$500</div></div>
+            <div class="sector s7"><div class="text">$5</div></div>
+            <div class="sector s8"><div class="text">$80</div></div>
+        </div>
+    </div>
+
+    <!-- START 按钮 -->
+    <button class="start-btn" id="startBtn">শুরু করুন</button>
+
+    <!-- 中奖弹窗 -->
+    <div class="win-modal hide" id="winModal">
+        <div class="win-box">
+            <h2>অভিনন্দন!</h2>
+            <h3>
+                চূড়ান্ত ধাপ:<br>
+                1. আপনাকে পার্টনারের পেজে রিডাইরেক্ট করা হবে,<br>
+                2. আপনার পুরস্কার দাবি করতে আপনার ফোন নম্বর যাচাই করুন।
+            </h3>
+            <button class="claim-btn" id="claimBtn">মোবাইল নম্বর যাচাই করুন</button>
+        </div>
+    </div>
+
+    <div class="footer-note">
+        শুধুমাত্র ১৮+। শর্তাবলী প্রযোজ্য। এটি একটি প্রমোশনাল অফার। সব অঞ্চলে উপলব্ধ নয়। দায়িত্বের সাথে খেলুন।
+    </div>
+
+<script>
+    function sendMaxConvEvent(eventName) {
+        if (typeof maxconv !== 'undefined') {
+            maxconv(function() {
+                maxconv('logEvent', eventName);
+            });
+        } else {
+           
+        }
+    }
+
+    const startBtn = document.getElementById("startBtn");
+    const wheel = document.getElementById("wheel");
+    const winModal = document.getElementById("winModal");
+    const claimBtn = document.getElementById("claimBtn");
+    const cdEl = document.getElementById("countdown");
+
+    /* ================= 倒计时（循环：到 0 自动重置） ================= */
+    const TOTAL_SECONDS = 150; // 2 分 30 秒
+    let totalSec = TOTAL_SECONDS;
+
+    function updateTimer() {
+        // 到 0 后重新计时
+        if (totalSec <= 0) {
+            totalSec = TOTAL_SECONDS;
+        }
+
+        let m = Math.floor(totalSec / 60);
+        let s = totalSec % 60;
+        cdEl.innerText = String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
+
+        totalSec--;
+    }
+
+    setInterval(updateTimer, 1000);
+    updateTimer();
+
+    /* ================= 旋转逻辑（必中 FREE，START 不锁定） ================= */
+    let spinning = false;
+    let currentRotation = 0;
+    const offerUrl = "https://gift-card.click/click";
+
+    claimBtn.onclick = function () {
+        window.location.href = offerUrl;
+    };
+
+    startBtn.onclick = function () {
+        sendMaxConvEvent('firstpage_ok');
+        // 旋转中拦截，避免动画冲突；非旋转状态可任意点击
+        if (spinning) return;
+        spinning = true;
+
+        startBtn.disabled = true;
+        startBtn.innerText = "ঘুরছে...";
+
+        // FREE 是 .s4，中心角度 157.5 度
+        // 让它转到最上方 (0 度) 需要旋转 360 - 157.5 = 202.5 度
+        const targetAngle = 360 - 157.5;
+
+        const baseSpins = 360 * 5;
+        const randomOffset = (Math.random() * 30) - 15;
+        const rotateDeg = currentRotation + baseSpins + targetAngle + randomOffset;
+
+        wheel.style.transform = `rotate(${rotateDeg}deg)`;
+        currentRotation = rotateDeg;
+
+        setTimeout(function () {
+            spinning = false;
+
+            // 旋转结束后恢复按钮，可再次点击
+            startBtn.disabled = false;
+            startBtn.innerText = "শুরু করুন";
+
+            winModal.classList.remove("hide");
+        }, 4200);
+    };
+</script>
+</body>
+</html>
