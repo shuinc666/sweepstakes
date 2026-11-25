@@ -443,6 +443,119 @@
     margin-top: 10px;
     font-size: 0.9rem;
 }
+
+/* ===== 手机端高度压缩补丁（适中版） ===== */
+@media (max-width: 480px) {
+
+    /* ---------- 第一个界面 ---------- */
+    #headerFirst,
+    #headerSecond {
+        padding: 12px 16px;
+    }
+    #headerFirst .corner-img,
+    #headerSecond .corner-img {
+        width: 64px !important;          /* 90px → 64px */
+    }
+    #headerFirst h1,
+    #headerSecond h1 {
+        font-size: 1.32rem;              /* 1.6rem → 1.32rem */
+        margin-bottom: 3px;
+    }
+    #headerFirst .subhead {
+        font-size: 0.82rem;
+    }
+    .prize-body {
+        padding: 13px 16px 16px;
+    }
+    .slot-machine {
+        padding: 13px;
+        margin: 9px 0;
+        border-radius: 19px;
+    }
+    .rolling-numbers {
+        min-height: 72px;                /* 90px → 72px */
+        padding: 9px 10px;
+        margin-bottom: 9px;
+        font-size: 1.05rem;
+        border-radius: 16px;
+    }
+    #rollingNumber {
+        font-size: 2rem;                 /* 2.2rem → 2rem */
+        min-width: 70px;
+    }
+    .rolling-numbers .static-text,
+    .rolling-numbers .prize-label {
+        font-size: 0.98rem;
+        line-height: 1.4;
+    }
+    .btn-primary {
+        padding: 12px;
+        font-size: 1.1rem;
+    }
+    #gameSection .offer-details {
+        padding: 10px 14px;
+        margin-top: 11px;
+        font-size: 0.78rem;
+        line-height: 1.45;
+    }
+    #gameSection .offer-details p {
+        margin: 4px 0;
+    }
+    #gameSection .footer {
+        margin-top: 13px !important;
+    }
+    .operator-logos {
+        gap: 6px 12px;
+        padding: 6px 0;
+    }
+    .trust-line {
+        margin-top: 8px;
+        padding: 5px 10px;
+        font-size: 0.68rem;
+    }
+
+    /* ---------- 第三个界面（#last） ---------- */
+    #last {
+        min-height: 0;                   /* 200px → 自适应 */
+        gap: 8px;
+        padding: 0;
+        max-height: 92vh;
+    }
+    #last > div:first-child {
+        padding: 16px 0 !important;      /* 30px → 16px */
+        font-size: 1.6rem !important;    /* 2rem → 1.6rem */
+    }
+    #last > div:first-child img {
+        width: 58px !important;          /* 90px → 58px */
+        margin-bottom: 6px !important;
+    }
+    #last p[style*="408559"] {
+        margin-top: 5px !important;
+        font-size: 0.84rem !important;
+    }
+    #last h4 {
+        font-size: 1.02rem;
+        margin: 8px 18px 2px;
+    }
+    #last p {
+        font-size: 0.88rem;
+        margin: 4px 18px;
+        line-height: 1.4;
+        width: calc(100% - 36px);
+    }
+    #last button#tiaozhuan {
+        padding: 11px 22px !important;   /* 12px 24px → 11px 22px */
+        font-size: 1rem !important;
+        margin-top: 6px;
+    }
+    #last .operator-logos {
+        gap: 5px 10px;
+        padding: 3px 0;
+    }
+    #last .trust-line {
+        margin-bottom: 13px !important;  /* 20px → 13px */
+    }
+}
     </style>
 </head>
 <body>
@@ -522,7 +635,7 @@
         <div id="gameSection">
             <div class="slot-machine">
                 <div class="rolling-numbers">
-                    <span class="static-text">মাত্র এক কাপ চায়ের মূল্যে জিতে নিন</span>
+                    <span class="static-text">মাত্র এক কাপ চায়ের মূল্যে জিতে নিন</span>
                     <span id="rollingNumber">5,000</span>
                     <span class="prize-label">টাকা পুরস্কার!</span>
                 </div>
